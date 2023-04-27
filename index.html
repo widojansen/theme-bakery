@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="generator" content="Primo" />
+    <title>Sprinkles</title><!-- HEAD_svelte-1lw70r8_START -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=fredoka:300,400,500,600,700|lato:300,400,700,900" rel="stylesheet">
+    <meta name="description" content="We're a bakery">
+    <style>
+        @import url("https://unpkg.com/@primo-app/primo@1.3.64/reset.css");
+
+        html {
+            /* Theme */
+            --color-accent: #716996;
+            --color-shade: #e2e1ea;
+
+            --font-heading: "Fredoka", sans-serif;
+            --font-base: "Lato", sans-serif;
+
+            /* Default property values */
+            --background: #f4f3f0;
+            --color: #333;
+            --padding: 2rem;
+            --box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.2);
+            --border-radius: 8px;
+            --max-width: 1250px;
+            --border-color: #cbcace;
+            --transition-time: 0.1s;
+            --transition: var(--transition-time) color,
+                var(--transition-time) background-color, var(--transition-time) border-color,
+                var(--transition-time) text-decoration-color,
+                var(--transition-time) box-shadow, var(--transtion-time) transform;
+        }
+
+        #page {
+            font-family: var(--font-base);
+            color: var(--color);
+            line-height: 1.6;
+            font-size: 1.25rem;
+            font-weight: 300;
+            background: var(--background);
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .content img {
+            width: 100%;
+            margin: 2rem 0;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+        }
+
+        .content>p {
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .content a {}
+
+        .content h1 {
+            font-family: var(--font-heading);
+            font-size: 2.75rem;
+            font-weight: 500;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .content h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 500;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .content h3 {
+            font-family: var(--font-heading);
+            font-size: 2.25rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .content ul {
+            list-style: disc;
+            padding-bottom: 1.5rem;
+            padding-left: 1.25rem;
+        }
+
+        .content ol {
+            list-style: decimal;
+            padding-bottom: 1.5rem;
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .content blockquote {
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--color-accent);
+        }
+
+        .section-container {
+            width: 100%;
+            max-width: var(--max-width, 1200px);
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .heading {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            line-height: 1.1;
+            font-weight: 500;
+            color: #333;
+        }
+
+        @media (min-width: 800px) {
+
+            .heading {
+                font-size: 2.75rem
+            }
+        }
+
+        .button {
+            color: #f6f6f9;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 2rem;
+            padding: 10px 24px;
+
+            background: var(--color-accent);
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .button:hover {}
+
+        .button.inverted {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+        }
+
+        @-webkit-keyframes pulse {
+            from {
+                transform: scale(0.75);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(0.75);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* Screen-readers only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style><!-- HEAD_svelte-1lw70r8_END -->
+    <style>
+        .banner.svelte-6hkp3j.svelte-6hkp3j {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 2rem;
+            margin-bottom: 1rem;
+            width: 100%;
+            background: var(--color-shade);
+            position: relative;
+            z-index: 1
+        }
+
+        .banner.svelte-6hkp3j a.svelte-6hkp3j {
+            font-size: 1.25rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem
+        }
+
+        .banner.svelte-6hkp3j a .label.svelte-6hkp3j {
+            display: none
+        }
+
+        @media(min-width: 600px) {
+            .banner.svelte-6hkp3j.svelte-6hkp3j {
+                gap: 2rem
+            }
+
+            .banner.svelte-6hkp3j a.svelte-6hkp3j {
+                font-size: 0.9rem
+            }
+
+            .banner.svelte-6hkp3j a .label.svelte-6hkp3j {
+                display: inline
+            }
+        }
+
+        .section-container.svelte-6hkp3j.svelte-6hkp3j {
+            display: grid;
+            align-items: center;
+            padding-top: 1rem;
+            padding-bottom: 2rem;
+            position: relative;
+            z-index: 2
+        }
+
+        .logo.svelte-6hkp3j.svelte-6hkp3j {
+            width: 120px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.2
+        }
+
+        .desktop-nav.svelte-6hkp3j.svelte-6hkp3j {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            width: 100%
+        }
+
+        .desktop-nav.svelte-6hkp3j nav.svelte-6hkp3j {
+            display: flex;
+            gap: 2rem;
+            font-size: 1rem
+        }
+
+        .desktop-nav.svelte-6hkp3j nav a.link.svelte-6hkp3j {
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.1s;
+            font-weight: 500
+        }
+
+        .desktop-nav.svelte-6hkp3j nav a.link.svelte-6hkp3j:hover,
+        .desktop-nav.svelte-6hkp3j nav a.link.active.svelte-6hkp3j {
+            border-color: var(--color-accent)
+        }
+
+        @media(min-width: 800px) {
+            .desktop-nav.svelte-6hkp3j.svelte-6hkp3j {
+                display: flex
+            }
+        }
+
+        .mobile-nav.svelte-6hkp3j.svelte-6hkp3j {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            font-weight: 500;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr
+        }
+
+        .mobile-nav.svelte-6hkp3j>.logo.svelte-6hkp3j {
+            grid-column: 2;
+            place-self: center
+        }
+
+        .mobile-nav.svelte-6hkp3j button.svelte-6hkp3j {
+            grid-column: 3;
+            place-self: start end
+        }
+
+        @media(min-width: 800px) {
+            .mobile-nav.svelte-6hkp3j.svelte-6hkp3j {
+                display: none
+            }
+        }
+
+        #popup.svelte-6hkp3j.svelte-6hkp3j {
+            font-size: 1.25rem;
+            display: grid;
+            place-items: center;
+            gap: 1rem;
+            position: absolute;
+            text-align: center;
+            background-color: var(--background-color, white);
+            box-shadow: var(--box-shadow, 0px 4px 30px rgba(0, 0, 0, 0.1));
+            border-radius: var(--border-radius);
+            inset: 0.5rem;
+            bottom: initial;
+            padding: 2rem;
+            z-index: 2
+        }
+
+        #popup.svelte-6hkp3j .logo.svelte-6hkp3j {
+            margin: 0 auto
+        }
+
+        #popup.svelte-6hkp3j a.active.svelte-6hkp3j {
+            border-bottom: 2px solid var(--color-accent)
+        }
+
+        #popup.svelte-6hkp3j button#close.svelte-6hkp3j {
+            position: absolute;
+            right: 1rem;
+            top: 1rem
+        }
+
+        section.svelte-1lm06lb.svelte-1lm06lb {
+            position: relative
+        }
+
+        .section-container.svelte-1lm06lb.svelte-1lm06lb {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 1
+        }
+
+        @media(min-width: 900px) {
+            .section-container.svelte-1lm06lb.svelte-1lm06lb {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                display: grid;
+                gap: 8rem;
+                align-items: center
+            }
+        }
+
+        .image.svelte-1lm06lb.svelte-1lm06lb {
+            position: relative;
+            z-index: 1
+        }
+
+        .image.svelte-1lm06lb figure.svelte-1lm06lb {
+            position: relative
+        }
+
+        .image.svelte-1lm06lb figure img.svelte-1lm06lb {
+            width: 100%;
+            position: relative;
+            border-radius: var(--border-radius)
+        }
+
+        @media(min-width: 600px) {
+            .image.svelte-1lm06lb figure.svelte-1lm06lb:before {
+                content: "";
+                height: 100%;
+                width: 100%;
+                position: absolute;
+                left: -2rem;
+                top: -2rem;
+                background: var(--color-shade, #fee2ee);
+                border-radius: var(--border-radius)
+            }
+        }
+
+        .body.svelte-1lm06lb.svelte-1lm06lb {
+            display: grid;
+            place-items: start;
+            position: relative;
+            z-index: 1
+        }
+
+        .body.svelte-1lm06lb .headline.svelte-1lm06lb {
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            line-height: clamp(2.5rem, 5vw, 3.875rem);
+            margin-bottom: 1.5rem
+        }
+
+        .body.svelte-1lm06lb .subheading.svelte-1lm06lb {
+            margin-bottom: 2.15rem;
+            color: var(--color-body-text)
+        }
+
+        svg.svelte-1lm06lb.svelte-1lm06lb {
+            width: 150px;
+            position: absolute;
+            top: 25%;
+            right: 0;
+            z-index: 0;
+            transform-origin: right center;
+            -webkit-animation: pulse 7s ease-in-out 0.5s infinite alternate;
+            animation: pulse 7s ease-in-out 0.5s infinite alternate
+        }
+
+        @media(min-width: 600px) {
+            svg.svelte-1lm06lb.svelte-1lm06lb {
+                top: -25%
+            }
+        }
+
+        @media(prefers-reduced-motion) {
+            svg.svelte-1lm06lb.svelte-1lm06lb {
+                -webkit-animation: none;
+                animation: none
+            }
+        }
+
+        section.svelte-1rp3djj.svelte-1rp3djj {
+            overflow: hidden
+        }
+
+        .section-container.svelte-1rp3djj.svelte-1rp3djj {
+            max-width: 1050px
+        }
+
+        .header-section.svelte-1rp3djj.svelte-1rp3djj {
+            padding-top: 1rem;
+            text-align: center;
+            margin-bottom: 5rem;
+            padding: 0
+        }
+
+        .teasers.svelte-1rp3djj.svelte-1rp3djj {
+            display: grid;
+            gap: 4rem
+        }
+
+        .teaser.svelte-1rp3djj.svelte-1rp3djj {
+            display: grid;
+            row-gap: 2rem;
+            -moz-column-gap: 6rem;
+            column-gap: 6rem;
+            place-items: center start
+        }
+
+        .teaser.svelte-1rp3djj .image.svelte-1rp3djj {
+            position: relative
+        }
+
+        .teaser.svelte-1rp3djj .image img.svelte-1rp3djj {
+            z-index: 1;
+            position: relative;
+            border-radius: var(--border-radius)
+        }
+
+        .teaser.svelte-1rp3djj .image svg.svelte-1rp3djj {
+            width: 75%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 0;
+            translate: -50% -20%;
+            -webkit-animation: pulse 7s ease-in-out 0.5s infinite alternate;
+            animation: pulse 7s ease-in-out 0.5s infinite alternate
+        }
+
+        @media(prefers-reduced-motion) {
+            .teaser.svelte-1rp3djj .image svg.svelte-1rp3djj {
+                -webkit-animation: none;
+                animation: none
+            }
+        }
+
+        .teaser.svelte-1rp3djj .body .title.svelte-1rp3djj {
+            font-family: var(--font-heading);
+            margin-bottom: 0.75rem;
+            font-weight: 500;
+            font-size: 2rem;
+            line-height: 2rem;
+            color: var(--color)
+        }
+
+        .teaser.svelte-1rp3djj .body .description.svelte-1rp3djj {
+            font-size: 1.25rem;
+            line-height: 2rem;
+            margin-bottom: 1.5rem
+        }
+
+        @media(min-width: 800px) {
+            .teaser.svelte-1rp3djj .body .title.svelte-1rp3djj {
+                font-family: var(--font-heading);
+                margin-bottom: 0.75rem;
+                font-weight: 500;
+                font-size: 2.25rem;
+                line-height: 2.5rem;
+                color: var(--color)
+            }
+
+            .teaser.svelte-1rp3djj .body .description.svelte-1rp3djj {
+                font-size: 1.25rem;
+                line-height: 2rem;
+                margin-bottom: 1.5rem
+            }
+        }
+
+        .teaser.svelte-1rp3djj.svelte-1rp3djj:nth-child(2) {
+            position: relative
+        }
+
+        .teaser.svelte-1rp3djj:nth-child(2) .image.svelte-1rp3djj {
+            position: static
+        }
+
+        .teaser.svelte-1rp3djj:nth-child(2) svg.svelte-1rp3djj {
+            left: initial;
+            right: 0;
+            bottom: 0;
+            translate: 100% 50%;
+            width: 300px
+        }
+
+        .teaser.svelte-1rp3djj:nth-child(odd):not(:first-child) svg.svelte-1rp3djj {
+            display: none
+        }
+
+        @media(min-width: 800px) {
+            .teaser.svelte-1rp3djj.svelte-1rp3djj {
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        aside.svelte-11vdrh3.svelte-11vdrh3 {
+            position: relative
+        }
+
+        .section-container.svelte-11vdrh3.svelte-11vdrh3 {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 3rem 2rem
+        }
+
+        .heading.svelte-11vdrh3.svelte-11vdrh3 {
+            margin-bottom: 1rem
+        }
+
+        .testimonial.svelte-11vdrh3.svelte-11vdrh3 {
+            display: grid;
+            gap: 1.5rem;
+            place-items: center
+        }
+
+        .card.svelte-11vdrh3.svelte-11vdrh3 {
+            display: grid;
+            gap: 1.5rem;
+            place-items: center;
+            padding: 2rem 1.5rem;
+            width: 100%;
+            max-width: 600px
+        }
+
+        .card.svelte-11vdrh3 .quote.svelte-11vdrh3 {
+            font-weight: 500;
+            font-size: 1.5rem
+        }
+
+        .card.svelte-11vdrh3 .person.svelte-11vdrh3 {
+            display: grid;
+            font-size: 1rem
+        }
+
+        .card.svelte-11vdrh3 .person .name.svelte-11vdrh3 {
+            font-weight: 400
+        }
+
+        .controls.svelte-11vdrh3.svelte-11vdrh3 {
+            display: flex;
+            justify-content: space-between;
+            gap: 2rem;
+            height: 90%
+        }
+
+        .controls.svelte-11vdrh3 button.svelte-11vdrh3 {
+            font-size: 1.5rem;
+            transition: 0.1s color
+        }
+
+        .controls.svelte-11vdrh3 button.svelte-11vdrh3:hover {
+            color: var(--color-accent)
+        }
+
+        .controls.svelte-11vdrh3 button[disabled].svelte-11vdrh3 {
+            opacity: 0.25
+        }
+
+        .dots.svelte-11vdrh3.svelte-11vdrh3 {
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem
+        }
+
+        .dots.svelte-11vdrh3 button.svelte-11vdrh3 {
+            color: #d9d9d9;
+            transition: 0.1s color
+        }
+
+        .dots.svelte-11vdrh3 button.active.svelte-11vdrh3 {
+            color: var(--color-accent)
+        }
+
+        svg.svelte-11vdrh3.svelte-11vdrh3 {
+            width: 200px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            z-index: 0;
+            translate: -50% 50%;
+            -webkit-animation: pulse 7s ease-in-out 0.5s infinite alternate;
+            animation: pulse 7s ease-in-out 0.5s infinite alternate
+        }
+
+        @media(prefers-reduced-motion) {
+            svg.svelte-11vdrh3.svelte-11vdrh3 {
+                -webkit-animation: none;
+                animation: none
+            }
+        }
+
+        @media(min-width: 700px) {
+            .testimonial.svelte-11vdrh3.svelte-11vdrh3 {
+                position: relative
+            }
+
+            .card.svelte-11vdrh3.svelte-11vdrh3 {
+                padding: 3rem 4rem
+            }
+
+            .controls.svelte-11vdrh3.svelte-11vdrh3 {
+                position: absolute;
+                max-width: calc(600px + 6rem);
+                width: 100%;
+                position: absolute;
+                top: 0
+            }
+        }
+
+        .section-container.svelte-1jqhicc.svelte-1jqhicc {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            -webkit-transform: translate3d(0, 0, 0)
+        }
+
+        header.svelte-1jqhicc .heading.svelte-1jqhicc {
+            margin-bottom: 2rem
+        }
+
+        .gallery.svelte-1jqhicc.svelte-1jqhicc {
+            display: grid;
+            gap: 2rem;
+            place-items: center;
+            padding-block: 2rem
+        }
+
+        .card.svelte-1jqhicc.svelte-1jqhicc {
+            display: grid;
+            gap: 1.25rem;
+            place-items: center;
+            padding: 2rem 1.5rem;
+            width: 100%;
+            max-width: 600px
+        }
+
+        .card.svelte-1jqhicc .title.svelte-1jqhicc {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 500;
+            line-height: 2rem
+        }
+
+        .card.svelte-1jqhicc .subtitle.svelte-1jqhicc {
+            font-size: 1.125rem;
+            line-height: 1.5rem
+        }
+
+        @media(min-width: 800px) {
+            .card.svelte-1jqhicc .title.svelte-1jqhicc {
+                font-size: 2.25rem;
+                line-height: 2.5rem
+            }
+
+            .card.svelte-1jqhicc .subtitle.svelte-1jqhicc {
+                font-size: 1.25rem;
+                line-height: 2rem
+            }
+        }
+
+        .controls.svelte-1jqhicc.svelte-1jqhicc {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            height: 100%
+        }
+
+        .controls.svelte-1jqhicc button.svelte-1jqhicc {
+            font-size: 1.5rem;
+            transition: 0.1s color
+        }
+
+        .controls.svelte-1jqhicc button.svelte-1jqhicc:hover {
+            color: var(--color-accent)
+        }
+
+        .controls.svelte-1jqhicc button[disabled].svelte-1jqhicc {
+            opacity: 0.25;
+            pointer-events: none
+        }
+
+        img.svelte-1jqhicc.svelte-1jqhicc {
+            border-radius: var(--border-radius)
+        }
+
+        @media(min-width: 900px) {
+            .gallery.svelte-1jqhicc.svelte-1jqhicc {
+                grid-template-columns: 1fr 1fr;
+                gap: 150px
+            }
+
+            .card.svelte-1jqhicc.svelte-1jqhicc {
+                padding: 3rem 4rem
+            }
+
+            .controls.svelte-1jqhicc.svelte-1jqhicc {
+                max-width: calc(600px + 6rem);
+                width: 100%;
+                top: 0
+            }
+        }
+
+        section.svelte-2borlu.svelte-2borlu {
+            background: var(--color-shade);
+            text-align: center
+        }
+
+        .section-container.svelte-2borlu.svelte-2borlu {
+            display: grid;
+            place-items: center
+        }
+
+        .section-container.svelte-2borlu .heading.svelte-2borlu {
+            margin-bottom: 0.75rem;
+            font-size: 2.5rem
+        }
+
+        .section-container.svelte-2borlu .subheading.svelte-2borlu {
+            margin-bottom: 1.5rem
+        }
+
+        .section-container.svelte-s3xnx0.svelte-s3xnx0 {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem
+        }
+
+        @media(min-width: 600px) {
+            .section-container.svelte-s3xnx0.svelte-s3xnx0 {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr
+            }
+
+            .section-container.svelte-s3xnx0 nav.svelte-s3xnx0 {
+                place-self: start
+            }
+
+            .section-container.svelte-s3xnx0 .primo.svelte-s3xnx0 {
+                place-self: center
+            }
+
+            .section-container.svelte-s3xnx0 .social-links.svelte-s3xnx0 {
+                place-self: end
+            }
+        }
+
+        nav.svelte-s3xnx0.svelte-s3xnx0 {
+            display: flex;
+            gap: 1rem
+        }
+
+        nav.svelte-s3xnx0 .link.svelte-s3xnx0 {
+            -webkit-text-decoration: underline transparent;
+            text-decoration: underline transparent;
+            transition: 0.1s -webkit-text-decoration;
+            transition: 0.1s text-decoration;
+            transition: 0.1s text-decoration, 0.1s -webkit-text-decoration;
+            font-weight: 500;
+            font-size: 1rem
+        }
+
+        nav.svelte-s3xnx0 .link.svelte-s3xnx0:hover {
+            -webkit-text-decoration-color: initial;
+            text-decoration-color: initial
+        }
+
+        .primo.svelte-s3xnx0.svelte-s3xnx0 {
+            font-weight: 600;
+            font-size: 0.75rem
+        }
+
+        .primo.svelte-s3xnx0 a.svelte-s3xnx0 {
+            text-decoration: underline;
+            color: var(--color-accent)
+        }
+
+        .social-links.svelte-s3xnx0.svelte-s3xnx0 {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.5rem
+        }
+
+        .social-links.svelte-s3xnx0 a.svelte-s3xnx0 {
+            color: var(--color-accent, rebeccapurple);
+            transition: var(--transition, 0.1s transform)
+        }
+
+        .social-links.svelte-s3xnx0 a.svelte-s3xnx0:hover {
+            transform: scale(1.1)
+        }
+    </style>
+</head>
+
+<body id="page">
+
+    <div class="section" id="section-5f540d43-9825-4f4e-99bf-121384b7b2a7">
+        <div class="component">
+            <div class="banner svelte-6hkp3j"><a class="phone svelte-6hkp3j" href="tel:404 391 4233" aria-label="Call"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--material-symbols"><!-- HTML_TAG_START -->
+                        <path fill="currentColor" d="M4.05 21q-.45 0-.75-.3t-.3-.75V15.9q0-.35.225-.613t.575-.337l3.45-.7q.35-.05.713.063t.587.337L10.9 17q1.9-1.15 3.475-2.725T17 10.9l-2.4-2.45q-.225-.225-.288-.513T14.3 7.3l.65-3.5q.05-.35.325-.575T15.9 3h4.05q.45 0 .75.3t.3.75q0 3.225-1.438 6.288t-3.8 5.425q-2.362 2.362-5.425 3.8T4.05 21Z" /><!-- HTML_TAG_END -->
+                    </svg>
+                    <span class="label svelte-6hkp3j">404 391 4233</span></a>
+                <a class="address svelte-6hkp3j" href="maps:1000 Cupcake st. 23322" aria-label="Address"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--material-symbols"><!-- HTML_TAG_START -->
+                        <path fill="currentColor" d="M12 12q.825 0 1.413-.588T14 10q0-.825-.588-1.413T12 8q-.825 0-1.413.588T10 10q0 .825.588 1.413T12 12Zm0 9.625q-.2 0-.4-.075t-.35-.2Q7.6 18.125 5.8 15.362T4 10.2q0-3.75 2.413-5.975T12 2q3.175 0 5.588 2.225T20 10.2q0 2.4-1.8 5.163t-5.45 5.987q-.15.125-.35.2t-.4.075Z" /><!-- HTML_TAG_END -->
+                    </svg>
+                    <span class="label svelte-6hkp3j">1000 Cupcake st. 23322</span></a>
+            </div>
+            <header class="section-container svelte-6hkp3j">
+                <div class="desktop-nav svelte-6hkp3j">
+                    <nav class="svelte-6hkp3j"><a class="link svelte-6hkp3j" href="/">Home</a><a class="link svelte-6hkp3j" href="/menu">Menu</a></nav>
+                    <a href="/" class="logo svelte-6hkp3j"><span class="sr-only">Logo</span>
+                        <img src="https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png" alt="Logo"></a>
+                    <nav class="svelte-6hkp3j"><a class="link svelte-6hkp3j" href="/about">About</a><a class="link svelte-6hkp3j" href="/contact">Contact</a></nav>
+                </div>
+                <div class="mobile-nav svelte-6hkp3j"><a href="/" class="logo svelte-6hkp3j"><img src="https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png" alt="Logo"></a>
+                    <button id="open" aria-label="Open mobile navigation" class="svelte-6hkp3j"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="30" height="30" viewBox="0 0 24 24" class="iconify iconify--eva"><!-- HTML_TAG_START -->
+                            <g id="iconifySvelte0">
+                                <g id="iconifySvelte1">
+                                    <g id="iconifySvelte2" fill="currentColor">
+                                        <rect width="18" height="2" x="3" y="11" rx=".95" ry=".95" />
+                                        <rect width="18" height="2" x="3" y="16" rx=".95" ry=".95" />
+                                        <rect width="18" height="2" x="3" y="6" rx=".95" ry=".95" />
+                                    </g>
+                                </g>
+                            </g><!-- HTML_TAG_END -->
+                        </svg></button>
+                </div>
+            </header>
+        </div>
+    </div>
+    <div class="section" id="section-3ce189d9-5423-4269-8996-39f03cb4045a">
+        <div class="component">
+            <section class="svelte-1lm06lb">
+                <div class="section-container svelte-1lm06lb">
+                    <div class="image svelte-1lm06lb">
+                        <figure class="svelte-1lm06lb"><img src="https://images.unsplash.com/photo-1533137015-38dbe301e281?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=1000&amp;q=80" alt="two doughnuts" class="svelte-1lm06lb"></figure>
+                    </div>
+                    <div class="body svelte-1lm06lb">
+                        <h1 class="headline svelte-1lm06lb">Deliciously Crafted Desserts</h1>
+                        <div class="subheading svelte-1lm06lb"><!-- HTML_TAG_START -->
+                            <p>All the love and care baked into every last bite. We can't wait for you to try our mouthwatering masterpieces.</p><!-- HTML_TAG_END -->
+                        </div>
+                        <a class="button svelte-1lm06lb" href="#something">See the new menu!</a>
+                    </div>
+                </div>
+                <svg viewBox="0 0 86 171" fill="none" xmlns="http://www.w3.org/2000/svg" class="svelte-1lm06lb">
+                    <path d="M85.5 -3.73732e-06C62.824 -2.74612e-06 41.0767 9.00801 25.0424 25.0424C9.00801 41.0767 -3.01653e-06 62.824 -3.73732e-06 85.5C-4.45811e-06 108.176 9.008 129.923 25.0424 145.958C41.0767 161.992 62.824 171 85.5 171L85.5 85.5L85.5 -3.73732e-06Z" fill="var(--color-shade)"></path>
+                </svg>
+            </section>
+        </div>
+    </div>
+    <div class="section" id="section-15ca2a28-0b57-46a2-9ab3-862243d7f8a6">
+        <div class="component">
+            <section class="svelte-1rp3djj">
+                <div class="section-container svelte-1rp3djj">
+                    <div class="header-section svelte-1rp3djj">
+                        <h2 class="heading">What's popular?</h2>
+                    </div>
+                    <div class="teasers svelte-1rp3djj">
+                        <div class="teaser svelte-1rp3djj">
+                            <div class="image svelte-1rp3djj"><img src="https://images.unsplash.com/photo-1612198791362-c996ceb686b1?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="strawberry macaroons" class="svelte-1rp3djj">
+                                <svg viewBox="0 0 388 388" fill="none" xmlns="http://www.w3.org/2000/svg" class="svelte-1rp3djj">
+                                    <circle cx="194" cy="194" r="194" fill="var(--color-shade)"></circle>
+                                </svg>
+                            </div>
+                            <div class="body">
+                                <h3 class="title svelte-1rp3djj">Strawberry Shortcake Macaroons</h3>
+                                <div class="description svelte-1rp3djj"><!-- HTML_TAG_START -->
+                                    <p>Esse consequat enim proident enim id velit consequat Lorem est ad nisi nostrud. Exercitation fugiat do commodo laborum elit ex consectetur cillum ex.</p><!-- HTML_TAG_END -->
+                                </div>
+                                <a class="button" href="/contact">Reserve a box</a>
+                            </div>
+                        </div>
+                        <div class="teaser svelte-1rp3djj">
+                            <div class="image svelte-1rp3djj"><img src="https://images.unsplash.com/photo-1565004602745-718e1b0d44f8?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8NHwyMzIyMDE0NXx8ZW58MHx8fHw%3D&amp;auto=format&amp;fit=crop&amp;w=400&amp;q=60" alt="Brownie lava cake" class="svelte-1rp3djj">
+                                <svg viewBox="0 0 388 388" fill="none" xmlns="http://www.w3.org/2000/svg" class="svelte-1rp3djj">
+                                    <circle cx="194" cy="194" r="194" fill="var(--color-shade)"></circle>
+                                </svg>
+                            </div>
+                            <div class="body">
+                                <h3 class="title svelte-1rp3djj">Brownie Lava Cake</h3>
+                                <div class="description svelte-1rp3djj"><!-- HTML_TAG_START -->
+                                    <p>Deserunt ea nisi nisi anim id irure voluptate ut. Anim excepteur dolore reprehenderit cillum quis excepteur esse minim exercitation ad et.</p><!-- HTML_TAG_END -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="teaser svelte-1rp3djj">
+                            <div class="image svelte-1rp3djj"><img src="https://images.unsplash.com/photo-1533134242443-d4fd215305ad?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80" alt="blueberry cheesecake" class="svelte-1rp3djj">
+                                <svg viewBox="0 0 388 388" fill="none" xmlns="http://www.w3.org/2000/svg" class="svelte-1rp3djj">
+                                    <circle cx="194" cy="194" r="194" fill="var(--color-shade)"></circle>
+                                </svg>
+                            </div>
+                            <div class="body">
+                                <h3 class="title svelte-1rp3djj">Blueberry Cheesecake</h3>
+                                <div class="description svelte-1rp3djj"><!-- HTML_TAG_START -->
+                                    <p>Aliquip esse nostrud elit cupidatat est. Velit dolore minim aliqua quis.</p><!-- HTML_TAG_END -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="section" id="section-820da96a-016a-40dc-8175-6c1793efed5b">
+        <div class="component">
+            <aside class="svelte-11vdrh3">
+                <div class="section-container svelte-11vdrh3">
+                    <h2 class="heading svelte-11vdrh3"><!-- HTML_TAG_START -->Hear from our <br>recent customers <!-- HTML_TAG_END --></h2>
+                    <div class="testimonial svelte-11vdrh3">
+                        <div class="card svelte-11vdrh3">
+                            <div class="quote svelte-11vdrh3"><!-- HTML_TAG_START -->
+                                <p>The quality and care baked into every dessert keeps me coming back. The customer service is also first class.</p><!-- HTML_TAG_END -->
+                            </div>
+                            <div class="person svelte-11vdrh3"><span class="name svelte-11vdrh3">Sal Jones</span></div>
+                        </div>
+                        <div class="controls svelte-11vdrh3"><button disabled aria-label="Show previous item" class="svelte-11vdrh3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--ic"><!-- HTML_TAG_START -->
+                                    <path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42a.996.996 0 0 0-1.41 0l-6.59 6.59a.996.996 0 0 0 0 1.41l6.59 6.59a.996.996 0 1 0 1.41-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><!-- HTML_TAG_END -->
+                                </svg></button>
+                            <button aria-label="Show next item" class="svelte-11vdrh3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--ic"><!-- HTML_TAG_START -->
+                                    <path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42c.39.39 1.02.39 1.41 0l6.59-6.59a.996.996 0 0 0 0-1.41l-6.58-6.6a.996.996 0 1 0-1.41 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z" /><!-- HTML_TAG_END -->
+                                </svg></button>
+                        </div>
+                    </div>
+                    <div class="dots svelte-11vdrh3"><button aria-label="Go to item 0" class="svelte-11vdrh3 active"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 32 32" class="iconify iconify--carbon"><!-- HTML_TAG_START -->
+                                <circle cx="16" cy="16" r="8" fill="currentColor" /><!-- HTML_TAG_END -->
+                            </svg>
+                        </button><button aria-label="Go to item 1" class="svelte-11vdrh3"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 32 32" class="iconify iconify--carbon"><!-- HTML_TAG_START -->
+                                <circle cx="16" cy="16" r="8" fill="currentColor" /><!-- HTML_TAG_END -->
+                            </svg>
+                        </button></div>
+                </div>
+                <svg viewBox="0 0 86 171" fill="none" xmlns="http://www.w3.org/2000/svg" class="svelte-11vdrh3">
+                    <path d="M0.499993 171C23.176 171 44.9233 161.992 60.9576 145.958C76.992 129.923 86 108.176 86 85.5C86 62.824 76.992 41.0767 60.9576 25.0424C44.9233 9.00801 23.176 6.7786e-07 0.500013 -3.73732e-06L0.499996 85.5L0.499993 171Z" fill="var(--color-shade)"></path>
+                </svg>
+            </aside>
+        </div>
+    </div>
+    <div class="section" id="section-6380cba9-91a3-4d6f-87bd-f081324429d9">
+        <div class="component">
+            <aside class="section-container svelte-1jqhicc">
+                <header class="svelte-1jqhicc">
+                    <h2 class="heading svelte-1jqhicc">Catering menu</h2>
+                </header>
+                <div class="gallery svelte-1jqhicc">
+                    <div class="body">
+                        <div class="card svelte-1jqhicc">
+                            <div class="title svelte-1jqhicc"><!-- HTML_TAG_START -->Frosted Doughnuts<!-- HTML_TAG_END --></div>
+                            <div class="subtitle svelte-1jqhicc"><!-- HTML_TAG_START -->
+                                <p>In pariatur ea dolore nulla est reprehenderit. Adipisicing esse cupidatat officia aute consequat esse consectetur veniam pariatur.</p><!-- HTML_TAG_END -->
+                            </div>
+                        </div>
+                        <div class="controls svelte-1jqhicc"><button disabled aria-label="Show previous item" class="svelte-1jqhicc"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--ic"><!-- HTML_TAG_START -->
+                                    <path fill="currentColor" d="M19 11H7.83l4.88-4.88c.39-.39.39-1.03 0-1.42a.996.996 0 0 0-1.41 0l-6.59 6.59a.996.996 0 0 0 0 1.41l6.59 6.59a.996.996 0 1 0 1.41-1.41L7.83 13H19c.55 0 1-.45 1-1s-.45-1-1-1z" /><!-- HTML_TAG_END -->
+                                </svg></button>
+                            <button aria-label="Show next item" class="svelte-1jqhicc"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--ic"><!-- HTML_TAG_START -->
+                                    <path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42c.39.39 1.02.39 1.41 0l6.59-6.59a.996.996 0 0 0 0-1.41l-6.58-6.6a.996.996 0 1 0-1.41 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z" /><!-- HTML_TAG_END -->
+                                </svg></button>
+                        </div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1570351807564-1fb2c1fc8019?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=crop&amp;w=800&amp;q=80" alt="doughnuts" class="svelte-1jqhicc">
+                </div>
+            </aside>
+        </div>
+    </div>
+    <div class="section" id="section-3afab6ae-7fb9-499b-80a6-147fd04dafe5">
+        <div class="component">
+            <section class="svelte-2borlu">
+                <div class="section-container svelte-2borlu">
+                    <h2 class="heading svelte-2borlu">Come by and grab a delicious treat!</h2>
+                    <h3 class="subheading svelte-2borlu">We're open Monday-Saturday 7:00am-7:00pm</h3>
+                    <a class="address button" href="/">Get Directions</a>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="section" id="section-cb801565-0711-41c7-b7ba-23cf62cf19ae">
+        <div class="component">
+            <footer class="section-container svelte-s3xnx0">
+                <nav class="svelte-s3xnx0"><a class="link svelte-s3xnx0" href="/about">About</a><a class="link svelte-s3xnx0" href="/contact">Contact</a></nav>
+                <span class="primo svelte-s3xnx0">Powered by <a href="https://primo.so" class="svelte-s3xnx0">Primo</a></span>
+                <div class="social-links svelte-s3xnx0"><a href="http://instagram.com" aria-label="Instagram" class="svelte-s3xnx0"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--mdi"><!-- HTML_TAG_START -->
+                            <path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3Z" /><!-- HTML_TAG_END -->
+                        </svg>
+                    </a><a href="https://facebook.com" aria-label="Facebook" class="svelte-s3xnx0"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--mdi"><!-- HTML_TAG_START -->
+                            <path fill="currentColor" d="M12 2.04c-5.5 0-10 4.49-10 10.02c0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89c1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02Z" /><!-- HTML_TAG_END -->
+                        </svg>
+                    </a></div>
+            </footer>
+        </div>
+    </div>
+
+    <script type="module">
+        const path = window.location.pathname === '/' ? '' : window.location.pathname
+        const [{
+            default: App
+        }] = await Promise.all([
+            import(path + '/_module.js')
+        ]).catch(e => console.error(e))
+        new App({
+            target: document.querySelector('body'),
+            hydrate: true,
+        })
+    </script>
+</body>
+
+</html>

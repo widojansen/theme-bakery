@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="generator" content="Primo" />
+    <title>Contact Us</title><!-- HEAD_svelte-1lw70r8_START -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=fredoka:300,400,500,600,700|lato:300,400,700,900" rel="stylesheet">
+    <meta name="description" content="Contact information">
+    <style>
+        @import url("https://unpkg.com/@primo-app/primo@1.3.64/reset.css");
+
+        html {
+            /* Theme */
+            --color-accent: #716996;
+            --color-shade: #e2e1ea;
+
+            --font-heading: "Fredoka", sans-serif;
+            --font-base: "Lato", sans-serif;
+
+            /* Default property values */
+            --background: #f4f3f0;
+            --color: #333;
+            --padding: 2rem;
+            --box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.2);
+            --border-radius: 8px;
+            --max-width: 1250px;
+            --border-color: #cbcace;
+            --transition-time: 0.1s;
+            --transition: var(--transition-time) color,
+                var(--transition-time) background-color, var(--transition-time) border-color,
+                var(--transition-time) text-decoration-color,
+                var(--transition-time) box-shadow, var(--transtion-time) transform;
+        }
+
+        #page {
+            font-family: var(--font-base);
+            color: var(--color);
+            line-height: 1.6;
+            font-size: 1.25rem;
+            font-weight: 300;
+            background: var(--background);
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .content img {
+            width: 100%;
+            margin: 2rem 0;
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+        }
+
+        .content>p {
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .content a {}
+
+        .content h1 {
+            font-family: var(--font-heading);
+            font-size: 2.75rem;
+            font-weight: 500;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        .content h2 {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            font-weight: 500;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .content h3 {
+            font-family: var(--font-heading);
+            font-size: 2.25rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+        }
+
+        .content ul {
+            list-style: disc;
+            padding-bottom: 1.5rem;
+            padding-left: 1.25rem;
+        }
+
+        .content ol {
+            list-style: decimal;
+            padding-bottom: 1.5rem;
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .content blockquote {
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--color-accent);
+        }
+
+        .section-container {
+            width: 100%;
+            max-width: var(--max-width, 1200px);
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .heading {
+            font-family: var(--font-heading);
+            font-size: 2.5rem;
+            line-height: 1.1;
+            font-weight: 500;
+            color: #333;
+        }
+
+        @media (min-width: 800px) {
+
+            .heading {
+                font-size: 2.75rem
+            }
+        }
+
+        .button {
+            color: #f6f6f9;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 2rem;
+            padding: 10px 24px;
+
+            background: var(--color-accent);
+            transition: var(--transition);
+            white-space: nowrap;
+        }
+
+        .button:hover {}
+
+        .button.inverted {
+            background: transparent;
+            color: var(--color-accent);
+            border: 2px solid var(--color-accent);
+        }
+
+        @-webkit-keyframes pulse {
+            from {
+                transform: scale(0.75);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes pulse {
+            from {
+                transform: scale(0.75);
+            }
+
+            to {
+                transform: scale(1);
+            }
+        }
+
+        /* Screen-readers only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style><!-- HEAD_svelte-1lw70r8_END -->
+    <style>
+        .banner.svelte-6hkp3j.svelte-6hkp3j {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.5rem 2rem;
+            margin-bottom: 1rem;
+            width: 100%;
+            background: var(--color-shade);
+            position: relative;
+            z-index: 1
+        }
+
+        .banner.svelte-6hkp3j a.svelte-6hkp3j {
+            font-size: 1.25rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem
+        }
+
+        .banner.svelte-6hkp3j a .label.svelte-6hkp3j {
+            display: none
+        }
+
+        @media(min-width: 600px) {
+            .banner.svelte-6hkp3j.svelte-6hkp3j {
+                gap: 2rem
+            }
+
+            .banner.svelte-6hkp3j a.svelte-6hkp3j {
+                font-size: 0.9rem
+            }
+
+            .banner.svelte-6hkp3j a .label.svelte-6hkp3j {
+                display: inline
+            }
+        }
+
+        .section-container.svelte-6hkp3j.svelte-6hkp3j {
+            display: grid;
+            align-items: center;
+            padding-top: 1rem;
+            padding-bottom: 2rem;
+            position: relative;
+            z-index: 2
+        }
+
+        .logo.svelte-6hkp3j.svelte-6hkp3j {
+            width: 120px;
+            font-size: 1.5rem;
+            font-weight: 600;
+            line-height: 1.2
+        }
+
+        .desktop-nav.svelte-6hkp3j.svelte-6hkp3j {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 3rem;
+            width: 100%
+        }
+
+        .desktop-nav.svelte-6hkp3j nav.svelte-6hkp3j {
+            display: flex;
+            gap: 2rem;
+            font-size: 1rem
+        }
+
+        .desktop-nav.svelte-6hkp3j nav a.link.svelte-6hkp3j {
+            border-bottom: 2px solid transparent;
+            transition: border-color 0.1s;
+            font-weight: 500
+        }
+
+        .desktop-nav.svelte-6hkp3j nav a.link.svelte-6hkp3j:hover,
+        .desktop-nav.svelte-6hkp3j nav a.link.active.svelte-6hkp3j {
+            border-color: var(--color-accent)
+        }
+
+        @media(min-width: 800px) {
+            .desktop-nav.svelte-6hkp3j.svelte-6hkp3j {
+                display: flex
+            }
+        }
+
+        .mobile-nav.svelte-6hkp3j.svelte-6hkp3j {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            font-weight: 500;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr
+        }
+
+        .mobile-nav.svelte-6hkp3j>.logo.svelte-6hkp3j {
+            grid-column: 2;
+            place-self: center
+        }
+
+        .mobile-nav.svelte-6hkp3j button.svelte-6hkp3j {
+            grid-column: 3;
+            place-self: start end
+        }
+
+        @media(min-width: 800px) {
+            .mobile-nav.svelte-6hkp3j.svelte-6hkp3j {
+                display: none
+            }
+        }
+
+        #popup.svelte-6hkp3j.svelte-6hkp3j {
+            font-size: 1.25rem;
+            display: grid;
+            place-items: center;
+            gap: 1rem;
+            position: absolute;
+            text-align: center;
+            background-color: var(--background-color, white);
+            box-shadow: var(--box-shadow, 0px 4px 30px rgba(0, 0, 0, 0.1));
+            border-radius: var(--border-radius);
+            inset: 0.5rem;
+            bottom: initial;
+            padding: 2rem;
+            z-index: 2
+        }
+
+        #popup.svelte-6hkp3j .logo.svelte-6hkp3j {
+            margin: 0 auto
+        }
+
+        #popup.svelte-6hkp3j a.active.svelte-6hkp3j {
+            border-bottom: 2px solid var(--color-accent)
+        }
+
+        #popup.svelte-6hkp3j button#close.svelte-6hkp3j {
+            position: absolute;
+            right: 1rem;
+            top: 1rem
+        }
+
+        .section-container.svelte-lgft89.svelte-lgft89 {
+            max-width: 900px;
+            padding-top: 3rem
+        }
+
+        .heading.svelte-lgft89.svelte-lgft89 {
+            text-align: center;
+            margin-bottom: 4rem
+        }
+
+        .main.svelte-lgft89.svelte-lgft89 {
+            display: grid;
+            gap: 3rem
+        }
+
+        @media(min-width: 800px) {
+            .main.svelte-lgft89.svelte-lgft89 {
+                gap: 80px;
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        img.svelte-lgft89.svelte-lgft89 {
+            border-radius: var(--border-radius)
+        }
+
+        .contact-info.svelte-lgft89 .title.svelte-lgft89 {
+            font-family: var(--font-heading);
+            font-weight: 500;
+            font-size: 2.25rem;
+            line-height: 1.1;
+            margin-bottom: 2rem
+        }
+
+        .contact-info.svelte-lgft89 ul.svelte-lgft89 {
+            display: grid;
+            gap: .75rem
+        }
+
+        .contact-info.svelte-lgft89 ul li.svelte-lgft89 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem
+        }
+
+        .contact-info.svelte-lgft89 ul li .icon.svelte-lgft89 {
+            color: var(--color-accent)
+        }
+
+        .svelte-o7fd5j.svelte-o7fd5j {
+            --input-padding: 8px 16px
+        }
+
+        section.svelte-o7fd5j.svelte-o7fd5j {
+            display: grid;
+            place-items: center;
+            position: relative
+        }
+
+        .section-container.svelte-o7fd5j.svelte-o7fd5j {
+            max-width: 800px
+        }
+
+        .form.svelte-o7fd5j.svelte-o7fd5j {
+            position: relative;
+            z-index: 1;
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2.5rem 3rem
+        }
+
+        .heading.svelte-o7fd5j.svelte-o7fd5j {
+            text-align: center;
+            margin-bottom: 2rem
+        }
+
+        form.svelte-o7fd5j.svelte-o7fd5j {
+            display: grid;
+            gap: 16px
+        }
+
+        @media(min-width: 800px) {
+            form.svelte-o7fd5j.svelte-o7fd5j {
+                --wide: span 2;
+                grid-template-columns: 1fr 1fr
+            }
+        }
+
+        label.svelte-o7fd5j.svelte-o7fd5j {
+            display: grid;
+            gap: 4px;
+            font-size: 0.875rem
+        }
+
+        label.has-textarea.svelte-o7fd5j.svelte-o7fd5j {
+            grid-column: var(--wide)
+        }
+
+        input.svelte-o7fd5j.svelte-o7fd5j,
+        textarea.svelte-o7fd5j.svelte-o7fd5j {
+            -webkit-appearance: none;
+            box-shadow: 0 0 0 1px var(--color-shade);
+            border-radius: 4px;
+            padding: var(--input-padding);
+            transition: 0.1s box-shadow
+        }
+
+        input.svelte-o7fd5j.svelte-o7fd5j:focus-visible,
+        textarea.svelte-o7fd5j.svelte-o7fd5j:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 1px var(--color-accent)
+        }
+
+        .file.svelte-o7fd5j.svelte-o7fd5j {
+            cursor: pointer
+        }
+
+        .file.svelte-o7fd5j .field-item.svelte-o7fd5j {
+            display: flex;
+            justify-content: space-between;
+            padding: 0
+        }
+
+        .file.svelte-o7fd5j .field-item span.button-left.svelte-o7fd5j {
+            padding: var(--input-padding);
+            flex: 1;
+            border-radius: 8px 0 0 8px;
+            border-right: none
+        }
+
+        .file.svelte-o7fd5j .field-item span.button-right.svelte-o7fd5j {
+            display: flex;
+            gap: 1rem;
+            padding: var(--input-padding);
+            padding-left: 2rem;
+            border-radius: 0 8px 8px 0
+        }
+
+        .file.svelte-o7fd5j input.svelte-o7fd5j {
+            display: none
+        }
+
+        .footer-text.svelte-o7fd5j.svelte-o7fd5j {
+            line-height: 28px;
+            grid-column: var(--wide)
+        }
+
+        .content.svelte-o7fd5j button.svelte-o7fd5j {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 2px solid transparent
+        }
+
+        .content.svelte-o7fd5j button.svelte-o7fd5j:hover {
+            border-color: var(--color-accent)
+        }
+
+        button[type="submit"].svelte-o7fd5j.svelte-o7fd5j {
+            justify-self: start;
+            display: flex;
+            align-items: center;
+            gap: 1rem
+        }
+
+        svg.svelte-o7fd5j.svelte-o7fd5j {
+            width: clamp(100px, 20vw, 200px);
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform-origin: right;
+            transform: -50% 0;
+            -webkit-animation: pulse 7s ease-in-out 0.5s infinite alternate;
+            animation: pulse 7s ease-in-out 0.5s infinite alternate
+        }
+
+        svg.svelte-o7fd5j.svelte-o7fd5j:last-child {
+            top: initial;
+            right: initial;
+            bottom: 0;
+            left: 0;
+            transform-origin: left
+        }
+
+        @media(prefers-reduced-motion) {
+            svg.svelte-o7fd5j.svelte-o7fd5j {
+                -webkit-animation: none;
+                animation: none
+            }
+        }
+
+        .section-container.svelte-wztysl.svelte-wztysl.svelte-wztysl {
+            display: grid;
+            place-items: center;
+            max-width: 900px
+        }
+
+        .heading.svelte-wztysl.svelte-wztysl.svelte-wztysl {
+            text-align: center;
+            margin-bottom: 2rem
+        }
+
+        .accordion.svelte-wztysl.svelte-wztysl.svelte-wztysl {
+            width: 100%;
+            max-width: 900px
+        }
+
+        .accordion.svelte-wztysl .item.svelte-wztysl.svelte-wztysl {
+            padding: 1rem 0
+        }
+
+        .accordion.svelte-wztysl .item.active button .icon.svelte-wztysl.svelte-wztysl {
+            transform: scaleY(-1)
+        }
+
+        .accordion.svelte-wztysl .item button.svelte-wztysl.svelte-wztysl {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%
+        }
+
+        .accordion.svelte-wztysl .item button span.svelte-wztysl.svelte-wztysl {
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-align: left
+        }
+
+        .accordion.svelte-wztysl .item button .icon.svelte-wztysl.svelte-wztysl {
+            font-size: 1.25rem;
+            color: var(--color-accent, rebeccapurple);
+            transition: transform 0.2s
+        }
+
+        .accordion.svelte-wztysl .item button.svelte-wztysl+.description.svelte-wztysl {
+            padding-top: 0.5rem
+        }
+
+        .accordion.svelte-wztysl .item .description.svelte-wztysl.svelte-wztysl {
+            max-width: 800px;
+            font-size: 1.125rem;
+            padding-right: 2rem
+        }
+
+        .section-container.svelte-s3xnx0.svelte-s3xnx0 {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1rem;
+            padding-bottom: 1rem
+        }
+
+        @media(min-width: 600px) {
+            .section-container.svelte-s3xnx0.svelte-s3xnx0 {
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr
+            }
+
+            .section-container.svelte-s3xnx0 nav.svelte-s3xnx0 {
+                place-self: start
+            }
+
+            .section-container.svelte-s3xnx0 .primo.svelte-s3xnx0 {
+                place-self: center
+            }
+
+            .section-container.svelte-s3xnx0 .social-links.svelte-s3xnx0 {
+                place-self: end
+            }
+        }
+
+        nav.svelte-s3xnx0.svelte-s3xnx0 {
+            display: flex;
+            gap: 1rem
+        }
+
+        nav.svelte-s3xnx0 .link.svelte-s3xnx0 {
+            -webkit-text-decoration: underline transparent;
+            text-decoration: underline transparent;
+            transition: 0.1s -webkit-text-decoration;
+            transition: 0.1s text-decoration;
+            transition: 0.1s text-decoration, 0.1s -webkit-text-decoration;
+            font-weight: 500;
+            font-size: 1rem
+        }
+
+        nav.svelte-s3xnx0 .link.svelte-s3xnx0:hover {
+            -webkit-text-decoration-color: initial;
+            text-decoration-color: initial
+        }
+
+        .primo.svelte-s3xnx0.svelte-s3xnx0 {
+            font-weight: 600;
+            font-size: 0.75rem
+        }
+
+        .primo.svelte-s3xnx0 a.svelte-s3xnx0 {
+            text-decoration: underline;
+            color: var(--color-accent)
+        }
+
+        .social-links.svelte-s3xnx0.svelte-s3xnx0 {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 1.5rem
+        }
+
+        .social-links.svelte-s3xnx0 a.svelte-s3xnx0 {
+            color: var(--color-accent, rebeccapurple);
+            transition: var(--transition, 0.1s transform)
+        }
+
+        .social-links.svelte-s3xnx0 a.svelte-s3xnx0:hover {
+            transform: scale(1.1)
+        }
+    </style>
+</head>
+
+<body id="page">
+
+    <div class="section" id="section-94ba7462-64a2-4ed2-a732-3c35ab3cd353">
+        <div class="component">
+            <div class="banner svelte-6hkp3j"><a class="phone svelte-6hkp3j" href="tel:404 391 4233" aria-label="Call"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--material-symbols"><!-- HTML_TAG_START -->
+                        <path fill="currentColor" d="M4.05 21q-.45 0-.75-.3t-.3-.75V15.9q0-.35.225-.613t.575-.337l3.45-.7q.35-.05.713.063t.587.337L10.9 17q1.9-1.15 3.475-2.725T17 10.9l-2.4-2.45q-.225-.225-.288-.513T14.3 7.3l.65-3.5q.05-.35.325-.575T15.9 3h4.05q.45 0 .75.3t.3.75q0 3.225-1.438 6.288t-3.8 5.425q-2.362 2.362-5.425 3.8T4.05 21Z" /><!-- HTML_TAG_END -->
+                    </svg>
+                    <span class="label svelte-6hkp3j">404 391 4233</span></a>
+                <a class="address svelte-6hkp3j" href="maps:1000 Cupcake st. 23322" aria-label="Address"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--material-symbols"><!-- HTML_TAG_START -->
+                        <path fill="currentColor" d="M12 12q.825 0 1.413-.588T14 10q0-.825-.588-1.413T12 8q-.825 0-1.413.588T10 10q0 .825.588 1.413T12 12Zm0 9.625q-.2 0-.4-.075t-.35-.2Q7.6 18.125 5.8 15.362T4 10.2q0-3.75 2.413-5.975T12 2q3.175 0 5.588 2.225T20 10.2q0 2.4-1.8 5.163t-5.45 5.987q-.15.125-.35.2t-.4.075Z" /><!-- HTML_TAG_END -->
+                    </svg>
+                    <span class="label svelte-6hkp3j">1000 Cupcake st. 23322</span></a>
+            </div>
+            <header class="section-container svelte-6hkp3j">
+                <div class="desktop-nav svelte-6hkp3j">
+                    <nav class="svelte-6hkp3j"><a class="link svelte-6hkp3j" href="/">Home</a><a class="link svelte-6hkp3j" href="/menu">Menu</a></nav>
+                    <a href="/" class="logo svelte-6hkp3j"><span class="sr-only">Logo</span>
+                        <img src="https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png" alt="Logo"></a>
+                    <nav class="svelte-6hkp3j"><a class="link svelte-6hkp3j" href="/about">About</a><a class="link svelte-6hkp3j" href="/contact">Contact</a></nav>
+                </div>
+                <div class="mobile-nav svelte-6hkp3j"><a href="/" class="logo svelte-6hkp3j"><img src="https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png" alt="Logo"></a>
+                    <button id="open" aria-label="Open mobile navigation" class="svelte-6hkp3j"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="30" height="30" viewBox="0 0 24 24" class="iconify iconify--eva"><!-- HTML_TAG_START -->
+                            <g id="iconifySvelte0">
+                                <g id="iconifySvelte1">
+                                    <g id="iconifySvelte2" fill="currentColor">
+                                        <rect width="18" height="2" x="3" y="11" rx=".95" ry=".95" />
+                                        <rect width="18" height="2" x="3" y="16" rx=".95" ry=".95" />
+                                        <rect width="18" height="2" x="3" y="6" rx=".95" ry=".95" />
+                                    </g>
+                                </g>
+                            </g><!-- HTML_TAG_END -->
+                        </svg></button>
+                </div>
+            </header>
+        </div>
+    </div>
+    <div class="section" id="section-542131a8-c9c1-4fba-8cb9-cde481db61d7">
+        <div class="component">
+            <section class="section-container svelte-lgft89">
+                <h2 class="heading svelte-lgft89">Contact</h2>
+                <div class="main svelte-lgft89"><img src="https://images.unsplash.com/photo-1485182708500-e8f1f318ba72?ixlib=rb-4.0.3&amp;ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8Y29udGFjdCUyMGFuZCUyMGNvZmZlZXxlbnwwfHwwfHw%3D&amp;auto=format&amp;fit=crop&amp;w=900&amp;q=60" alt="people in a cafe" class="svelte-lgft89">
+                    <div class="contact-info svelte-lgft89">
+                        <h2 class="title svelte-lgft89">We'd love to hear from you!</h2>
+                        <ul class="svelte-lgft89">
+                            <li class="svelte-lgft89"><span class="icon svelte-lgft89"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--material-symbols"><!-- HTML_TAG_START -->
+                                        <path fill="currentColor" d="M4.05 21q-.45 0-.75-.3t-.3-.75V15.9q0-.35.225-.613t.575-.337l3.45-.7q.35-.05.713.063t.587.337L10.9 17q1.9-1.15 3.475-2.725T17 10.9l-2.4-2.45q-.225-.225-.288-.513T14.3 7.3l.65-3.5q.05-.35.325-.575T15.9 3h4.05q.45 0 .75.3t.3.75q0 3.225-1.438 6.288t-3.8 5.425q-2.362 2.362-5.425 3.8T4.05 21Z" /><!-- HTML_TAG_END -->
+                                    </svg></span>
+                                <span class="label">+1 404-349-4032</span>
+                            </li>
+                            <li class="svelte-lgft89"><span class="icon svelte-lgft89"></span>
+                                <span class="label">contact@bubblebakery.com</span>
+                            </li>
+                            <li class="svelte-lgft89"><span class="icon svelte-lgft89"></span>
+                                <span class="label">hours: Monday thru Friday 8am-9pm</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="section svelte-o7fd5j" id="section-1b3414f7-b7f5-4e1c-94f7-f883c3f20722">
+        <div class="component svelte-o7fd5j">
+            <section class="svelte-o7fd5j">
+                <div class="section-container svelte-o7fd5j">
+                    <div class="form svelte-o7fd5j">
+                        <h2 class="heading svelte-o7fd5j">Inquiries</h2>
+                        <form class="svelte-o7fd5j">
+                            <label class="svelte-o7fd5j"><span class="svelte-o7fd5j">Full Name
+                                    <span class="required svelte-o7fd5j">*</span></span>
+                                <input type="text" name="Full Name" placeholder="" class="svelte-o7fd5j">
+                            </label>
+                            <label class="svelte-o7fd5j"><span class="svelte-o7fd5j">Phone#
+                                </span>
+                                <input type="text" name="Phone#" placeholder="" class="svelte-o7fd5j">
+                            </label>
+                            <label class="svelte-o7fd5j"><span class="svelte-o7fd5j">Email
+                                    <span class="required svelte-o7fd5j">*</span></span>
+                                <input type="text" name="Email" placeholder="" class="svelte-o7fd5j">
+                            </label>
+                            <label class="svelte-o7fd5j"><span class="svelte-o7fd5j">Topic
+                                </span>
+                                <input type="text" name="Topic" placeholder="Special order, catering, etc." class="svelte-o7fd5j">
+                            </label>
+                            <label class="has-textarea svelte-o7fd5j"><span class="svelte-o7fd5j">Details
+                                </span>
+                                <textarea name="Details" placeholder="Tell us your details (date, occasion, number of guests, etc.)" class="svelte-o7fd5j"></textarea>
+                            </label>
+                            <label class="has-textarea svelte-o7fd5j"><span class="svelte-o7fd5j">How'd you hear about us?
+                                </span>
+                                <textarea name="How'd you hear about us?" placeholder="" class="svelte-o7fd5j"></textarea>
+                            </label>
+                            <div class="footer-text svelte-o7fd5j"><!-- HTML_TAG_START --><!-- HTML_TAG_END --></div>
+                            <button type="submit" class="button svelte-o7fd5j">
+                                <span class="svelte-o7fd5j">Submit</span></button>
+                        </form>
+                    </div>
+                </div>
+                <svg viewBox="0 0 86 171" fill="none" xmlns="http://www.w3.org/2000/svg" class="svelte-o7fd5j">
+                    <path d="M85.5 1.01958e-06C62.824 7.49169e-07 41.0767 9.00801 25.0424 25.0424C9.00801 41.0767 3.00198e-06 62.824 1.01958e-06 85.5C-9.62822e-07 108.176 9.00801 129.923 25.0424 145.958C41.0767 161.992 62.824 171 85.5 171L85.5 85.5L85.5 1.01958e-06Z" fill="var(--color-shade)" class="svelte-o7fd5j"></path>
+                </svg>
+                <svg viewBox="0 0 86 171" fill="none" xmlns="http://www.w3.org/2000/svg" class="svelte-o7fd5j">
+                    <path d="M0.499993 171C23.176 171 44.9233 161.992 60.9576 145.958C76.992 129.923 86 108.176 86 85.5C86 62.824 76.992 41.0767 60.9576 25.0424C44.9233 9.00801 23.176 6.7786e-07 0.500013 -3.73732e-06L0.499996 85.5L0.499993 171Z" fill="var(--color-shade)" class="svelte-o7fd5j"></path>
+                </svg>
+            </section>
+        </div>
+    </div>
+    <div class="section" id="section-6489adf8-971c-42f8-9e27-f73c7306e1e5">
+        <div class="component">
+            <section class="svelte-wztysl">
+                <div class="section-container svelte-wztysl">
+                    <h2 class="heading svelte-wztysl">Frequently Asked Questions</h2>
+                    <div class="accordion svelte-wztysl">
+                        <div class="item svelte-wztysl active"><button class="svelte-wztysl"><span class="svelte-wztysl">How do I place a custom order?</span>
+                                <span class="icon svelte-wztysl"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 256 256" class="iconify iconify--ph"><!-- HTML_TAG_START -->
+                                        <path fill="currentColor" d="m216.49 104.49l-80 80a12 12 0 0 1-17 0l-80-80a12 12 0 0 1 17-17L128 159l71.51-71.52a12 12 0 0 1 17 17Z" /><!-- HTML_TAG_END -->
+                                    </svg>
+                                </span></button>
+                            <div class="description svelte-wztysl"><!-- HTML_TAG_START -->
+                                <p>Send us what items you'd like in the contact form above or give us a call. We'll get back to you with an email with the next steps.</p><!-- HTML_TAG_END -->
+                            </div>
+                            <noscript>
+                                <div class="description svelte-wztysl"><!-- HTML_TAG_START -->
+                                    <p>Send us what items you'd like in the contact form above or give us a call. We'll get back to you with an email with the next steps.</p><!-- HTML_TAG_END -->
+                                </div>
+                            </noscript>
+                        </div>
+                        <div class="item svelte-wztysl"><button class="svelte-wztysl"><span class="svelte-wztysl">How much do cakes cost?</span>
+                                <span class="icon svelte-wztysl"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 256 256" class="iconify iconify--ph"><!-- HTML_TAG_START -->
+                                        <path fill="currentColor" d="m216.49 104.49l-80 80a12 12 0 0 1-17 0l-80-80a12 12 0 0 1 17-17L128 159l71.51-71.52a12 12 0 0 1 17 17Z" /><!-- HTML_TAG_END -->
+                                    </svg>
+                                </span></button>
+
+                            <noscript>
+                                <div class="description svelte-wztysl"><!-- HTML_TAG_START -->
+                                    <p>Nostrud sint officia tempor magna esse cupidatat. Esse proident velit cupidatat.</p><!-- HTML_TAG_END -->
+                                </div>
+                            </noscript>
+                        </div>
+                        <div class="item svelte-wztysl"><button class="svelte-wztysl"><span class="svelte-wztysl">Do you deliver?</span>
+                                <span class="icon svelte-wztysl"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 256 256" class="iconify iconify--ph"><!-- HTML_TAG_START -->
+                                        <path fill="currentColor" d="m216.49 104.49l-80 80a12 12 0 0 1-17 0l-80-80a12 12 0 0 1 17-17L128 159l71.51-71.52a12 12 0 0 1 17 17Z" /><!-- HTML_TAG_END -->
+                                    </svg>
+                                </span></button>
+
+                            <noscript>
+                                <div class="description svelte-wztysl"><!-- HTML_TAG_START -->
+                                    <p>Enim eu eiusmod nisi ipsum ea commodo. Ut excepteur id fugiat sit dolor pariatur voluptate do veniam ex duis tempor.</p><!-- HTML_TAG_END -->
+                                </div>
+                            </noscript>
+                        </div>
+                        <div class="item svelte-wztysl"><button class="svelte-wztysl"><span class="svelte-wztysl">Do I need to prepay for custom orders?</span>
+                                <span class="icon svelte-wztysl"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 256 256" class="iconify iconify--ph"><!-- HTML_TAG_START -->
+                                        <path fill="currentColor" d="m216.49 104.49l-80 80a12 12 0 0 1-17 0l-80-80a12 12 0 0 1 17-17L128 159l71.51-71.52a12 12 0 0 1 17 17Z" /><!-- HTML_TAG_END -->
+                                    </svg>
+                                </span></button>
+
+                            <noscript>
+                                <div class="description svelte-wztysl"><!-- HTML_TAG_START -->
+                                    <p>Labore cupidatat id nostrud laborum deserunt nostrud pariatur voluptate. Aute incididunt enim irure sint tempor aliquip reprehenderit dolor sit officia id.</p><!-- HTML_TAG_END -->
+                                </div>
+                            </noscript>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="section" id="section-5a09a096-2e2f-416a-bf8e-3a152bfe5eb2">
+        <div class="component">
+            <footer class="section-container svelte-s3xnx0">
+                <nav class="svelte-s3xnx0"><a class="link svelte-s3xnx0" href="/about">About</a><a class="link svelte-s3xnx0" href="/contact">Contact</a></nav>
+                <span class="primo svelte-s3xnx0">Powered by <a href="https://primo.so" class="svelte-s3xnx0">Primo</a></span>
+                <div class="social-links svelte-s3xnx0"><a href="http://instagram.com" aria-label="Instagram" class="svelte-s3xnx0"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--mdi"><!-- HTML_TAG_START -->
+                            <path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3Z" /><!-- HTML_TAG_END -->
+                        </svg>
+                    </a><a href="https://facebook.com" aria-label="Facebook" class="svelte-s3xnx0"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden role="img" width="1em" height="1em" viewBox="0 0 24 24" class="iconify iconify--mdi"><!-- HTML_TAG_START -->
+                            <path fill="currentColor" d="M12 2.04c-5.5 0-10 4.49-10 10.02c0 5 3.66 9.15 8.44 9.9v-7H7.9v-2.9h2.54V9.85c0-2.51 1.49-3.89 3.78-3.89c1.09 0 2.23.19 2.23.19v2.47h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.9h-2.33v7a10 10 0 0 0 8.44-9.9c0-5.53-4.5-10.02-10-10.02Z" /><!-- HTML_TAG_END -->
+                        </svg>
+                    </a></div>
+            </footer>
+        </div>
+    </div>
+
+    <script type="module">
+        const path = window.location.pathname === '/' ? '' : window.location.pathname
+        const [{
+            default: App
+        }] = await Promise.all([
+            import(path + '/_module.js')
+        ]).catch(e => console.error(e))
+        new App({
+            target: document.querySelector('body'),
+            hydrate: true,
+        })
+    </script>
+</body>
+
+</html>
