@@ -275,6 +275,14 @@ function attr(node, attribute, value) {
     else if (node.getAttribute(attribute) !== value)
         node.setAttribute(attribute, value);
 }
+/**
+ * List of attributes that should always be set through the attr method,
+ * because updating them through the property setter doesn't work reliably.
+ * In the example of `width`/`height`, the problem is that the setter only
+ * accepts numeric values, but the attribute can also be set to a string like `50%`.
+ * If this list becomes too big, rethink this approach.
+ */
+const always_set_through_set_attribute = ['width', 'height'];
 function set_attributes(node, attributes) {
     // @ts-ignore
     const descriptors = Object.getOwnPropertyDescriptors(node.__proto__);
@@ -288,7 +296,7 @@ function set_attributes(node, attributes) {
         else if (key === '__value') {
             node.value = node[key] = attributes[key];
         }
-        else if (descriptors[key] && descriptors[key].set) {
+        else if (descriptors[key] && descriptors[key].set && always_set_through_set_attribute.indexOf(key) === -1) {
             node[key] = attributes[key];
         }
         else {
@@ -1248,25 +1256,19 @@ function create_fragment(ctx) {
 }
 
 function instance($$self, $$props, $$invalidate) {
-	let { logo } = $$props;
 	let { social } = $$props;
-	let { contacts } = $$props;
-	let { site_nav } = $$props;
 	let { site_footer } = $$props;
 	let { title } = $$props;
 	let { description } = $$props;
 
 	$$self.$$set = $$props => {
-		if ('logo' in $$props) $$invalidate(2, logo = $$props.logo);
-		if ('social' in $$props) $$invalidate(3, social = $$props.social);
-		if ('contacts' in $$props) $$invalidate(4, contacts = $$props.contacts);
-		if ('site_nav' in $$props) $$invalidate(5, site_nav = $$props.site_nav);
-		if ('site_footer' in $$props) $$invalidate(6, site_footer = $$props.site_footer);
+		if ('social' in $$props) $$invalidate(2, social = $$props.social);
+		if ('site_footer' in $$props) $$invalidate(3, site_footer = $$props.site_footer);
 		if ('title' in $$props) $$invalidate(0, title = $$props.title);
 		if ('description' in $$props) $$invalidate(1, description = $$props.description);
 	};
 
-	return [title, description, logo, social, contacts, site_nav, site_footer];
+	return [title, description, social, site_footer];
 }
 
 class Component extends SvelteComponent {
@@ -1274,11 +1276,8 @@ class Component extends SvelteComponent {
 		super();
 
 		init(this, options, instance, create_fragment, safe_not_equal, {
-			logo: 2,
-			social: 3,
-			contacts: 4,
-			site_nav: 5,
-			site_footer: 6,
+			social: 2,
+			site_footer: 3,
 			title: 0,
 			description: 1
 		});
@@ -3229,13 +3228,13 @@ function create_each_block_2(ctx) {
 			append_hydration(a, t);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*site_nav*/ 4 && t_value !== (t_value = /*link*/ ctx[11].label + "")) set_data(t, t_value);
+			if (dirty & /*site_nav*/ 2 && t_value !== (t_value = /*link*/ ctx[11].label + "")) set_data(t, t_value);
 
-			if (dirty & /*site_nav*/ 4 && a_href_value !== (a_href_value = /*link*/ ctx[11].url)) {
+			if (dirty & /*site_nav*/ 2 && a_href_value !== (a_href_value = /*link*/ ctx[11].url)) {
 				attr(a, "href", a_href_value);
 			}
 
-			if (dirty & /*site_nav, window*/ 4) {
+			if (dirty & /*site_nav, window*/ 2) {
 				toggle_class(a, "active", /*link*/ ctx[11].url === window.location.pathname);
 			}
 		},
@@ -3275,13 +3274,13 @@ function create_each_block_1(ctx) {
 			append_hydration(a, t);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*site_nav*/ 4 && t_value !== (t_value = /*link*/ ctx[11].label + "")) set_data(t, t_value);
+			if (dirty & /*site_nav*/ 2 && t_value !== (t_value = /*link*/ ctx[11].label + "")) set_data(t, t_value);
 
-			if (dirty & /*site_nav*/ 4 && a_href_value !== (a_href_value = /*link*/ ctx[11].url)) {
+			if (dirty & /*site_nav*/ 2 && a_href_value !== (a_href_value = /*link*/ ctx[11].url)) {
 				attr(a, "href", a_href_value);
 			}
 
-			if (dirty & /*site_nav, window*/ 4) {
+			if (dirty & /*site_nav, window*/ 2) {
 				toggle_class(a, "active", /*link*/ ctx[11].url === window.location.pathname);
 			}
 		},
@@ -3306,7 +3305,7 @@ function create_if_block$1(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let each_value = [.../*site_nav*/ ctx[2].left, .../*site_nav*/ ctx[2].right];
+	let each_value = [.../*site_nav*/ ctx[1].left, .../*site_nav*/ ctx[1].right];
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value.length; i += 1) {
@@ -3400,8 +3399,8 @@ function create_if_block$1(ctx) {
 				attr(img, "alt", img_alt_value);
 			}
 
-			if (dirty & /*site_nav, window*/ 4) {
-				each_value = [.../*site_nav*/ ctx[2].left, .../*site_nav*/ ctx[2].right];
+			if (dirty & /*site_nav, window*/ 2) {
+				each_value = [.../*site_nav*/ ctx[1].left, .../*site_nav*/ ctx[1].right];
 				let i;
 
 				for (i = 0; i < each_value.length; i += 1) {
@@ -3482,13 +3481,13 @@ function create_each_block(ctx) {
 			append_hydration(a, t);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*site_nav*/ 4 && t_value !== (t_value = /*link*/ ctx[11].label + "")) set_data(t, t_value);
+			if (dirty & /*site_nav*/ 2 && t_value !== (t_value = /*link*/ ctx[11].label + "")) set_data(t, t_value);
 
-			if (dirty & /*site_nav*/ 4 && a_href_value !== (a_href_value = /*link*/ ctx[11].url)) {
+			if (dirty & /*site_nav*/ 2 && a_href_value !== (a_href_value = /*link*/ ctx[11].url)) {
 				attr(a, "href", a_href_value);
 			}
 
-			if (dirty & /*site_nav, window*/ 4) {
+			if (dirty & /*site_nav, window*/ 2) {
 				toggle_class(a, "active", /*link*/ ctx[11].url === window.location.pathname);
 			}
 		},
@@ -3506,7 +3505,7 @@ function create_fragment$2(ctx) {
 	let icon0;
 	let t0;
 	let span0;
-	let t1_value = /*contacts*/ ctx[1].phone + "";
+	let t1_value = /*contacts*/ ctx[2].phone + "";
 	let t1;
 	let a0_href_value;
 	let t2;
@@ -3514,7 +3513,7 @@ function create_fragment$2(ctx) {
 	let icon1;
 	let t3;
 	let span1;
-	let t4_value = /*contacts*/ ctx[1].address + "";
+	let t4_value = /*contacts*/ ctx[2].address + "";
 	let t4;
 	let a1_href_value;
 	let t5;
@@ -3556,14 +3555,14 @@ function create_fragment$2(ctx) {
 			}
 		});
 
-	let each_value_2 = /*site_nav*/ ctx[2].left;
+	let each_value_2 = /*site_nav*/ ctx[1].left;
 	let each_blocks_1 = [];
 
 	for (let i = 0; i < each_value_2.length; i += 1) {
 		each_blocks_1[i] = create_each_block_2(get_each_context_2(ctx, each_value_2, i));
 	}
 
-	let each_value_1 = /*site_nav*/ ctx[2].right;
+	let each_value_1 = /*site_nav*/ ctx[1].right;
 	let each_blocks = [];
 
 	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -3726,11 +3725,11 @@ function create_fragment$2(ctx) {
 		h() {
 			attr(span0, "class", "label svelte-6hkp3j");
 			attr(a0, "class", "phone svelte-6hkp3j");
-			attr(a0, "href", a0_href_value = "tel:" + /*contacts*/ ctx[1].phone);
+			attr(a0, "href", a0_href_value = "tel:" + /*contacts*/ ctx[2].phone);
 			attr(a0, "aria-label", "Call");
 			attr(span1, "class", "label svelte-6hkp3j");
 			attr(a1, "class", "address svelte-6hkp3j");
-			attr(a1, "href", a1_href_value = "maps:" + /*contacts*/ ctx[1].address);
+			attr(a1, "href", a1_href_value = "maps:" + /*contacts*/ ctx[2].address);
 			attr(a1, "aria-label", "Address");
 			attr(div0, "class", "banner svelte-6hkp3j");
 			attr(nav0, "class", "svelte-6hkp3j");
@@ -3812,20 +3811,20 @@ function create_fragment$2(ctx) {
 			}
 		},
 		p(ctx, [dirty]) {
-			if ((!current || dirty & /*contacts*/ 2) && t1_value !== (t1_value = /*contacts*/ ctx[1].phone + "")) set_data(t1, t1_value);
+			if ((!current || dirty & /*contacts*/ 4) && t1_value !== (t1_value = /*contacts*/ ctx[2].phone + "")) set_data(t1, t1_value);
 
-			if (!current || dirty & /*contacts*/ 2 && a0_href_value !== (a0_href_value = "tel:" + /*contacts*/ ctx[1].phone)) {
+			if (!current || dirty & /*contacts*/ 4 && a0_href_value !== (a0_href_value = "tel:" + /*contacts*/ ctx[2].phone)) {
 				attr(a0, "href", a0_href_value);
 			}
 
-			if ((!current || dirty & /*contacts*/ 2) && t4_value !== (t4_value = /*contacts*/ ctx[1].address + "")) set_data(t4, t4_value);
+			if ((!current || dirty & /*contacts*/ 4) && t4_value !== (t4_value = /*contacts*/ ctx[2].address + "")) set_data(t4, t4_value);
 
-			if (!current || dirty & /*contacts*/ 2 && a1_href_value !== (a1_href_value = "maps:" + /*contacts*/ ctx[1].address)) {
+			if (!current || dirty & /*contacts*/ 4 && a1_href_value !== (a1_href_value = "maps:" + /*contacts*/ ctx[2].address)) {
 				attr(a1, "href", a1_href_value);
 			}
 
-			if (dirty & /*site_nav, window*/ 4) {
-				each_value_2 = /*site_nav*/ ctx[2].left;
+			if (dirty & /*site_nav, window*/ 2) {
+				each_value_2 = /*site_nav*/ ctx[1].left;
 				let i;
 
 				for (i = 0; i < each_value_2.length; i += 1) {
@@ -3857,8 +3856,8 @@ function create_fragment$2(ctx) {
 				attr(img0, "alt", img0_alt_value);
 			}
 
-			if (dirty & /*site_nav, window*/ 4) {
-				each_value_1 = /*site_nav*/ ctx[2].right;
+			if (dirty & /*site_nav, window*/ 2) {
+				each_value_1 = /*site_nav*/ ctx[1].right;
 				let i;
 
 				for (i = 0; i < each_value_1.length; i += 1) {
@@ -3941,32 +3940,32 @@ function create_fragment$2(ctx) {
 }
 
 function instance$2($$self, $$props, $$invalidate) {
-	let { logo } = $$props;
 	let { social } = $$props;
-	let { contacts } = $$props;
-	let { site_nav } = $$props;
 	let { site_footer } = $$props;
 	let { title } = $$props;
 	let { description } = $$props;
+	let { logo } = $$props;
+	let { site_nav } = $$props;
+	let { contacts } = $$props;
 	let mobileNavOpen = false;
 
 	const click_handler = () => $$invalidate(3, mobileNavOpen = true);
 	const click_handler_1 = () => $$invalidate(3, mobileNavOpen = false);
 
 	$$self.$$set = $$props => {
-		if ('logo' in $$props) $$invalidate(0, logo = $$props.logo);
 		if ('social' in $$props) $$invalidate(4, social = $$props.social);
-		if ('contacts' in $$props) $$invalidate(1, contacts = $$props.contacts);
-		if ('site_nav' in $$props) $$invalidate(2, site_nav = $$props.site_nav);
 		if ('site_footer' in $$props) $$invalidate(5, site_footer = $$props.site_footer);
 		if ('title' in $$props) $$invalidate(6, title = $$props.title);
 		if ('description' in $$props) $$invalidate(7, description = $$props.description);
+		if ('logo' in $$props) $$invalidate(0, logo = $$props.logo);
+		if ('site_nav' in $$props) $$invalidate(1, site_nav = $$props.site_nav);
+		if ('contacts' in $$props) $$invalidate(2, contacts = $$props.contacts);
 	};
 
 	return [
 		logo,
-		contacts,
 		site_nav,
+		contacts,
 		mobileNavOpen,
 		social,
 		site_footer,
@@ -3982,13 +3981,13 @@ class Component$2 extends SvelteComponent {
 		super();
 
 		init(this, options, instance$2, create_fragment$2, safe_not_equal, {
-			logo: 0,
 			social: 4,
-			contacts: 1,
-			site_nav: 2,
 			site_footer: 5,
 			title: 6,
-			description: 7
+			description: 7,
+			logo: 0,
+			site_nav: 1,
+			contacts: 2
 		});
 	}
 }
@@ -3997,23 +3996,23 @@ class Component$2 extends SvelteComponent {
 
 function get_each_context$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[10] = list[i].icon;
-	child_ctx[11] = list[i].label;
+	child_ctx[7] = list[i].icon;
+	child_ctx[8] = list[i].label;
 	return child_ctx;
 }
 
-// (75:8) {#each contact as { icon, label }}
+// (72:8) {#each contact as { icon, label }}
 function create_each_block$1(ctx) {
 	let li;
 	let span0;
 	let icon;
 	let t0;
 	let span1;
-	let t1_value = /*label*/ ctx[11] + "";
+	let t1_value = /*label*/ ctx[8] + "";
 	let t1;
 	let t2;
 	let current;
-	icon = new Component$1({ props: { icon: /*icon*/ ctx[10] } });
+	icon = new Component$1({ props: { icon: /*icon*/ ctx[7] } });
 
 	return {
 		c() {
@@ -4059,9 +4058,9 @@ function create_each_block$1(ctx) {
 		},
 		p(ctx, dirty) {
 			const icon_changes = {};
-			if (dirty & /*contact*/ 8) icon_changes.icon = /*icon*/ ctx[10];
+			if (dirty & /*contact*/ 8) icon_changes.icon = /*icon*/ ctx[7];
 			icon.$set(icon_changes);
-			if ((!current || dirty & /*contact*/ 8) && t1_value !== (t1_value = /*label*/ ctx[11] + "")) set_data(t1, t1_value);
+			if ((!current || dirty & /*contact*/ 8) && t1_value !== (t1_value = /*label*/ ctx[8] + "")) set_data(t1, t1_value);
 		},
 		i(local) {
 			if (current) return;
@@ -4273,10 +4272,7 @@ function create_fragment$3(ctx) {
 }
 
 function instance$3($$self, $$props, $$invalidate) {
-	let { logo } = $$props;
 	let { social } = $$props;
-	let { contacts } = $$props;
-	let { site_nav } = $$props;
 	let { site_footer } = $$props;
 	let { title } = $$props;
 	let { description } = $$props;
@@ -4285,30 +4281,16 @@ function instance$3($$self, $$props, $$invalidate) {
 	let { contact } = $$props;
 
 	$$self.$$set = $$props => {
-		if ('logo' in $$props) $$invalidate(4, logo = $$props.logo);
-		if ('social' in $$props) $$invalidate(5, social = $$props.social);
-		if ('contacts' in $$props) $$invalidate(6, contacts = $$props.contacts);
-		if ('site_nav' in $$props) $$invalidate(7, site_nav = $$props.site_nav);
-		if ('site_footer' in $$props) $$invalidate(8, site_footer = $$props.site_footer);
+		if ('social' in $$props) $$invalidate(4, social = $$props.social);
+		if ('site_footer' in $$props) $$invalidate(5, site_footer = $$props.site_footer);
 		if ('title' in $$props) $$invalidate(0, title = $$props.title);
-		if ('description' in $$props) $$invalidate(9, description = $$props.description);
+		if ('description' in $$props) $$invalidate(6, description = $$props.description);
 		if ('heading' in $$props) $$invalidate(1, heading = $$props.heading);
 		if ('image' in $$props) $$invalidate(2, image = $$props.image);
 		if ('contact' in $$props) $$invalidate(3, contact = $$props.contact);
 	};
 
-	return [
-		title,
-		heading,
-		image,
-		contact,
-		logo,
-		social,
-		contacts,
-		site_nav,
-		site_footer,
-		description
-	];
+	return [title, heading, image, contact, social, site_footer, description];
 }
 
 class Component$3 extends SvelteComponent {
@@ -4316,13 +4298,10 @@ class Component$3 extends SvelteComponent {
 		super();
 
 		init(this, options, instance$3, create_fragment$3, safe_not_equal, {
-			logo: 4,
-			social: 5,
-			contacts: 6,
-			site_nav: 7,
-			site_footer: 8,
+			social: 4,
+			site_footer: 5,
 			title: 0,
-			description: 9,
+			description: 6,
 			heading: 1,
 			image: 2,
 			contact: 3
@@ -4371,8 +4350,8 @@ const isPlainObject = (val) => {
   if (kindOf(val) !== "object") {
     return false;
   }
-  const prototype2 = getPrototypeOf(val);
-  return (prototype2 === null || prototype2 === Object.prototype || Object.getPrototypeOf(prototype2) === null) && !(Symbol.toStringTag in val) && !(Symbol.iterator in val);
+  const prototype = getPrototypeOf(val);
+  return (prototype === null || prototype === Object.prototype || Object.getPrototypeOf(prototype) === null) && !(Symbol.toStringTag in val) && !(Symbol.iterator in val);
 };
 const isDate = kindOfTest("Date");
 const isFile = kindOfTest("File");
@@ -4463,15 +4442,15 @@ const stripBOM = (content) => {
   }
   return content;
 };
-const inherits = (constructor, superConstructor, props, descriptors2) => {
-  constructor.prototype = Object.create(superConstructor.prototype, descriptors2);
+const inherits = (constructor, superConstructor, props, descriptors) => {
+  constructor.prototype = Object.create(superConstructor.prototype, descriptors);
   constructor.prototype.constructor = constructor;
   Object.defineProperty(constructor, "super", {
     value: superConstructor.prototype
   });
   props && Object.assign(constructor.prototype, props);
 };
-const toFlatObject = (sourceObj, destObj, filter2, propFilter) => {
+const toFlatObject = (sourceObj, destObj, filter, propFilter) => {
   let props;
   let i;
   let prop;
@@ -4489,8 +4468,8 @@ const toFlatObject = (sourceObj, destObj, filter2, propFilter) => {
         merged[prop] = true;
       }
     }
-    sourceObj = filter2 !== false && getPrototypeOf(sourceObj);
-  } while (sourceObj && (!filter2 || filter2(sourceObj, destObj)) && sourceObj !== Object.prototype);
+    sourceObj = filter !== false && getPrototypeOf(sourceObj);
+  } while (sourceObj && (!filter || filter(sourceObj, destObj)) && sourceObj !== Object.prototype);
   return destObj;
 };
 const endsWith = (str, searchString, position) => {
@@ -4547,9 +4526,9 @@ const toCamelCase = (str) => {
 const hasOwnProperty = (({hasOwnProperty: hasOwnProperty2}) => (obj, prop) => hasOwnProperty2.call(obj, prop))(Object.prototype);
 const isRegExp = kindOfTest("RegExp");
 const reduceDescriptors = (obj, reducer) => {
-  const descriptors2 = Object.getOwnPropertyDescriptors(obj);
+  const descriptors = Object.getOwnPropertyDescriptors(obj);
   const reducedDescriptors = {};
-  forEach(descriptors2, (descriptor, name) => {
+  forEach(descriptors, (descriptor, name) => {
     if (reducer(descriptor, name, obj) !== false) {
       reducedDescriptors[name] = descriptor;
     }
@@ -4632,6 +4611,8 @@ const toJSONObject = (obj) => {
   };
   return visit(obj, 0);
 };
+const isAsyncFn = kindOfTest("AsyncFunction");
+const isThenable = (thing) => thing && (isObject(thing) || isFunction(thing)) && isFunction(thing.then) && isFunction(thing.catch);
 var utils = {
   isArray,
   isArrayBuffer,
@@ -4681,8 +4662,76 @@ var utils = {
   ALPHABET,
   generateString,
   isSpecCompliantForm,
-  toJSONObject
+  toJSONObject,
+  isAsyncFn,
+  isThenable
 };
+
+function AxiosError(message, code, config, request, response) {
+  Error.call(this);
+  if (Error.captureStackTrace) {
+    Error.captureStackTrace(this, this.constructor);
+  } else {
+    this.stack = new Error().stack;
+  }
+  this.message = message;
+  this.name = "AxiosError";
+  code && (this.code = code);
+  config && (this.config = config);
+  request && (this.request = request);
+  response && (this.response = response);
+}
+utils.inherits(AxiosError, Error, {
+  toJSON: function toJSON() {
+    return {
+      message: this.message,
+      name: this.name,
+      description: this.description,
+      number: this.number,
+      fileName: this.fileName,
+      lineNumber: this.lineNumber,
+      columnNumber: this.columnNumber,
+      stack: this.stack,
+      config: utils.toJSONObject(this.config),
+      code: this.code,
+      status: this.response && this.response.status ? this.response.status : null
+    };
+  }
+});
+const prototype = AxiosError.prototype;
+const descriptors = {};
+[
+  "ERR_BAD_OPTION_VALUE",
+  "ERR_BAD_OPTION",
+  "ECONNABORTED",
+  "ETIMEDOUT",
+  "ERR_NETWORK",
+  "ERR_FR_TOO_MANY_REDIRECTS",
+  "ERR_DEPRECATED",
+  "ERR_BAD_RESPONSE",
+  "ERR_BAD_REQUEST",
+  "ERR_CANCELED",
+  "ERR_NOT_SUPPORT",
+  "ERR_INVALID_URL"
+].forEach((code) => {
+  descriptors[code] = {value: code};
+});
+Object.defineProperties(AxiosError, descriptors);
+Object.defineProperty(prototype, "isAxiosError", {value: true});
+AxiosError.from = (error, code, config, request, response, customProps) => {
+  const axiosError = Object.create(prototype);
+  utils.toFlatObject(error, axiosError, function filter(obj) {
+    return obj !== Error.prototype;
+  }, (prop) => {
+    return prop !== "isAxiosError";
+  });
+  AxiosError.call(axiosError, error.message, code, config, request, response);
+  axiosError.cause = error;
+  axiosError.name = error.name;
+  customProps && Object.assign(axiosError, customProps);
+  return axiosError;
+};
+
 var lookup = [];
 var revLookup = [];
 var Arr = typeof Uint8Array !== "undefined" ? Uint8Array : Array;
@@ -6271,71 +6320,6 @@ function isFastBuffer(obj) {
 function isSlowBuffer(obj) {
   return typeof obj.readFloatLE === "function" && typeof obj.slice === "function" && isFastBuffer(obj.slice(0, 0));
 }
-function AxiosError(message, code, config, request, response) {
-  Error.call(this);
-  if (Error.captureStackTrace) {
-    Error.captureStackTrace(this, this.constructor);
-  } else {
-    this.stack = new Error().stack;
-  }
-  this.message = message;
-  this.name = "AxiosError";
-  code && (this.code = code);
-  config && (this.config = config);
-  request && (this.request = request);
-  response && (this.response = response);
-}
-utils.inherits(AxiosError, Error, {
-  toJSON: function toJSON2() {
-    return {
-      message: this.message,
-      name: this.name,
-      description: this.description,
-      number: this.number,
-      fileName: this.fileName,
-      lineNumber: this.lineNumber,
-      columnNumber: this.columnNumber,
-      stack: this.stack,
-      config: utils.toJSONObject(this.config),
-      code: this.code,
-      status: this.response && this.response.status ? this.response.status : null
-    };
-  }
-});
-const prototype = AxiosError.prototype;
-const descriptors = {};
-[
-  "ERR_BAD_OPTION_VALUE",
-  "ERR_BAD_OPTION",
-  "ECONNABORTED",
-  "ETIMEDOUT",
-  "ERR_NETWORK",
-  "ERR_FR_TOO_MANY_REDIRECTS",
-  "ERR_DEPRECATED",
-  "ERR_BAD_RESPONSE",
-  "ERR_BAD_REQUEST",
-  "ERR_CANCELED",
-  "ERR_NOT_SUPPORT",
-  "ERR_INVALID_URL"
-].forEach((code) => {
-  descriptors[code] = {value: code};
-});
-Object.defineProperties(AxiosError, descriptors);
-Object.defineProperty(prototype, "isAxiosError", {value: true});
-AxiosError.from = (error, code, config, request, response, customProps) => {
-  const axiosError = Object.create(prototype);
-  utils.toFlatObject(error, axiosError, function filter2(obj) {
-    return obj !== Error.prototype;
-  }, (prop) => {
-    return prop !== "isAxiosError";
-  });
-  AxiosError.call(axiosError, error.message, code, config, request, response);
-  axiosError.cause = error;
-  axiosError.name = error.name;
-  customProps && Object.assign(axiosError, customProps);
-  return axiosError;
-};
-var httpAdapter = null;
 function isVisitable(thing) {
   return utils.isPlainObject(thing) || utils.isArray(thing);
 }
@@ -6492,37 +6476,31 @@ function buildURL(url, params, options) {
   }
   return url;
 }
-class InterceptorManager {
-  constructor() {
-    this.handlers = [];
-  }
-  use(fulfilled, rejected, options) {
-    this.handlers.push({
-      fulfilled,
-      rejected,
-      synchronous: options ? options.synchronous : false,
-      runWhen: options ? options.runWhen : null
-    });
-    return this.handlers.length - 1;
-  }
-  eject(id) {
-    if (this.handlers[id]) {
-      this.handlers[id] = null;
-    }
-  }
-  clear() {
-    if (this.handlers) {
-      this.handlers = [];
-    }
-  }
-  forEach(fn) {
-    utils.forEach(this.handlers, function forEachHandler(h) {
-      if (h !== null) {
-        fn(h);
-      }
-    });
+
+function settle(resolve, reject, response) {
+  const validateStatus = response.config.validateStatus;
+  if (!response.status || !validateStatus || validateStatus(response.status)) {
+    resolve(response);
+  } else {
+    reject(new AxiosError("Request failed with status code " + response.status, [AxiosError.ERR_BAD_REQUEST, AxiosError.ERR_BAD_RESPONSE][Math.floor(response.status / 100) - 4], response.config, response.request, response));
   }
 }
+
+function isAbsoluteURL(url) {
+  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
+}
+
+function combineURLs(baseURL, relativeURL) {
+  return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
+}
+
+function buildFullPath(baseURL, requestedURL) {
+  if (baseURL && !isAbsoluteURL(requestedURL)) {
+    return combineURLs(baseURL, requestedURL);
+  }
+  return requestedURL;
+}
+
 var transitionalDefaults = {
   silentJSONParsing: true,
   forcedJSONParsing: true,
@@ -6552,165 +6530,6 @@ var platform = {
   isStandardBrowserWebWorkerEnv,
   protocols: ["http", "https", "file", "blob", "url", "data"]
 };
-function toURLEncodedForm(data, options) {
-  return toFormData(data, new platform.classes.URLSearchParams(), Object.assign({
-    visitor: function(value, key, path, helpers) {
-      return helpers.defaultVisitor.apply(this, arguments);
-    }
-  }, options));
-}
-function parsePropPath(name) {
-  return utils.matchAll(/\w+|\[(\w*)]/g, name).map((match) => {
-    return match[0] === "[]" ? "" : match[1] || match[0];
-  });
-}
-function arrayToObject(arr) {
-  const obj = {};
-  const keys = Object.keys(arr);
-  let i;
-  const len = keys.length;
-  let key;
-  for (i = 0; i < len; i++) {
-    key = keys[i];
-    obj[key] = arr[key];
-  }
-  return obj;
-}
-function formDataToJSON(formData) {
-  function buildPath(path, value, target, index) {
-    let name = path[index++];
-    const isNumericKey = Number.isFinite(+name);
-    const isLast = index >= path.length;
-    name = !name && utils.isArray(target) ? target.length : name;
-    if (isLast) {
-      if (utils.hasOwnProp(target, name)) {
-        target[name] = [target[name], value];
-      } else {
-        target[name] = value;
-      }
-      return !isNumericKey;
-    }
-    if (!target[name] || !utils.isObject(target[name])) {
-      target[name] = [];
-    }
-    const result = buildPath(path, value, target[name], index);
-    if (result && utils.isArray(target[name])) {
-      target[name] = arrayToObject(target[name]);
-    }
-    return !isNumericKey;
-  }
-  if (utils.isFormData(formData) && utils.isFunction(formData.entries)) {
-    const obj = {};
-    utils.forEachEntry(formData, (name, value) => {
-      buildPath(parsePropPath(name), value, obj, 0);
-    });
-    return obj;
-  }
-  return null;
-}
-const DEFAULT_CONTENT_TYPE = {
-  "Content-Type": void 0
-};
-function stringifySafely(rawValue, parser, encoder) {
-  if (utils.isString(rawValue)) {
-    try {
-      (parser || JSON.parse)(rawValue);
-      return utils.trim(rawValue);
-    } catch (e) {
-      if (e.name !== "SyntaxError") {
-        throw e;
-      }
-    }
-  }
-  return (encoder || JSON.stringify)(rawValue);
-}
-const defaults = {
-  transitional: transitionalDefaults,
-  adapter: ["xhr", "http"],
-  transformRequest: [function transformRequest(data, headers) {
-    const contentType = headers.getContentType() || "";
-    const hasJSONContentType = contentType.indexOf("application/json") > -1;
-    const isObjectPayload = utils.isObject(data);
-    if (isObjectPayload && utils.isHTMLForm(data)) {
-      data = new FormData(data);
-    }
-    const isFormData2 = utils.isFormData(data);
-    if (isFormData2) {
-      if (!hasJSONContentType) {
-        return data;
-      }
-      return hasJSONContentType ? JSON.stringify(formDataToJSON(data)) : data;
-    }
-    if (utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data) || utils.isFile(data) || utils.isBlob(data)) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      headers.setContentType("application/x-www-form-urlencoded;charset=utf-8", false);
-      return data.toString();
-    }
-    let isFileList2;
-    if (isObjectPayload) {
-      if (contentType.indexOf("application/x-www-form-urlencoded") > -1) {
-        return toURLEncodedForm(data, this.formSerializer).toString();
-      }
-      if ((isFileList2 = utils.isFileList(data)) || contentType.indexOf("multipart/form-data") > -1) {
-        const _FormData = this.env && this.env.FormData;
-        return toFormData(isFileList2 ? {"files[]": data} : data, _FormData && new _FormData(), this.formSerializer);
-      }
-    }
-    if (isObjectPayload || hasJSONContentType) {
-      headers.setContentType("application/json", false);
-      return stringifySafely(data);
-    }
-    return data;
-  }],
-  transformResponse: [function transformResponse(data) {
-    const transitional2 = this.transitional || defaults.transitional;
-    const forcedJSONParsing = transitional2 && transitional2.forcedJSONParsing;
-    const JSONRequested = this.responseType === "json";
-    if (data && utils.isString(data) && (forcedJSONParsing && !this.responseType || JSONRequested)) {
-      const silentJSONParsing = transitional2 && transitional2.silentJSONParsing;
-      const strictJSONParsing = !silentJSONParsing && JSONRequested;
-      try {
-        return JSON.parse(data);
-      } catch (e) {
-        if (strictJSONParsing) {
-          if (e.name === "SyntaxError") {
-            throw AxiosError.from(e, AxiosError.ERR_BAD_RESPONSE, this, null, this.response);
-          }
-          throw e;
-        }
-      }
-    }
-    return data;
-  }],
-  timeout: 0,
-  xsrfCookieName: "XSRF-TOKEN",
-  xsrfHeaderName: "X-XSRF-TOKEN",
-  maxContentLength: -1,
-  maxBodyLength: -1,
-  env: {
-    FormData: platform.classes.FormData,
-    Blob: platform.classes.Blob
-  },
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  },
-  headers: {
-    common: {
-      Accept: "application/json, text/plain, */*"
-    }
-  }
-};
-utils.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
 const ignoreDuplicateOf = utils.toObjectSet([
   "age",
   "authorization",
@@ -6774,20 +6593,20 @@ function parseTokens(str) {
   return tokens;
 }
 const isValidHeaderName = (str) => /^[-_a-zA-Z0-9^`|~,!#$%&'*+.]+$/.test(str.trim());
-function matchHeaderValue(context, value, header, filter2, isHeaderNameFilter) {
-  if (utils.isFunction(filter2)) {
-    return filter2.call(this, value, header);
+function matchHeaderValue(context, value, header, filter, isHeaderNameFilter) {
+  if (utils.isFunction(filter)) {
+    return filter.call(this, value, header);
   }
   if (isHeaderNameFilter) {
     value = header;
   }
   if (!utils.isString(value))
     return;
-  if (utils.isString(filter2)) {
-    return value.indexOf(filter2) !== -1;
+  if (utils.isString(filter)) {
+    return value.indexOf(filter) !== -1;
   }
-  if (utils.isRegExp(filter2)) {
-    return filter2.test(value);
+  if (utils.isRegExp(filter)) {
+    return filter.test(value);
   }
 }
 function formatHeader(header) {
@@ -6946,11 +6765,11 @@ class AxiosHeaders {
       accessors: {}
     };
     const accessors = internals.accessors;
-    const prototype2 = this.prototype;
+    const prototype = this.prototype;
     function defineAccessor(_header) {
       const lHeader = normalizeHeader(_header);
       if (!accessors[lHeader]) {
-        buildAccessors(prototype2, _header);
+        buildAccessors(prototype, _header);
         accessors[lHeader] = true;
       }
     }
@@ -6961,20 +6780,6 @@ class AxiosHeaders {
 AxiosHeaders.accessor(["Content-Type", "Content-Length", "Accept", "Accept-Encoding", "User-Agent", "Authorization"]);
 utils.freezeMethods(AxiosHeaders.prototype);
 utils.freezeMethods(AxiosHeaders);
-function transformData(fns, response) {
-  const config = this || defaults;
-  const context = response || config;
-  const headers = AxiosHeaders.from(context.headers);
-  let data = context.data;
-  utils.forEach(fns, function transform(fn) {
-    data = fn.call(config, data, headers.normalize(), response ? response.status : void 0);
-  });
-  headers.normalize();
-  return data;
-}
-function isCancel(value) {
-  return !!(value && value.__CANCEL__);
-}
 function CanceledError(message, config, request) {
   AxiosError.call(this, message == null ? "canceled" : message, AxiosError.ERR_CANCELED, config, request);
   this.name = "CanceledError";
@@ -6982,17 +6787,9 @@ function CanceledError(message, config, request) {
 utils.inherits(CanceledError, AxiosError, {
   __CANCEL__: true
 });
-function settle(resolve, reject, response) {
-  const validateStatus2 = response.config.validateStatus;
-  if (!response.status || !validateStatus2 || validateStatus2(response.status)) {
-    resolve(response);
-  } else {
-    reject(new AxiosError("Request failed with status code " + response.status, [AxiosError.ERR_BAD_REQUEST, AxiosError.ERR_BAD_RESPONSE][Math.floor(response.status / 100) - 4], response.config, response.request, response));
-  }
-}
 var cookies = platform.isStandardBrowserEnv ? function standardBrowserEnv() {
   return {
-    write: function write3(name, value, expires, path, domain, secure) {
+    write: function write(name, value, expires, path, domain, secure) {
       const cookie = [];
       cookie.push(name + "=" + encodeURIComponent(value));
       if (utils.isNumber(expires)) {
@@ -7009,7 +6806,7 @@ var cookies = platform.isStandardBrowserEnv ? function standardBrowserEnv() {
       }
       document.cookie = cookie.join("; ");
     },
-    read: function read2(name) {
+    read: function read(name) {
       const match = document.cookie.match(new RegExp("(^|;\\s*)(" + name + ")=([^;]*)"));
       return match ? decodeURIComponent(match[3]) : null;
     },
@@ -7019,27 +6816,15 @@ var cookies = platform.isStandardBrowserEnv ? function standardBrowserEnv() {
   };
 }() : function nonStandardBrowserEnv() {
   return {
-    write: function write3() {
+    write: function write() {
     },
-    read: function read2() {
+    read: function read() {
       return null;
     },
     remove: function remove() {
     }
   };
 }();
-function isAbsoluteURL(url) {
-  return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
-}
-function combineURLs(baseURL, relativeURL) {
-  return relativeURL ? baseURL.replace(/\/+$/, "") + "/" + relativeURL.replace(/^\/+/, "") : baseURL;
-}
-function buildFullPath(baseURL, requestedURL) {
-  if (baseURL && !isAbsoluteURL(requestedURL)) {
-    return combineURLs(baseURL, requestedURL);
-  }
-  return requestedURL;
-}
 var isURLSameOrigin = platform.isStandardBrowserEnv ? function standardBrowserEnv2() {
   const msie = /(msie|trident)/i.test(navigator.userAgent);
   const urlParsingNode = document.createElement("a");
@@ -7147,8 +6932,12 @@ var xhrAdapter = isXHRAdapterSupported && function(config) {
         config.signal.removeEventListener("abort", onCanceled);
       }
     }
-    if (utils.isFormData(requestData) && (platform.isStandardBrowserEnv || platform.isStandardBrowserWebWorkerEnv)) {
-      requestHeaders.setContentType(false);
+    if (utils.isFormData(requestData)) {
+      if (platform.isStandardBrowserEnv || platform.isStandardBrowserWebWorkerEnv) {
+        requestHeaders.setContentType(false);
+      } else {
+        requestHeaders.setContentType("multipart/form-data;", false);
+      }
     }
     let request = new XMLHttpRequest();
     if (config.auth) {
@@ -7208,11 +6997,11 @@ var xhrAdapter = isXHRAdapterSupported && function(config) {
     };
     request.ontimeout = function handleTimeout() {
       let timeoutErrorMessage = config.timeout ? "timeout of " + config.timeout + "ms exceeded" : "timeout exceeded";
-      const transitional2 = config.transitional || transitionalDefaults;
+      const transitional = config.transitional || transitionalDefaults;
       if (config.timeoutErrorMessage) {
         timeoutErrorMessage = config.timeoutErrorMessage;
       }
-      reject(new AxiosError(timeoutErrorMessage, transitional2.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED, config, request));
+      reject(new AxiosError(timeoutErrorMessage, transitional.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED, config, request));
       request = null;
     };
     if (platform.isStandardBrowserEnv) {
@@ -7261,6 +7050,213 @@ var xhrAdapter = isXHRAdapterSupported && function(config) {
     request.send(requestData || null);
   });
 };
+
+var httpAdapter = null;
+
+class InterceptorManager {
+  constructor() {
+    this.handlers = [];
+  }
+  use(fulfilled, rejected, options) {
+    this.handlers.push({
+      fulfilled,
+      rejected,
+      synchronous: options ? options.synchronous : false,
+      runWhen: options ? options.runWhen : null
+    });
+    return this.handlers.length - 1;
+  }
+  eject(id) {
+    if (this.handlers[id]) {
+      this.handlers[id] = null;
+    }
+  }
+  clear() {
+    if (this.handlers) {
+      this.handlers = [];
+    }
+  }
+  forEach(fn) {
+    utils.forEach(this.handlers, function forEachHandler(h) {
+      if (h !== null) {
+        fn(h);
+      }
+    });
+  }
+}
+function toURLEncodedForm(data, options) {
+  return toFormData(data, new platform.classes.URLSearchParams(), Object.assign({
+    visitor: function(value, key, path, helpers) {
+      return helpers.defaultVisitor.apply(this, arguments);
+    }
+  }, options));
+}
+function parsePropPath(name) {
+  return utils.matchAll(/\w+|\[(\w*)]/g, name).map((match) => {
+    return match[0] === "[]" ? "" : match[1] || match[0];
+  });
+}
+function arrayToObject(arr) {
+  const obj = {};
+  const keys = Object.keys(arr);
+  let i;
+  const len = keys.length;
+  let key;
+  for (i = 0; i < len; i++) {
+    key = keys[i];
+    obj[key] = arr[key];
+  }
+  return obj;
+}
+function formDataToJSON(formData) {
+  function buildPath(path, value, target, index) {
+    let name = path[index++];
+    const isNumericKey = Number.isFinite(+name);
+    const isLast = index >= path.length;
+    name = !name && utils.isArray(target) ? target.length : name;
+    if (isLast) {
+      if (utils.hasOwnProp(target, name)) {
+        target[name] = [target[name], value];
+      } else {
+        target[name] = value;
+      }
+      return !isNumericKey;
+    }
+    if (!target[name] || !utils.isObject(target[name])) {
+      target[name] = [];
+    }
+    const result = buildPath(path, value, target[name], index);
+    if (result && utils.isArray(target[name])) {
+      target[name] = arrayToObject(target[name]);
+    }
+    return !isNumericKey;
+  }
+  if (utils.isFormData(formData) && utils.isFunction(formData.entries)) {
+    const obj = {};
+    utils.forEachEntry(formData, (name, value) => {
+      buildPath(parsePropPath(name), value, obj, 0);
+    });
+    return obj;
+  }
+  return null;
+}
+const DEFAULT_CONTENT_TYPE = {
+  "Content-Type": void 0
+};
+function stringifySafely(rawValue, parser, encoder) {
+  if (utils.isString(rawValue)) {
+    try {
+      (parser || JSON.parse)(rawValue);
+      return utils.trim(rawValue);
+    } catch (e) {
+      if (e.name !== "SyntaxError") {
+        throw e;
+      }
+    }
+  }
+  return (encoder || JSON.stringify)(rawValue);
+}
+const defaults = {
+  transitional: transitionalDefaults,
+  adapter: ["xhr", "http"],
+  transformRequest: [function transformRequest(data, headers) {
+    const contentType = headers.getContentType() || "";
+    const hasJSONContentType = contentType.indexOf("application/json") > -1;
+    const isObjectPayload = utils.isObject(data);
+    if (isObjectPayload && utils.isHTMLForm(data)) {
+      data = new FormData(data);
+    }
+    const isFormData = utils.isFormData(data);
+    if (isFormData) {
+      if (!hasJSONContentType) {
+        return data;
+      }
+      return hasJSONContentType ? JSON.stringify(formDataToJSON(data)) : data;
+    }
+    if (utils.isArrayBuffer(data) || utils.isBuffer(data) || utils.isStream(data) || utils.isFile(data) || utils.isBlob(data)) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      headers.setContentType("application/x-www-form-urlencoded;charset=utf-8", false);
+      return data.toString();
+    }
+    let isFileList;
+    if (isObjectPayload) {
+      if (contentType.indexOf("application/x-www-form-urlencoded") > -1) {
+        return toURLEncodedForm(data, this.formSerializer).toString();
+      }
+      if ((isFileList = utils.isFileList(data)) || contentType.indexOf("multipart/form-data") > -1) {
+        const _FormData = this.env && this.env.FormData;
+        return toFormData(isFileList ? {"files[]": data} : data, _FormData && new _FormData(), this.formSerializer);
+      }
+    }
+    if (isObjectPayload || hasJSONContentType) {
+      headers.setContentType("application/json", false);
+      return stringifySafely(data);
+    }
+    return data;
+  }],
+  transformResponse: [function transformResponse(data) {
+    const transitional2 = this.transitional || defaults.transitional;
+    const forcedJSONParsing = transitional2 && transitional2.forcedJSONParsing;
+    const JSONRequested = this.responseType === "json";
+    if (data && utils.isString(data) && (forcedJSONParsing && !this.responseType || JSONRequested)) {
+      const silentJSONParsing = transitional2 && transitional2.silentJSONParsing;
+      const strictJSONParsing = !silentJSONParsing && JSONRequested;
+      try {
+        return JSON.parse(data);
+      } catch (e) {
+        if (strictJSONParsing) {
+          if (e.name === "SyntaxError") {
+            throw AxiosError.from(e, AxiosError.ERR_BAD_RESPONSE, this, null, this.response);
+          }
+          throw e;
+        }
+      }
+    }
+    return data;
+  }],
+  timeout: 0,
+  xsrfCookieName: "XSRF-TOKEN",
+  xsrfHeaderName: "X-XSRF-TOKEN",
+  maxContentLength: -1,
+  maxBodyLength: -1,
+  env: {
+    FormData: platform.classes.FormData,
+    Blob: platform.classes.Blob
+  },
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  },
+  headers: {
+    common: {
+      Accept: "application/json, text/plain, */*"
+    }
+  }
+};
+utils.forEach(["delete", "get", "head"], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+utils.forEach(["post", "put", "patch"], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+function transformData(fns, response) {
+  const config = this || defaults;
+  const context = response || config;
+  const headers = AxiosHeaders.from(context.headers);
+  let data = context.data;
+  utils.forEach(fns, function transform(fn) {
+    data = fn.call(config, data, headers.normalize(), response ? response.status : void 0);
+  });
+  headers.normalize();
+  return data;
+}
+function isCancel(value) {
+  return !!(value && value.__CANCEL__);
+}
 const knownAdapters = {
   http: httpAdapter,
   xhr: xhrAdapter
@@ -7401,14 +7397,14 @@ function mergeConfig(config1, config2) {
     validateStatus: mergeDirectKeys,
     headers: (a, b) => mergeDeepProperties(headersToObject(a), headersToObject(b), true)
   };
-  utils.forEach(Object.keys(config1).concat(Object.keys(config2)), function computeConfigValue(prop) {
-    const merge2 = mergeMap[prop] || mergeDeepProperties;
-    const configValue = merge2(config1[prop], config2[prop], prop);
-    utils.isUndefined(configValue) && merge2 !== mergeDirectKeys || (config[prop] = configValue);
+  utils.forEach(Object.keys(Object.assign({}, config1, config2)), function computeConfigValue(prop) {
+    const merge = mergeMap[prop] || mergeDeepProperties;
+    const configValue = merge(config1[prop], config2[prop], prop);
+    utils.isUndefined(configValue) && merge !== mergeDirectKeys || (config[prop] = configValue);
   });
   return config;
 }
-const VERSION = "1.3.6";
+const VERSION = "1.4.0";
 const validators = {};
 ["object", "boolean", "number", "function", "string", "symbol"].forEach((type, i) => {
   validators[type] = function validator2(thing) {
@@ -7768,17 +7764,17 @@ axios.default = axios;
 
 function get_each_context$2(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[21] = list[i].label;
-	child_ctx[22] = list[i].type;
-	child_ctx[23] = list[i].placeholder;
-	child_ctx[24] = list[i].required;
-	child_ctx[27] = i;
-	const constants_0 = `${/*label*/ child_ctx[21]}-${/*i*/ child_ctx[27]}`;
-	child_ctx[25] = constants_0;
+	child_ctx[18] = list[i].label;
+	child_ctx[19] = list[i].type;
+	child_ctx[20] = list[i].placeholder;
+	child_ctx[21] = list[i].required;
+	child_ctx[24] = i;
+	const constants_0 = `${/*label*/ child_ctx[18]}-${/*i*/ child_ctx[24]}`;
+	child_ctx[22] = constants_0;
 	return child_ctx;
 }
 
-// (259:18) 
+// (256:18) 
 function create_if_block_7(ctx) {
 	let div;
 	let html_tag;
@@ -7842,7 +7838,7 @@ function create_if_block_7(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(button, "click", /*click_handler_1*/ ctx[20]);
+				dispose = listen(button, "click", /*click_handler_1*/ ctx[17]);
 				mounted = true;
 			}
 		},
@@ -7868,7 +7864,7 @@ function create_if_block_7(ctx) {
 	};
 }
 
-// (251:22) 
+// (248:22) 
 function create_if_block_6(ctx) {
 	let div;
 	let html_tag;
@@ -7932,7 +7928,7 @@ function create_if_block_6(ctx) {
 			current = true;
 
 			if (!mounted) {
-				dispose = listen(button, "click", /*click_handler*/ ctx[19]);
+				dispose = listen(button, "click", /*click_handler*/ ctx[16]);
 				mounted = true;
 			}
 		},
@@ -7958,7 +7954,7 @@ function create_if_block_6(ctx) {
 	};
 }
 
-// (196:2) {#if !submitted && !error}
+// (193:2) {#if !submitted && !error}
 function create_if_block$2(ctx) {
 	let div2;
 	let div1;
@@ -8155,18 +8151,18 @@ function create_if_block$2(ctx) {
 	};
 }
 
-// (231:10) {:else}
+// (228:10) {:else}
 function create_else_block$1(ctx) {
 	let label;
 	let span;
-	let t0_value = /*label*/ ctx[21] + "";
+	let t0_value = /*label*/ ctx[18] + "";
 	let t0;
 	let t1;
 	let t2;
 	let input;
 	let input_name_value;
 	let input_placeholder_value;
-	let if_block = /*required*/ ctx[24] && create_if_block_5();
+	let if_block = /*required*/ ctx[21] && create_if_block_5();
 
 	return {
 		c() {
@@ -8203,8 +8199,8 @@ function create_else_block$1(ctx) {
 		h() {
 			attr(span, "class", "svelte-o7fd5j");
 			attr(input, "type", "text");
-			attr(input, "name", input_name_value = /*label*/ ctx[21]);
-			attr(input, "placeholder", input_placeholder_value = /*placeholder*/ ctx[23]);
+			attr(input, "name", input_name_value = /*label*/ ctx[18]);
+			attr(input, "placeholder", input_placeholder_value = /*placeholder*/ ctx[20]);
 			attr(input, "class", "svelte-o7fd5j");
 			attr(label, "class", "svelte-o7fd5j");
 		},
@@ -8218,9 +8214,9 @@ function create_else_block$1(ctx) {
 			append_hydration(label, input);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*fields*/ 2 && t0_value !== (t0_value = /*label*/ ctx[21] + "")) set_data(t0, t0_value);
+			if (dirty & /*fields*/ 2 && t0_value !== (t0_value = /*label*/ ctx[18] + "")) set_data(t0, t0_value);
 
-			if (/*required*/ ctx[24]) {
+			if (/*required*/ ctx[21]) {
 				if (if_block) ; else {
 					if_block = create_if_block_5();
 					if_block.c();
@@ -8231,11 +8227,11 @@ function create_else_block$1(ctx) {
 				if_block = null;
 			}
 
-			if (dirty & /*fields*/ 2 && input_name_value !== (input_name_value = /*label*/ ctx[21])) {
+			if (dirty & /*fields*/ 2 && input_name_value !== (input_name_value = /*label*/ ctx[18])) {
 				attr(input, "name", input_name_value);
 			}
 
-			if (dirty & /*fields*/ 2 && input_placeholder_value !== (input_placeholder_value = /*placeholder*/ ctx[23])) {
+			if (dirty & /*fields*/ 2 && input_placeholder_value !== (input_placeholder_value = /*placeholder*/ ctx[20])) {
 				attr(input, "placeholder", input_placeholder_value);
 			}
 		},
@@ -8248,18 +8244,18 @@ function create_else_block$1(ctx) {
 	};
 }
 
-// (222:40) 
+// (219:40) 
 function create_if_block_3(ctx) {
 	let label;
 	let span;
-	let t0_value = /*label*/ ctx[21] + "";
+	let t0_value = /*label*/ ctx[18] + "";
 	let t0;
 	let t1;
 	let t2;
 	let textarea;
 	let textarea_name_value;
 	let textarea_placeholder_value;
-	let if_block = /*required*/ ctx[24] && create_if_block_4();
+	let if_block = /*required*/ ctx[21] && create_if_block_4();
 
 	return {
 		c() {
@@ -8295,8 +8291,8 @@ function create_if_block_3(ctx) {
 		},
 		h() {
 			attr(span, "class", "svelte-o7fd5j");
-			attr(textarea, "name", textarea_name_value = /*label*/ ctx[21]);
-			attr(textarea, "placeholder", textarea_placeholder_value = /*placeholder*/ ctx[23]);
+			attr(textarea, "name", textarea_name_value = /*label*/ ctx[18]);
+			attr(textarea, "placeholder", textarea_placeholder_value = /*placeholder*/ ctx[20]);
 			attr(textarea, "class", "svelte-o7fd5j");
 			attr(label, "class", "has-textarea svelte-o7fd5j");
 		},
@@ -8310,9 +8306,9 @@ function create_if_block_3(ctx) {
 			append_hydration(label, textarea);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*fields*/ 2 && t0_value !== (t0_value = /*label*/ ctx[21] + "")) set_data(t0, t0_value);
+			if (dirty & /*fields*/ 2 && t0_value !== (t0_value = /*label*/ ctx[18] + "")) set_data(t0, t0_value);
 
-			if (/*required*/ ctx[24]) {
+			if (/*required*/ ctx[21]) {
 				if (if_block) ; else {
 					if_block = create_if_block_4();
 					if_block.c();
@@ -8323,11 +8319,11 @@ function create_if_block_3(ctx) {
 				if_block = null;
 			}
 
-			if (dirty & /*fields*/ 2 && textarea_name_value !== (textarea_name_value = /*label*/ ctx[21])) {
+			if (dirty & /*fields*/ 2 && textarea_name_value !== (textarea_name_value = /*label*/ ctx[18])) {
 				attr(textarea, "name", textarea_name_value);
 			}
 
-			if (dirty & /*fields*/ 2 && textarea_placeholder_value !== (textarea_placeholder_value = /*placeholder*/ ctx[23])) {
+			if (dirty & /*fields*/ 2 && textarea_placeholder_value !== (textarea_placeholder_value = /*placeholder*/ ctx[20])) {
 				attr(textarea, "placeholder", textarea_placeholder_value);
 			}
 		},
@@ -8340,17 +8336,17 @@ function create_if_block_3(ctx) {
 	};
 }
 
-// (203:10) {#if type === "file"}
+// (200:10) {#if type === "file"}
 function create_if_block_1$1(ctx) {
 	let label;
 	let span0;
-	let t0_value = /*label*/ ctx[21] + "";
+	let t0_value = /*label*/ ctx[18] + "";
 	let t0;
 	let t1;
 	let t2;
 	let div;
 	let span1;
-	let t3_value = (/*files*/ ctx[5][/*id*/ ctx[25]] || "Choose file") + "";
+	let t3_value = (/*files*/ ctx[5][/*id*/ ctx[22]] || "Choose file") + "";
 	let t3;
 	let t4;
 	let span2;
@@ -8362,11 +8358,11 @@ function create_if_block_1$1(ctx) {
 	let current;
 	let mounted;
 	let dispose;
-	let if_block = /*required*/ ctx[24] && create_if_block_2();
+	let if_block = /*required*/ ctx[21] && create_if_block_2();
 	icon = new Component$1({ props: { icon: "ep:upload-filled" } });
 
 	function change_handler(...args) {
-		return /*change_handler*/ ctx[18](/*id*/ ctx[25], ...args);
+		return /*change_handler*/ ctx[15](/*id*/ ctx[22], ...args);
 	}
 
 	return {
@@ -8421,7 +8417,7 @@ function create_if_block_1$1(ctx) {
 			attr(span1, "class", "button-left svelte-o7fd5j");
 			attr(span2, "class", "button-right svelte-o7fd5j");
 			attr(div, "class", "field-item svelte-o7fd5j");
-			attr(input, "name", input_name_value = /*label*/ ctx[21]);
+			attr(input, "name", input_name_value = /*label*/ ctx[18]);
 			attr(input, "type", "file");
 			attr(input, "class", "svelte-o7fd5j");
 			attr(label, "class", "file svelte-o7fd5j");
@@ -8451,9 +8447,9 @@ function create_if_block_1$1(ctx) {
 		},
 		p(new_ctx, dirty) {
 			ctx = new_ctx;
-			if ((!current || dirty & /*fields*/ 2) && t0_value !== (t0_value = /*label*/ ctx[21] + "")) set_data(t0, t0_value);
+			if ((!current || dirty & /*fields*/ 2) && t0_value !== (t0_value = /*label*/ ctx[18] + "")) set_data(t0, t0_value);
 
-			if (/*required*/ ctx[24]) {
+			if (/*required*/ ctx[21]) {
 				if (if_block) ; else {
 					if_block = create_if_block_2();
 					if_block.c();
@@ -8464,9 +8460,9 @@ function create_if_block_1$1(ctx) {
 				if_block = null;
 			}
 
-			if ((!current || dirty & /*files, fields*/ 34) && t3_value !== (t3_value = (/*files*/ ctx[5][/*id*/ ctx[25]] || "Choose file") + "")) set_data(t3, t3_value);
+			if ((!current || dirty & /*files, fields*/ 34) && t3_value !== (t3_value = (/*files*/ ctx[5][/*id*/ ctx[22]] || "Choose file") + "")) set_data(t3, t3_value);
 
-			if (!current || dirty & /*fields*/ 2 && input_name_value !== (input_name_value = /*label*/ ctx[21])) {
+			if (!current || dirty & /*fields*/ 2 && input_name_value !== (input_name_value = /*label*/ ctx[18])) {
 				attr(input, "name", input_name_value);
 			}
 		},
@@ -8489,7 +8485,7 @@ function create_if_block_1$1(ctx) {
 	};
 }
 
-// (235:16) {#if required}
+// (232:16) {#if required}
 function create_if_block_5(ctx) {
 	let span;
 	let t;
@@ -8520,7 +8516,7 @@ function create_if_block_5(ctx) {
 	};
 }
 
-// (226:16) {#if required}
+// (223:16) {#if required}
 function create_if_block_4(ctx) {
 	let span;
 	let t;
@@ -8551,7 +8547,7 @@ function create_if_block_4(ctx) {
 	};
 }
 
-// (207:16) {#if required}
+// (204:16) {#if required}
 function create_if_block_2(ctx) {
 	let span;
 	let t;
@@ -8582,7 +8578,7 @@ function create_if_block_2(ctx) {
 	};
 }
 
-// (201:8) {#each fields as { label, type, placeholder, required }
+// (198:8) {#each fields as { label, type, placeholder, required }
 function create_each_block$2(ctx) {
 	let current_block_type_index;
 	let if_block;
@@ -8592,8 +8588,8 @@ function create_each_block$2(ctx) {
 	const if_blocks = [];
 
 	function select_block_type_1(ctx, dirty) {
-		if (/*type*/ ctx[22] === "file") return 0;
-		if (/*type*/ ctx[22] === "textarea") return 1;
+		if (/*type*/ ctx[19] === "file") return 0;
+		if (/*type*/ ctx[19] === "textarea") return 1;
 		return 2;
 	}
 
@@ -8841,10 +8837,7 @@ function get_form_data(form) {
 }
 
 function instance$4($$self, $$props, $$invalidate) {
-	let { logo } = $$props;
 	let { social } = $$props;
-	let { contacts } = $$props;
-	let { site_nav } = $$props;
 	let { site_footer } = $$props;
 	let { title } = $$props;
 	let { description } = $$props;
@@ -8882,14 +8875,11 @@ function instance$4($$self, $$props, $$invalidate) {
 	const click_handler_1 = () => $$invalidate(7, error = false);
 
 	$$self.$$set = $$props => {
-		if ('logo' in $$props) $$invalidate(10, logo = $$props.logo);
-		if ('social' in $$props) $$invalidate(11, social = $$props.social);
-		if ('contacts' in $$props) $$invalidate(12, contacts = $$props.contacts);
-		if ('site_nav' in $$props) $$invalidate(13, site_nav = $$props.site_nav);
-		if ('site_footer' in $$props) $$invalidate(14, site_footer = $$props.site_footer);
-		if ('title' in $$props) $$invalidate(15, title = $$props.title);
-		if ('description' in $$props) $$invalidate(16, description = $$props.description);
-		if ('form_endpoint' in $$props) $$invalidate(17, form_endpoint = $$props.form_endpoint);
+		if ('social' in $$props) $$invalidate(10, social = $$props.social);
+		if ('site_footer' in $$props) $$invalidate(11, site_footer = $$props.site_footer);
+		if ('title' in $$props) $$invalidate(12, title = $$props.title);
+		if ('description' in $$props) $$invalidate(13, description = $$props.description);
+		if ('form_endpoint' in $$props) $$invalidate(14, form_endpoint = $$props.form_endpoint);
 		if ('heading' in $$props) $$invalidate(0, heading = $$props.heading);
 		if ('fields' in $$props) $$invalidate(1, fields = $$props.fields);
 		if ('footer_text' in $$props) $$invalidate(2, footer_text = $$props.footer_text);
@@ -8908,10 +8898,7 @@ function instance$4($$self, $$props, $$invalidate) {
 		error,
 		add_file,
 		submit_form,
-		logo,
 		social,
-		contacts,
-		site_nav,
 		site_footer,
 		title,
 		description,
@@ -8927,14 +8914,11 @@ class Component$4 extends SvelteComponent {
 		super();
 
 		init(this, options, instance$4, create_fragment$4, safe_not_equal, {
-			logo: 10,
-			social: 11,
-			contacts: 12,
-			site_nav: 13,
-			site_footer: 14,
-			title: 15,
-			description: 16,
-			form_endpoint: 17,
+			social: 10,
+			site_footer: 11,
+			title: 12,
+			description: 13,
+			form_endpoint: 14,
 			heading: 0,
 			fields: 1,
 			footer_text: 2,
@@ -8948,15 +8932,15 @@ class Component$4 extends SvelteComponent {
 
 function get_each_context$3(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[12] = list[i];
-	child_ctx[14] = i;
+	child_ctx[9] = list[i];
+	child_ctx[11] = i;
 	return child_ctx;
 }
 
-// (94:10) {#if activeItem === i}
+// (91:10) {#if activeItem === i}
 function create_if_block$3(ctx) {
 	let div;
-	let raw_value = /*item*/ ctx[12].description + "";
+	let raw_value = /*item*/ ctx[9].description + "";
 	let div_transition;
 	let current;
 
@@ -8980,7 +8964,7 @@ function create_if_block$3(ctx) {
 			current = true;
 		},
 		p(ctx, dirty) {
-			if ((!current || dirty & /*items*/ 2) && raw_value !== (raw_value = /*item*/ ctx[12].description + "")) div.innerHTML = raw_value;		},
+			if ((!current || dirty & /*items*/ 2) && raw_value !== (raw_value = /*item*/ ctx[9].description + "")) div.innerHTML = raw_value;		},
 		i(local) {
 			if (current) return;
 
@@ -9004,12 +8988,12 @@ function create_if_block$3(ctx) {
 	};
 }
 
-// (86:6) {#each items as item, i (i)}
+// (83:6) {#each items as item, i (i)}
 function create_each_block$3(key_1, ctx) {
 	let div1;
 	let button;
 	let span0;
-	let t0_value = /*item*/ ctx[12].title + "";
+	let t0_value = /*item*/ ctx[9].title + "";
 	let t0;
 	let t1;
 	let span1;
@@ -9023,10 +9007,10 @@ function create_each_block$3(key_1, ctx) {
 	icon = new Component$1({ props: { icon: "ph:caret-down-bold" } });
 
 	function click_handler() {
-		return /*click_handler*/ ctx[11](/*i*/ ctx[14]);
+		return /*click_handler*/ ctx[8](/*i*/ ctx[11]);
 	}
 
-	let if_block = /*activeItem*/ ctx[2] === /*i*/ ctx[14] && create_if_block$3(ctx);
+	let if_block = /*activeItem*/ ctx[2] === /*i*/ ctx[11] && create_if_block$3(ctx);
 
 	return {
 		key: key_1,
@@ -9072,7 +9056,7 @@ function create_each_block$3(key_1, ctx) {
 			attr(span1, "class", "icon svelte-wztysl");
 			attr(button, "class", "svelte-wztysl");
 			attr(div1, "class", "item svelte-wztysl");
-			toggle_class(div1, "active", /*activeItem*/ ctx[2] === /*i*/ ctx[14]);
+			toggle_class(div1, "active", /*activeItem*/ ctx[2] === /*i*/ ctx[11]);
 			this.first = div1;
 		},
 		m(target, anchor) {
@@ -9096,9 +9080,9 @@ function create_each_block$3(key_1, ctx) {
 		},
 		p(new_ctx, dirty) {
 			ctx = new_ctx;
-			if ((!current || dirty & /*items*/ 2) && t0_value !== (t0_value = /*item*/ ctx[12].title + "")) set_data(t0, t0_value);
+			if ((!current || dirty & /*items*/ 2) && t0_value !== (t0_value = /*item*/ ctx[9].title + "")) set_data(t0, t0_value);
 
-			if (/*activeItem*/ ctx[2] === /*i*/ ctx[14]) {
+			if (/*activeItem*/ ctx[2] === /*i*/ ctx[11]) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
 
@@ -9122,7 +9106,7 @@ function create_each_block$3(key_1, ctx) {
 			}
 
 			if (!current || dirty & /*activeItem, items*/ 6) {
-				toggle_class(div1, "active", /*activeItem*/ ctx[2] === /*i*/ ctx[14]);
+				toggle_class(div1, "active", /*activeItem*/ ctx[2] === /*i*/ ctx[11]);
 			}
 		},
 		i(local) {
@@ -9159,7 +9143,7 @@ function create_fragment$5(ctx) {
 	let each_1_lookup = new Map();
 	let current;
 	let each_value = /*items*/ ctx[1];
-	const get_key = ctx => /*i*/ ctx[14];
+	const get_key = ctx => /*i*/ ctx[11];
 
 	for (let i = 0; i < each_value.length; i += 1) {
 		let child_ctx = get_each_context$3(ctx, each_value, i);
@@ -9276,10 +9260,7 @@ function create_fragment$5(ctx) {
 }
 
 function instance$5($$self, $$props, $$invalidate) {
-	let { logo } = $$props;
 	let { social } = $$props;
-	let { contacts } = $$props;
-	let { site_nav } = $$props;
 	let { site_footer } = $$props;
 	let { title } = $$props;
 	let { description } = $$props;
@@ -9294,13 +9275,10 @@ function instance$5($$self, $$props, $$invalidate) {
 	const click_handler = i => setActiveItem(i);
 
 	$$self.$$set = $$props => {
-		if ('logo' in $$props) $$invalidate(4, logo = $$props.logo);
-		if ('social' in $$props) $$invalidate(5, social = $$props.social);
-		if ('contacts' in $$props) $$invalidate(6, contacts = $$props.contacts);
-		if ('site_nav' in $$props) $$invalidate(7, site_nav = $$props.site_nav);
-		if ('site_footer' in $$props) $$invalidate(8, site_footer = $$props.site_footer);
-		if ('title' in $$props) $$invalidate(9, title = $$props.title);
-		if ('description' in $$props) $$invalidate(10, description = $$props.description);
+		if ('social' in $$props) $$invalidate(4, social = $$props.social);
+		if ('site_footer' in $$props) $$invalidate(5, site_footer = $$props.site_footer);
+		if ('title' in $$props) $$invalidate(6, title = $$props.title);
+		if ('description' in $$props) $$invalidate(7, description = $$props.description);
 		if ('heading' in $$props) $$invalidate(0, heading = $$props.heading);
 		if ('items' in $$props) $$invalidate(1, items = $$props.items);
 	};
@@ -9310,10 +9288,7 @@ function instance$5($$self, $$props, $$invalidate) {
 		items,
 		activeItem,
 		setActiveItem,
-		logo,
 		social,
-		contacts,
-		site_nav,
 		site_footer,
 		title,
 		description,
@@ -9326,13 +9301,10 @@ class Component$5 extends SvelteComponent {
 		super();
 
 		init(this, options, instance$5, create_fragment$5, safe_not_equal, {
-			logo: 4,
-			social: 5,
-			contacts: 6,
-			site_nav: 7,
-			site_footer: 8,
-			title: 9,
-			description: 10,
+			social: 4,
+			site_footer: 5,
+			title: 6,
+			description: 7,
 			heading: 0,
 			items: 1
 		});
@@ -9343,21 +9315,21 @@ class Component$5 extends SvelteComponent {
 
 function get_each_context$4(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[7] = list[i].link;
-	child_ctx[8] = list[i].icon;
+	child_ctx[5] = list[i].link;
+	child_ctx[6] = list[i].icon;
 	return child_ctx;
 }
 
 function get_each_context_1$1(ctx, list, i) {
 	const child_ctx = ctx.slice();
-	child_ctx[7] = list[i].link;
+	child_ctx[5] = list[i].link;
 	return child_ctx;
 }
 
-// (90:4) {#each site_footer as { link }}
+// (88:4) {#each links as { link }}
 function create_each_block_1$1(ctx) {
 	let a;
-	let t_value = /*link*/ ctx[7].label + "";
+	let t_value = /*link*/ ctx[5].label + "";
 	let t;
 	let a_href_value;
 
@@ -9376,16 +9348,16 @@ function create_each_block_1$1(ctx) {
 		},
 		h() {
 			attr(a, "class", "link svelte-s3xnx0");
-			attr(a, "href", a_href_value = /*link*/ ctx[7].url);
+			attr(a, "href", a_href_value = /*link*/ ctx[5].url);
 		},
 		m(target, anchor) {
 			insert_hydration(target, a, anchor);
 			append_hydration(a, t);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*site_footer*/ 2 && t_value !== (t_value = /*link*/ ctx[7].label + "")) set_data(t, t_value);
+			if (dirty & /*links*/ 2 && t_value !== (t_value = /*link*/ ctx[5].label + "")) set_data(t, t_value);
 
-			if (dirty & /*site_footer*/ 2 && a_href_value !== (a_href_value = /*link*/ ctx[7].url)) {
+			if (dirty & /*links*/ 2 && a_href_value !== (a_href_value = /*link*/ ctx[5].url)) {
 				attr(a, "href", a_href_value);
 			}
 		},
@@ -9395,7 +9367,7 @@ function create_each_block_1$1(ctx) {
 	};
 }
 
-// (96:4) {#each social as { link, icon }}
+// (94:4) {#each social as { link, icon }}
 function create_each_block$4(ctx) {
 	let a;
 	let icon;
@@ -9403,7 +9375,7 @@ function create_each_block$4(ctx) {
 	let a_href_value;
 	let a_aria_label_value;
 	let current;
-	icon = new Component$1({ props: { icon: /*icon*/ ctx[8] } });
+	icon = new Component$1({ props: { icon: /*icon*/ ctx[6] } });
 
 	return {
 		c() {
@@ -9426,8 +9398,8 @@ function create_each_block$4(ctx) {
 			this.h();
 		},
 		h() {
-			attr(a, "href", a_href_value = /*link*/ ctx[7].url);
-			attr(a, "aria-label", a_aria_label_value = /*link*/ ctx[7].label);
+			attr(a, "href", a_href_value = /*link*/ ctx[5].url);
+			attr(a, "aria-label", a_aria_label_value = /*link*/ ctx[5].label);
 			attr(a, "class", "svelte-s3xnx0");
 		},
 		m(target, anchor) {
@@ -9438,14 +9410,14 @@ function create_each_block$4(ctx) {
 		},
 		p(ctx, dirty) {
 			const icon_changes = {};
-			if (dirty & /*social*/ 1) icon_changes.icon = /*icon*/ ctx[8];
+			if (dirty & /*social*/ 1) icon_changes.icon = /*icon*/ ctx[6];
 			icon.$set(icon_changes);
 
-			if (!current || dirty & /*social*/ 1 && a_href_value !== (a_href_value = /*link*/ ctx[7].url)) {
+			if (!current || dirty & /*social*/ 1 && a_href_value !== (a_href_value = /*link*/ ctx[5].url)) {
 				attr(a, "href", a_href_value);
 			}
 
-			if (!current || dirty & /*social*/ 1 && a_aria_label_value !== (a_aria_label_value = /*link*/ ctx[7].label)) {
+			if (!current || dirty & /*social*/ 1 && a_aria_label_value !== (a_aria_label_value = /*link*/ ctx[5].label)) {
 				attr(a, "aria-label", a_aria_label_value);
 			}
 		},
@@ -9478,7 +9450,7 @@ function create_fragment$6(ctx) {
 	let t3;
 	let div0;
 	let current;
-	let each_value_1 = /*site_footer*/ ctx[1];
+	let each_value_1 = /*links*/ ctx[1];
 	let each_blocks_1 = [];
 
 	for (let i = 0; i < each_value_1.length; i += 1) {
@@ -9599,8 +9571,8 @@ function create_fragment$6(ctx) {
 			current = true;
 		},
 		p(ctx, [dirty]) {
-			if (dirty & /*site_footer*/ 2) {
-				each_value_1 = /*site_footer*/ ctx[1];
+			if (dirty & /*links*/ 2) {
+				each_value_1 = /*links*/ ctx[1];
 				let i;
 
 				for (i = 0; i < each_value_1.length; i += 1) {
@@ -9676,25 +9648,21 @@ function create_fragment$6(ctx) {
 }
 
 function instance$6($$self, $$props, $$invalidate) {
-	let { logo } = $$props;
 	let { social } = $$props;
-	let { contacts } = $$props;
-	let { site_nav } = $$props;
 	let { site_footer } = $$props;
 	let { title } = $$props;
 	let { description } = $$props;
+	let { links } = $$props;
 
 	$$self.$$set = $$props => {
-		if ('logo' in $$props) $$invalidate(2, logo = $$props.logo);
 		if ('social' in $$props) $$invalidate(0, social = $$props.social);
-		if ('contacts' in $$props) $$invalidate(3, contacts = $$props.contacts);
-		if ('site_nav' in $$props) $$invalidate(4, site_nav = $$props.site_nav);
-		if ('site_footer' in $$props) $$invalidate(1, site_footer = $$props.site_footer);
-		if ('title' in $$props) $$invalidate(5, title = $$props.title);
-		if ('description' in $$props) $$invalidate(6, description = $$props.description);
+		if ('site_footer' in $$props) $$invalidate(2, site_footer = $$props.site_footer);
+		if ('title' in $$props) $$invalidate(3, title = $$props.title);
+		if ('description' in $$props) $$invalidate(4, description = $$props.description);
+		if ('links' in $$props) $$invalidate(1, links = $$props.links);
 	};
 
-	return [social, site_footer, logo, contacts, site_nav, title, description];
+	return [social, links, site_footer, title, description];
 }
 
 class Component$6 extends SvelteComponent {
@@ -9702,13 +9670,11 @@ class Component$6 extends SvelteComponent {
 		super();
 
 		init(this, options, instance$6, create_fragment$6, safe_not_equal, {
-			logo: 2,
 			social: 0,
-			contacts: 3,
-			site_nav: 4,
-			site_footer: 1,
-			title: 5,
-			description: 6
+			site_footer: 2,
+			title: 3,
+			description: 4,
+			links: 1
 		});
 	}
 }
@@ -9716,25 +9682,19 @@ class Component$6 extends SvelteComponent {
 /* generated by Svelte v3.58.0 */
 
 function instance$7($$self, $$props, $$invalidate) {
-	let { logo } = $$props;
 	let { social } = $$props;
-	let { contacts } = $$props;
-	let { site_nav } = $$props;
 	let { site_footer } = $$props;
 	let { title } = $$props;
 	let { description } = $$props;
 
 	$$self.$$set = $$props => {
-		if ('logo' in $$props) $$invalidate(0, logo = $$props.logo);
-		if ('social' in $$props) $$invalidate(1, social = $$props.social);
-		if ('contacts' in $$props) $$invalidate(2, contacts = $$props.contacts);
-		if ('site_nav' in $$props) $$invalidate(3, site_nav = $$props.site_nav);
-		if ('site_footer' in $$props) $$invalidate(4, site_footer = $$props.site_footer);
-		if ('title' in $$props) $$invalidate(5, title = $$props.title);
-		if ('description' in $$props) $$invalidate(6, description = $$props.description);
+		if ('social' in $$props) $$invalidate(0, social = $$props.social);
+		if ('site_footer' in $$props) $$invalidate(1, site_footer = $$props.site_footer);
+		if ('title' in $$props) $$invalidate(2, title = $$props.title);
+		if ('description' in $$props) $$invalidate(3, description = $$props.description);
 	};
 
-	return [logo, social, contacts, site_nav, site_footer, title, description];
+	return [social, site_footer, title, description];
 }
 
 class Component$7 extends SvelteComponent {
@@ -9742,13 +9702,10 @@ class Component$7 extends SvelteComponent {
 		super();
 
 		init(this, options, instance$7, null, safe_not_equal, {
-			logo: 0,
-			social: 1,
-			contacts: 2,
-			site_nav: 3,
-			site_footer: 4,
-			title: 5,
-			description: 6
+			social: 0,
+			site_footer: 1,
+			title: 2,
+			description: 3
 		});
 	}
 }
@@ -9773,12 +9730,6 @@ function create_fragment$7(ctx) {
 
 	component_0 = new Component({
 			props: {
-				logo: {
-					"alt": "Logo",
-					"src": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"url": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"size": null
-				},
 				social: [
 					{
 						"icon": "mdi:instagram",
@@ -9795,26 +9746,6 @@ function create_fragment$7(ctx) {
 						}
 					}
 				],
-				contacts: {
-					"phone": "404 391 4233",
-					"address": "1000 Cupcake st. 23322"
-				},
-				site_nav: {
-					"left": [
-						{ "link": { "url": "/", "label": "Home" } },
-						{
-							"link": { "url": "/menu", "label": "Menu" }
-						}
-					],
-					"right": [
-						{
-							"link": { "url": "/about", "label": "About" }
-						},
-						{
-							"link": { "url": "/contact", "label": "Contact" }
-						}
-					]
-				},
 				site_footer: [
 					{
 						"link": { "url": "/about", "label": "About" }
@@ -9830,12 +9761,6 @@ function create_fragment$7(ctx) {
 
 	component_1 = new Component$2({
 			props: {
-				logo: {
-					"alt": "Logo",
-					"src": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"url": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"size": null
-				},
 				social: [
 					{
 						"icon": "mdi:instagram",
@@ -9852,26 +9777,6 @@ function create_fragment$7(ctx) {
 						}
 					}
 				],
-				contacts: {
-					"phone": "404 391 4233",
-					"address": "1000 Cupcake st. 23322"
-				},
-				site_nav: {
-					"left": [
-						{ "link": { "url": "/", "label": "Home" } },
-						{
-							"link": { "url": "/menu", "label": "Menu" }
-						}
-					],
-					"right": [
-						{
-							"link": { "url": "/about", "label": "About" }
-						},
-						{
-							"link": { "url": "/contact", "label": "Contact" }
-						}
-					]
-				},
 				site_footer: [
 					{
 						"link": { "url": "/about", "label": "About" }
@@ -9881,18 +9786,26 @@ function create_fragment$7(ctx) {
 					}
 				],
 				title: "Contact Us",
-				description: "Contact information"
+				description: "Contact information",
+				logo: {
+					"alt": "",
+					"src": "data:image/svg+xml,%3Csvg id='logo-74' viewBox='0 0 70 44' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath class='ccustom' d='M65.5268 5.40852C65.5268 5.45982 65.5268 5.52395 65.5137 5.56243C65.4481 6.06264 65.4481 6.56285 65.4874 7.07589C65.5137 7.20415 65.5399 7.33241 65.6449 7.43502C65.8154 7.6274 66.0777 7.58893 66.1827 7.35806C66.2352 7.24263 66.2352 7.12719 66.2089 7.01176C66.0777 6.52437 66.0515 6.01134 66.0384 5.51112C66.0384 5.48547 66.0384 5.44699 66.0384 5.40852C66.1827 5.39569 66.3139 5.38286 66.4319 5.38286C66.5238 5.37004 66.6025 5.35721 66.6681 5.31873C66.8648 5.21613 66.8648 4.99809 66.6549 4.89548C66.5762 4.857 66.4713 4.84417 66.3795 4.84417C66.0515 4.857 65.7236 4.857 65.3956 4.857C65.2776 4.857 65.1595 4.86983 65.0414 4.88265C64.9758 4.89548 64.8971 4.89548 64.8447 4.93396C64.7528 4.97243 64.7004 5.03656 64.7004 5.12634C64.7135 5.21613 64.7528 5.26743 64.8447 5.30591C64.8971 5.34439 64.9627 5.35721 65.0283 5.35721C65.1857 5.37004 65.3563 5.39569 65.5268 5.40852ZM69.1342 5.99851C69.1342 6.01134 69.1473 6.02416 69.1473 6.02416C69.1998 6.37046 69.2523 6.70394 69.2916 7.03741C69.3048 7.15284 69.3179 7.25545 69.3966 7.34523C69.5671 7.56327 69.8295 7.53762 69.9475 7.30676C70 7.19132 70.0131 7.07589 69.9869 6.94763C69.9082 6.56285 69.8688 6.17807 69.7901 5.80612C69.7376 5.57525 69.6721 5.35721 69.6065 5.152C69.5671 5.02374 69.4753 4.93395 69.3179 4.92113C69.1605 4.89548 69.0424 4.97243 68.9768 5.08787C68.8981 5.19047 68.8325 5.29308 68.78 5.40852C68.6882 5.61373 68.6095 5.81895 68.5046 6.01134C68.4914 6.06264 68.4783 6.10112 68.4521 6.13959C68.439 6.11394 68.4259 6.10112 68.4259 6.10112C68.2553 5.78047 68.0979 5.45982 67.9274 5.152C67.9011 5.12634 67.888 5.10069 67.8749 5.07504C67.7962 4.95961 67.7044 4.89548 67.5601 4.89548C67.4289 4.9083 67.3239 4.98526 67.2584 5.10069C67.2321 5.152 67.2321 5.19047 67.219 5.24178C67.1665 5.65221 67.1009 6.06264 67.0485 6.47307C67.0222 6.70394 67.0091 6.9348 67.0091 7.16567C66.996 7.21697 67.0091 7.2811 67.0353 7.33241C67.0616 7.43501 67.1403 7.49915 67.2452 7.51197C67.3764 7.5248 67.4682 7.48632 67.5076 7.38371C67.5469 7.30676 67.5601 7.24263 67.5732 7.1785C67.6257 6.94763 67.665 6.72959 67.7044 6.51155C67.7306 6.38329 67.7437 6.28068 67.7831 6.13959C67.8093 6.1909 67.8355 6.22938 67.8618 6.26785C67.9798 6.42177 68.0979 6.57568 68.2422 6.70394C68.3865 6.80654 68.5046 6.79372 68.6226 6.67828C68.6489 6.65263 68.662 6.63981 68.6882 6.61415C68.8063 6.43459 68.9506 6.25503 69.0686 6.07546C69.0949 6.04981 69.108 6.02416 69.1342 5.99851Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M38.9087 5.6605C38.8175 5.90425 38.8001 6.07986 38.8422 6.22582C38.8887 6.4243 39.0094 6.48928 39.1732 6.4388C40.714 6.06627 44.0927 7.12367 45.3436 7.41838C45.6386 7.48026 45.8786 7.10791 45.6773 6.77407C45.3835 6.45077 42.0063 5.0666 40.7177 4.99113C40.2126 4.96322 39.3096 4.83658 38.9087 5.6605Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M52.1133 1.17982C52.2775 1.27249 52.3693 1.36089 52.4146 1.45966C52.4821 1.58922 52.4465 1.67886 52.3331 1.7246C51.3146 2.21062 49.9593 4.30303 49.4122 5.02468C49.2796 5.19069 48.9737 5.09422 48.9275 4.82122C48.937 4.51254 50.1384 2.24181 50.8089 1.62334C51.0724 1.38187 51.5077 0.908078 52.1133 1.17982Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M44.0023 0.149796C44.1996 0.00441887 44.4046 -0.0465256 44.5093 0.0479512C46.046 1.3329 46.8609 3.36773 47.3655 5.23057C47.3845 5.27397 47.3857 5.33625 47.3705 5.40122C47.3642 5.45675 47.3227 5.51541 47.2568 5.5608C47.1864 5.61091 47.1258 5.62617 47.0973 5.58299C46.4238 4.68732 42.5771 1.20242 44.0023 0.149796Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M11.461 22.4276C11.8293 22.1595 12.2297 21.9363 12.6534 21.7631C13.0967 21.6392 13.5692 21.6597 13.9995 21.8217C14.4297 21.9837 14.7944 22.2782 15.0382 22.6608C15.2563 23.0424 15.3416 23.483 15.2814 23.9162C15.2212 24.3493 15.0187 24.7516 14.7043 25.0625C14.4606 25.3145 14.1839 25.534 13.8816 25.7154C12.5342 26.5665 11.1748 27.3709 9.81547 28.222C9.53732 28.435 9.24225 28.6261 8.93308 28.7933C8.46281 29.0226 7.92537 29.084 7.41368 28.9669C6.902 28.8499 6.44826 28.5616 6.13092 28.1521C5.89369 27.8621 5.69348 27.545 5.53471 27.2077C4.24691 24.5612 2.91142 21.9263 1.67131 19.2331C1.09895 18.0673 0.633913 16.7265 0.180798 15.4324C-0.0152406 15.0564 -0.0535225 14.6205 0.0741037 14.2173C0.20173 13.8141 0.485195 13.4755 0.864201 13.2735C1.24321 13.0715 1.68785 13.0221 2.10357 13.1357C2.51929 13.2493 2.87329 13.517 3.09027 13.8818C3.75722 14.7484 4.34761 15.6689 4.85504 16.6333C6.14284 18.965 7.37103 21.2967 8.61113 23.5585C8.68334 23.6835 8.76296 23.8041 8.84961 23.9199C9.783 23.5362 10.6609 23.0345 11.461 22.4276Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M24.7761 21.6142C21.8309 24.9835 16.8943 24.1324 14.4141 19.7954C12.6493 16.7175 12.3393 11.6343 16.1789 8.42817C16.9988 7.75694 17.9792 7.29969 19.0287 7.09907C20.3155 6.9187 21.6277 7.14066 22.7777 7.73324C23.9277 8.32582 24.8567 9.25867 25.432 10.3985C27.5306 14.1293 27.2325 18.886 24.7761 21.6142ZM23.5837 13.7562C23.2708 12.8394 22.6431 12.0567 21.807 11.541C21.3339 11.2113 20.759 11.051 20.1792 11.0871C19.5993 11.1232 19.0499 11.3535 18.6233 11.7392C16.9182 13.2199 16.5604 16.7292 17.8005 18.8161C17.9586 19.1564 18.1907 19.4588 18.4808 19.7022C18.7709 19.9456 19.1119 20.1241 19.4799 20.2251C19.8479 20.3262 20.234 20.3474 20.6113 20.2873C20.9886 20.2271 21.3478 20.0871 21.664 19.877C22.5883 19.1763 23.2664 18.2115 23.604 17.1167C23.9417 16.0218 23.9221 14.8513 23.548 13.7679L23.5837 13.7562Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M36.7955 15.2252C36.494 15.2886 36.1825 15.2924 35.8794 15.2363C35.5764 15.1802 35.2878 15.0655 35.0308 14.8988C34.8059 14.773 34.6123 14.6001 34.4639 14.3924C34.3156 14.1847 34.2162 13.9475 34.1729 13.6977C34.1295 13.448 34.1434 13.192 34.2133 12.9481C34.2833 12.7042 34.4078 12.4785 34.5777 12.2872C34.8737 11.9028 35.2939 11.6276 35.7701 11.5061C37.0134 11.1533 38.2933 10.9382 39.5858 10.8649C39.8698 10.8326 40.1575 10.8561 40.432 10.934C40.7066 11.012 40.9624 11.1427 41.1846 11.3187C41.4067 11.4946 41.5907 11.7122 41.7257 11.9586C41.8606 12.205 41.9439 12.4753 41.9706 12.7536C42.3432 14.1206 42.384 15.5539 42.0898 16.9391C41.0167 21.416 37.3202 22.9549 33.1706 21.5209C32.0058 21.1375 30.9845 20.4231 30.2373 19.469C29.2407 18.32 28.5341 16.9583 28.1744 15.4934C27.883 14.1889 27.9149 12.8353 28.2676 11.5454C28.6202 10.2555 29.2833 9.06675 30.2015 8.07845C31.0729 7.00428 32.2039 6.15891 33.4926 5.61846C34.3069 5.17961 35.2598 5.05483 36.1636 5.2687C36.3686 5.32418 36.5547 5.43228 36.7026 5.58179C36.8505 5.73131 36.9548 5.91678 37.0047 6.11899C37.0546 6.32119 37.0482 6.53276 36.9863 6.73176C36.9243 6.93075 36.8091 7.10992 36.6525 7.25068C36.3547 7.51423 36.0312 7.74853 35.6866 7.9502C34.6265 8.61027 33.704 9.46082 32.9679 10.4568C32.4854 11.1013 32.1531 11.8414 31.9945 12.6249C31.8358 13.4084 31.8547 14.2164 32.0498 14.9921C32.3202 16.0497 32.9203 16.999 33.7668 17.7085C36.3901 20.0403 39.8004 17.7901 39.2042 14.6073C38.3338 14.8172 37.5706 15.0387 36.7955 15.2252Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M52.8217 21.8007C48.9464 24.1325 44.5345 21.8007 43.5686 16.9041C42.8651 13.4065 44.2006 8.50982 48.8749 6.64443C49.8694 6.25608 50.9481 6.11973 52.0109 6.24803C53.2878 6.47658 54.4592 7.09121 55.3598 8.00528C56.2604 8.91934 56.845 10.0867 57.0309 11.3429C57.8179 15.505 56.0293 19.947 52.8217 21.8007ZM54.1692 13.9544C54.168 12.9859 53.8176 12.0487 53.1795 11.3079C52.8384 10.8497 52.3453 10.5214 51.7843 10.3789C51.2232 10.2365 50.6291 10.2887 50.103 10.5268C48.0044 11.4128 46.5258 14.6306 47.0624 16.9974C47.1034 17.3688 47.2268 17.727 47.4241 18.0469C47.6214 18.3668 47.8878 18.6407 48.2047 18.8495C48.5215 19.0582 48.8812 19.1968 49.2585 19.2555C49.6359 19.3141 50.0218 19.2915 50.3892 19.1892C51.4985 18.8103 52.459 18.1022 53.1366 17.1637C53.8143 16.2252 54.1753 15.1032 54.1692 13.9544Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M60.9499 22.7801C60.8914 23.2068 60.662 23.5933 60.312 23.8546C59.962 24.1158 59.5202 24.2305 59.0838 24.1733C58.6474 24.1161 58.2521 23.8917 57.9849 23.5495C57.7176 23.2074 57.6004 22.7754 57.6589 22.3487C57.7174 21.922 57.9469 21.5355 58.2968 21.2742C58.6468 21.0129 59.0886 20.8983 59.525 20.9555C59.9614 21.0127 60.3567 21.237 60.624 21.5792C60.8912 21.9214 61.0085 22.3534 60.9499 22.7801ZM59.9125 7.05247C60.1393 6.71382 60.472 6.45593 60.861 6.31726C61.2499 6.17859 61.6743 6.16657 62.0708 6.283C62.4739 6.38161 62.83 6.61262 63.0797 6.93735C63.3293 7.26209 63.4572 7.66082 63.4421 8.06678C63.3895 8.71795 63.2899 9.36468 63.144 10.0021C62.7505 12.159 62.3689 14.3158 61.9516 16.4494C61.7608 17.3005 61.5104 18.1166 61.2361 18.9793C61.1407 19.249 60.9813 19.4927 60.7711 19.6905C60.6404 19.8393 60.4735 19.9534 60.2857 20.0223C60.0979 20.0913 59.8954 20.1128 59.6969 20.0849C59.4984 20.057 59.3102 19.9806 59.1499 19.8628C58.9896 19.7449 58.8623 19.5894 58.7798 19.4107C58.638 19.0901 58.561 18.7456 58.5532 18.3964C58.5532 16.9507 58.5532 15.4934 58.6486 14.036C58.8107 11.9562 59.1295 9.89088 59.6025 7.85692C59.6582 7.58442 59.7631 7.32383 59.9125 7.08745V7.05247Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' fill-rule='evenodd' clip-rule='evenodd' d='M6.42311 32.1488C6.28232 32.4561 6.24371 32.7987 6.31251 33.1284C6.35828 33.563 6.45881 33.9905 6.61181 34.4011C6.80283 34.9039 7.01658 35.4011 7.28014 36.0139C7.34075 36.1549 7.40409 36.3021 7.47037 36.457C7.82579 37.2872 8.27175 38.3482 8.8666 39.8837C9.03497 40.3199 9.18448 40.7597 9.33504 41.2025C9.39586 41.3814 9.4569 41.5609 9.51938 41.7408C9.74334 42.3804 10.1287 42.955 10.6395 43.4104C10.8564 43.6607 11.1441 43.8431 11.4667 43.9343C11.7956 44.0273 12.1454 44.0214 12.4708 43.9174C12.7962 43.8133 13.082 43.6159 13.2911 43.3508C13.4961 43.0909 13.618 42.7777 13.6417 42.4505C13.7747 41.8131 13.7293 41.1522 13.5101 40.5377C13.1622 39.5174 12.7659 38.4956 12.3089 37.4962L12.3068 37.4918C11.555 35.9282 10.7908 34.3754 9.99044 32.822L9.98445 32.8111C9.75015 32.4064 9.44566 32.0446 9.08466 31.742C8.8503 31.4719 8.52703 31.2897 8.17003 31.2269C7.80542 31.1628 7.42938 31.2274 7.10904 31.4093C6.806 31.5785 6.56578 31.8374 6.42311 32.1488Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' fill-rule='evenodd' clip-rule='evenodd' d='M17.9057 28.2986C16.7269 28.0001 15.4958 27.9566 14.2982 28.1712C13.3706 28.2605 12.4583 28.4697 11.8248 28.8841C11.5026 29.095 11.2421 29.3658 11.0972 29.71C10.9515 30.0561 10.9329 30.4519 11.0523 30.8929C11.2703 31.7007 11.5534 32.4861 11.8355 33.269L11.8812 33.3958L11.8823 33.3986C12.7317 35.673 13.5892 37.9397 14.4545 40.1986C14.5554 40.5546 14.6981 40.898 14.8797 41.2219L14.8831 41.2279C15.123 41.6303 15.4307 41.9902 15.7932 42.2925C15.9745 42.4587 16.1987 42.5737 16.4418 42.6251C16.6873 42.6769 16.9426 42.6619 17.1799 42.5815C17.4173 42.5012 17.6275 42.3587 17.7877 42.1695C17.9453 41.9834 18.0485 41.7592 18.0864 41.5206C18.2428 40.8724 18.1927 40.1929 17.9427 39.5733C17.8647 39.3648 17.8035 39.1517 17.739 38.9274C17.7175 38.8526 17.6957 38.7765 17.6727 38.699C19.6534 37.942 21.7609 36.9241 22.502 34.5561C22.7922 33.7378 22.8164 32.8517 22.5712 32.0193C22.3258 31.186 21.8223 30.4474 21.1301 29.9052C20.188 29.1462 19.0875 28.5978 17.9057 28.2986ZM14.6382 31.2031C14.6772 31.1921 14.7165 31.1819 14.7559 31.1724C16.0454 30.9742 17.3647 31.2383 18.4709 31.9159C18.9584 32.2474 19.1581 32.6157 19.1924 32.9701C19.2278 33.335 19.0921 33.7304 18.8195 34.1105C18.3044 34.8285 17.3644 35.4032 16.5153 35.5103C15.8963 34.1165 15.2677 32.6663 14.6382 31.2031Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M25.7646 25.7473C27.1684 25.1134 28.9073 25.0039 30.268 25.4496C30.6107 25.5472 30.908 25.7583 31.1091 26.0468C31.3089 26.3335 31.4011 26.679 31.3703 27.0244C31.3683 27.2486 31.312 27.4692 31.2061 27.6682C31.0983 27.8708 30.9422 28.045 30.751 28.1762C30.5598 28.3073 30.3391 28.3916 30.1076 28.4217C29.876 28.4519 29.6405 28.4271 29.4208 28.3494L29.4041 28.3435L29.3884 28.3354C29.276 28.2779 29.1566 28.2346 29.0331 28.2064L29.0253 28.2047C28.0681 27.9561 27.1652 28.368 26.8354 28.8741C26.6781 29.1154 26.6586 29.359 26.7896 29.5806C26.9299 29.8179 27.274 30.0842 27.9703 30.274C28.1618 30.3254 28.3581 30.375 28.5572 30.4254C29.1078 30.5648 29.68 30.7096 30.2333 30.9103L30.2354 30.9111C32.788 31.8607 33.7385 33.8274 33.4131 35.6772C33.0912 37.5065 31.5287 39.1713 29.179 39.564C28.324 39.7493 27.4342 39.7132 26.5977 39.4593C25.7591 39.2046 25.0032 38.7399 24.4051 38.1111L24.3895 38.0947C24.2007 37.8578 24.0737 37.5795 24.0174 37.2842C23.9656 37.0177 23.9929 36.7423 24.0959 36.4904C24.1983 36.24 24.3715 36.0233 24.595 35.8654C24.8311 35.6864 25.1157 35.579 25.4136 35.5566C25.7105 35.5343 26.0076 35.5974 26.2683 35.738C26.5287 35.861 26.7709 36.0179 26.9883 36.2045L26.9924 36.2079C27.377 36.5518 27.8423 36.6414 28.2885 36.5584C28.7412 36.4742 29.1669 36.2123 29.4407 35.8648C29.7127 35.5195 29.8219 35.1093 29.6923 34.7111C29.5619 34.31 29.1698 33.8606 28.3083 33.4849C28.0831 33.3914 27.8496 33.316 27.6067 33.2426C27.5412 33.2228 27.4746 33.2031 27.4072 33.1831C27.2276 33.1298 27.0428 33.0749 26.8616 33.0144C26.7368 32.9728 26.613 32.9334 26.4904 32.8943C26.1553 32.7876 25.8286 32.6836 25.5142 32.5441C24.8299 32.3163 24.2387 31.8789 23.8286 31.2966C23.4168 30.712 23.2096 30.0129 23.2378 29.3037C23.24 27.5754 24.3533 26.3847 25.7646 25.7473Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M43.5619 25.5632C43.2897 25.4332 42.9887 25.3715 42.6861 25.3836C42.3834 25.3958 42.0886 25.4814 41.8283 25.6329C41.5696 25.7833 41.353 25.9939 41.1978 26.246C41.0555 26.4583 40.957 26.6957 40.9079 26.945C40.8588 27.1941 40.86 27.4501 40.9113 27.6986C40.962 28.018 41.0182 28.3286 41.0737 28.6349C41.1656 29.1418 41.255 29.6373 41.314 30.1425L41.3162 30.1553C41.4505 30.9476 41.5208 31.7489 41.5271 32.5519L41.5277 32.5633C41.5736 33.4305 41.2714 34.2808 40.6859 34.9338L40.6766 34.9454C40.4861 35.1841 40.2314 35.3663 39.9409 35.4716C39.6505 35.5769 39.3359 35.6011 39.0322 35.5415C38.7285 35.4819 38.4478 35.3409 38.2214 35.1342C37.995 34.9275 37.8317 34.6625 37.7502 34.3704C37.5762 33.7547 37.4755 33.1214 37.4499 32.4832L37.7471 27.8569C37.7515 27.7965 37.7565 27.7345 37.7616 27.6719C37.7729 27.5314 37.7845 27.3883 37.7893 27.2548C37.7963 27.0584 37.7903 26.8564 37.7435 26.6652C37.6956 26.4698 37.6045 26.2839 37.4429 26.1256C37.2829 25.9689 37.0669 25.8533 36.7951 25.7746C36.3036 25.6355 35.888 25.6399 35.5417 25.7836C35.1952 25.9273 34.9578 26.1941 34.7898 26.5023C34.6231 26.8079 34.516 27.1697 34.435 27.5321C34.3749 27.801 34.3266 28.0833 34.2807 28.352C34.2648 28.4446 34.2493 28.5355 34.2336 28.6238L34.2332 28.6264C33.9876 30.1 33.9145 31.5962 34.0153 33.086C34.0341 33.8911 34.2058 34.6858 34.5218 35.4295C34.8783 36.3891 35.524 37.2205 36.3737 37.814C37.2252 38.4087 38.2413 38.7364 39.2875 38.7537C40.3337 38.771 41.3606 38.4771 42.2322 37.911C43.1024 37.3457 43.7768 36.5355 44.1662 35.5876C44.7109 34.3801 44.9667 33.0669 44.9139 31.7481C44.8819 30.7853 44.8283 29.8151 44.775 28.8498C44.7488 28.3763 44.7227 27.9038 44.6993 27.4342C44.6875 26.9633 44.5287 26.5072 44.2441 26.1271C44.068 25.8868 43.8336 25.693 43.5619 25.5632Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M53.1961 32.8173C53.1685 32.8516 53.1394 32.8871 53.109 32.924C52.8876 31.6752 52.6824 30.4268 52.4769 29.1765C52.4032 28.7279 52.3291 28.2774 52.2546 27.8282L52.2462 27.7781L52.219 27.7348C52.1677 27.6533 52.1626 27.5734 52.1626 27.403V27.3833L52.1595 27.3638C52.1039 27.0119 51.9411 26.6844 51.6924 26.4242C51.4444 26.1647 51.1223 25.9841 50.768 25.9057C50.4143 25.8204 50.0426 25.8392 49.6997 25.9598C49.3577 26.0801 49.0596 26.2963 48.8426 26.5813C48.6622 26.8 48.5143 27.0426 48.4035 27.3018C48.152 27.8602 47.8983 28.42 47.6439 28.9813L47.6395 28.991C47.0044 30.3923 46.365 31.803 45.7442 33.2248L45.7423 33.2294C45.3612 34.1513 45.0466 35.1227 44.7331 36.0911C44.6705 36.2844 44.6079 36.4776 44.5448 36.6703C44.4316 36.9759 44.3821 37.3005 44.3991 37.625C44.3785 37.9155 44.4496 38.2053 44.603 38.4552C44.7594 38.7102 44.9937 38.9108 45.2728 39.0289C45.5686 39.1557 45.8993 39.1826 46.2126 39.1054C46.5252 39.0283 46.8028 38.8519 47.0017 38.6039C47.2557 38.2984 47.4742 37.9652 47.6524 37.6122C48.1783 36.5604 48.6809 35.4958 49.1812 34.4358C49.3748 34.0258 49.5629 33.6586 49.7769 33.2587C49.7916 33.308 49.8066 33.3561 49.8221 33.4043C50.0464 34.3698 50.425 35.2946 50.9439 36.1448C51.0421 36.3249 51.1789 36.4823 51.3449 36.6062C51.5129 36.7316 51.7068 36.8196 51.9131 36.8643C52.1194 36.909 52.3332 36.9092 52.5396 36.8649C52.7457 36.8207 52.9402 36.7326 53.1083 36.6078L53.441 36.3643L56.0233 34.2376L55.8706 35.1891C55.661 36.497 55.453 37.794 55.232 39.0913C55.0874 39.6663 55.0876 40.2669 55.2326 40.8417C55.2954 41.1652 55.4554 41.463 55.6922 41.6972C55.931 41.9333 56.2368 42.0937 56.57 42.1577C56.9032 42.2216 57.2484 42.1862 57.5607 42.0559C57.8685 41.9276 58.1303 41.713 58.3133 41.4395C58.7391 40.923 59.0041 40.2977 59.0769 39.638C59.1865 38.7064 59.3103 37.7621 59.4342 36.8181C59.5769 35.73 59.7196 34.6422 59.8401 33.5753L59.8405 33.572C59.9565 32.4041 60.0126 31.2314 60.0087 30.058C60.0341 29.6872 59.9397 29.3178 59.7385 29.0021C59.5366 28.6853 59.2376 28.439 58.8842 28.2981C58.5166 28.1347 58.1051 28.091 57.7102 28.1736C57.3179 28.2556 56.9628 28.4578 56.6964 28.7507C56.2201 29.1814 55.7733 29.6423 55.3588 30.1304L55.356 30.1337C54.9035 30.685 54.4541 31.2471 54.0076 31.8056C53.7361 32.1451 53.4654 32.4838 53.1961 32.8173Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3C/svg%3E",
+					"url": "data:image/svg+xml,%3Csvg id='logo-74' viewBox='0 0 70 44' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath class='ccustom' d='M65.5268 5.40852C65.5268 5.45982 65.5268 5.52395 65.5137 5.56243C65.4481 6.06264 65.4481 6.56285 65.4874 7.07589C65.5137 7.20415 65.5399 7.33241 65.6449 7.43502C65.8154 7.6274 66.0777 7.58893 66.1827 7.35806C66.2352 7.24263 66.2352 7.12719 66.2089 7.01176C66.0777 6.52437 66.0515 6.01134 66.0384 5.51112C66.0384 5.48547 66.0384 5.44699 66.0384 5.40852C66.1827 5.39569 66.3139 5.38286 66.4319 5.38286C66.5238 5.37004 66.6025 5.35721 66.6681 5.31873C66.8648 5.21613 66.8648 4.99809 66.6549 4.89548C66.5762 4.857 66.4713 4.84417 66.3795 4.84417C66.0515 4.857 65.7236 4.857 65.3956 4.857C65.2776 4.857 65.1595 4.86983 65.0414 4.88265C64.9758 4.89548 64.8971 4.89548 64.8447 4.93396C64.7528 4.97243 64.7004 5.03656 64.7004 5.12634C64.7135 5.21613 64.7528 5.26743 64.8447 5.30591C64.8971 5.34439 64.9627 5.35721 65.0283 5.35721C65.1857 5.37004 65.3563 5.39569 65.5268 5.40852ZM69.1342 5.99851C69.1342 6.01134 69.1473 6.02416 69.1473 6.02416C69.1998 6.37046 69.2523 6.70394 69.2916 7.03741C69.3048 7.15284 69.3179 7.25545 69.3966 7.34523C69.5671 7.56327 69.8295 7.53762 69.9475 7.30676C70 7.19132 70.0131 7.07589 69.9869 6.94763C69.9082 6.56285 69.8688 6.17807 69.7901 5.80612C69.7376 5.57525 69.6721 5.35721 69.6065 5.152C69.5671 5.02374 69.4753 4.93395 69.3179 4.92113C69.1605 4.89548 69.0424 4.97243 68.9768 5.08787C68.8981 5.19047 68.8325 5.29308 68.78 5.40852C68.6882 5.61373 68.6095 5.81895 68.5046 6.01134C68.4914 6.06264 68.4783 6.10112 68.4521 6.13959C68.439 6.11394 68.4259 6.10112 68.4259 6.10112C68.2553 5.78047 68.0979 5.45982 67.9274 5.152C67.9011 5.12634 67.888 5.10069 67.8749 5.07504C67.7962 4.95961 67.7044 4.89548 67.5601 4.89548C67.4289 4.9083 67.3239 4.98526 67.2584 5.10069C67.2321 5.152 67.2321 5.19047 67.219 5.24178C67.1665 5.65221 67.1009 6.06264 67.0485 6.47307C67.0222 6.70394 67.0091 6.9348 67.0091 7.16567C66.996 7.21697 67.0091 7.2811 67.0353 7.33241C67.0616 7.43501 67.1403 7.49915 67.2452 7.51197C67.3764 7.5248 67.4682 7.48632 67.5076 7.38371C67.5469 7.30676 67.5601 7.24263 67.5732 7.1785C67.6257 6.94763 67.665 6.72959 67.7044 6.51155C67.7306 6.38329 67.7437 6.28068 67.7831 6.13959C67.8093 6.1909 67.8355 6.22938 67.8618 6.26785C67.9798 6.42177 68.0979 6.57568 68.2422 6.70394C68.3865 6.80654 68.5046 6.79372 68.6226 6.67828C68.6489 6.65263 68.662 6.63981 68.6882 6.61415C68.8063 6.43459 68.9506 6.25503 69.0686 6.07546C69.0949 6.04981 69.108 6.02416 69.1342 5.99851Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M38.9087 5.6605C38.8175 5.90425 38.8001 6.07986 38.8422 6.22582C38.8887 6.4243 39.0094 6.48928 39.1732 6.4388C40.714 6.06627 44.0927 7.12367 45.3436 7.41838C45.6386 7.48026 45.8786 7.10791 45.6773 6.77407C45.3835 6.45077 42.0063 5.0666 40.7177 4.99113C40.2126 4.96322 39.3096 4.83658 38.9087 5.6605Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M52.1133 1.17982C52.2775 1.27249 52.3693 1.36089 52.4146 1.45966C52.4821 1.58922 52.4465 1.67886 52.3331 1.7246C51.3146 2.21062 49.9593 4.30303 49.4122 5.02468C49.2796 5.19069 48.9737 5.09422 48.9275 4.82122C48.937 4.51254 50.1384 2.24181 50.8089 1.62334C51.0724 1.38187 51.5077 0.908078 52.1133 1.17982Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M44.0023 0.149796C44.1996 0.00441887 44.4046 -0.0465256 44.5093 0.0479512C46.046 1.3329 46.8609 3.36773 47.3655 5.23057C47.3845 5.27397 47.3857 5.33625 47.3705 5.40122C47.3642 5.45675 47.3227 5.51541 47.2568 5.5608C47.1864 5.61091 47.1258 5.62617 47.0973 5.58299C46.4238 4.68732 42.5771 1.20242 44.0023 0.149796Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M11.461 22.4276C11.8293 22.1595 12.2297 21.9363 12.6534 21.7631C13.0967 21.6392 13.5692 21.6597 13.9995 21.8217C14.4297 21.9837 14.7944 22.2782 15.0382 22.6608C15.2563 23.0424 15.3416 23.483 15.2814 23.9162C15.2212 24.3493 15.0187 24.7516 14.7043 25.0625C14.4606 25.3145 14.1839 25.534 13.8816 25.7154C12.5342 26.5665 11.1748 27.3709 9.81547 28.222C9.53732 28.435 9.24225 28.6261 8.93308 28.7933C8.46281 29.0226 7.92537 29.084 7.41368 28.9669C6.902 28.8499 6.44826 28.5616 6.13092 28.1521C5.89369 27.8621 5.69348 27.545 5.53471 27.2077C4.24691 24.5612 2.91142 21.9263 1.67131 19.2331C1.09895 18.0673 0.633913 16.7265 0.180798 15.4324C-0.0152406 15.0564 -0.0535225 14.6205 0.0741037 14.2173C0.20173 13.8141 0.485195 13.4755 0.864201 13.2735C1.24321 13.0715 1.68785 13.0221 2.10357 13.1357C2.51929 13.2493 2.87329 13.517 3.09027 13.8818C3.75722 14.7484 4.34761 15.6689 4.85504 16.6333C6.14284 18.965 7.37103 21.2967 8.61113 23.5585C8.68334 23.6835 8.76296 23.8041 8.84961 23.9199C9.783 23.5362 10.6609 23.0345 11.461 22.4276Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M24.7761 21.6142C21.8309 24.9835 16.8943 24.1324 14.4141 19.7954C12.6493 16.7175 12.3393 11.6343 16.1789 8.42817C16.9988 7.75694 17.9792 7.29969 19.0287 7.09907C20.3155 6.9187 21.6277 7.14066 22.7777 7.73324C23.9277 8.32582 24.8567 9.25867 25.432 10.3985C27.5306 14.1293 27.2325 18.886 24.7761 21.6142ZM23.5837 13.7562C23.2708 12.8394 22.6431 12.0567 21.807 11.541C21.3339 11.2113 20.759 11.051 20.1792 11.0871C19.5993 11.1232 19.0499 11.3535 18.6233 11.7392C16.9182 13.2199 16.5604 16.7292 17.8005 18.8161C17.9586 19.1564 18.1907 19.4588 18.4808 19.7022C18.7709 19.9456 19.1119 20.1241 19.4799 20.2251C19.8479 20.3262 20.234 20.3474 20.6113 20.2873C20.9886 20.2271 21.3478 20.0871 21.664 19.877C22.5883 19.1763 23.2664 18.2115 23.604 17.1167C23.9417 16.0218 23.9221 14.8513 23.548 13.7679L23.5837 13.7562Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M36.7955 15.2252C36.494 15.2886 36.1825 15.2924 35.8794 15.2363C35.5764 15.1802 35.2878 15.0655 35.0308 14.8988C34.8059 14.773 34.6123 14.6001 34.4639 14.3924C34.3156 14.1847 34.2162 13.9475 34.1729 13.6977C34.1295 13.448 34.1434 13.192 34.2133 12.9481C34.2833 12.7042 34.4078 12.4785 34.5777 12.2872C34.8737 11.9028 35.2939 11.6276 35.7701 11.5061C37.0134 11.1533 38.2933 10.9382 39.5858 10.8649C39.8698 10.8326 40.1575 10.8561 40.432 10.934C40.7066 11.012 40.9624 11.1427 41.1846 11.3187C41.4067 11.4946 41.5907 11.7122 41.7257 11.9586C41.8606 12.205 41.9439 12.4753 41.9706 12.7536C42.3432 14.1206 42.384 15.5539 42.0898 16.9391C41.0167 21.416 37.3202 22.9549 33.1706 21.5209C32.0058 21.1375 30.9845 20.4231 30.2373 19.469C29.2407 18.32 28.5341 16.9583 28.1744 15.4934C27.883 14.1889 27.9149 12.8353 28.2676 11.5454C28.6202 10.2555 29.2833 9.06675 30.2015 8.07845C31.0729 7.00428 32.2039 6.15891 33.4926 5.61846C34.3069 5.17961 35.2598 5.05483 36.1636 5.2687C36.3686 5.32418 36.5547 5.43228 36.7026 5.58179C36.8505 5.73131 36.9548 5.91678 37.0047 6.11899C37.0546 6.32119 37.0482 6.53276 36.9863 6.73176C36.9243 6.93075 36.8091 7.10992 36.6525 7.25068C36.3547 7.51423 36.0312 7.74853 35.6866 7.9502C34.6265 8.61027 33.704 9.46082 32.9679 10.4568C32.4854 11.1013 32.1531 11.8414 31.9945 12.6249C31.8358 13.4084 31.8547 14.2164 32.0498 14.9921C32.3202 16.0497 32.9203 16.999 33.7668 17.7085C36.3901 20.0403 39.8004 17.7901 39.2042 14.6073C38.3338 14.8172 37.5706 15.0387 36.7955 15.2252Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M52.8217 21.8007C48.9464 24.1325 44.5345 21.8007 43.5686 16.9041C42.8651 13.4065 44.2006 8.50982 48.8749 6.64443C49.8694 6.25608 50.9481 6.11973 52.0109 6.24803C53.2878 6.47658 54.4592 7.09121 55.3598 8.00528C56.2604 8.91934 56.845 10.0867 57.0309 11.3429C57.8179 15.505 56.0293 19.947 52.8217 21.8007ZM54.1692 13.9544C54.168 12.9859 53.8176 12.0487 53.1795 11.3079C52.8384 10.8497 52.3453 10.5214 51.7843 10.3789C51.2232 10.2365 50.6291 10.2887 50.103 10.5268C48.0044 11.4128 46.5258 14.6306 47.0624 16.9974C47.1034 17.3688 47.2268 17.727 47.4241 18.0469C47.6214 18.3668 47.8878 18.6407 48.2047 18.8495C48.5215 19.0582 48.8812 19.1968 49.2585 19.2555C49.6359 19.3141 50.0218 19.2915 50.3892 19.1892C51.4985 18.8103 52.459 18.1022 53.1366 17.1637C53.8143 16.2252 54.1753 15.1032 54.1692 13.9544Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M60.9499 22.7801C60.8914 23.2068 60.662 23.5933 60.312 23.8546C59.962 24.1158 59.5202 24.2305 59.0838 24.1733C58.6474 24.1161 58.2521 23.8917 57.9849 23.5495C57.7176 23.2074 57.6004 22.7754 57.6589 22.3487C57.7174 21.922 57.9469 21.5355 58.2968 21.2742C58.6468 21.0129 59.0886 20.8983 59.525 20.9555C59.9614 21.0127 60.3567 21.237 60.624 21.5792C60.8912 21.9214 61.0085 22.3534 60.9499 22.7801ZM59.9125 7.05247C60.1393 6.71382 60.472 6.45593 60.861 6.31726C61.2499 6.17859 61.6743 6.16657 62.0708 6.283C62.4739 6.38161 62.83 6.61262 63.0797 6.93735C63.3293 7.26209 63.4572 7.66082 63.4421 8.06678C63.3895 8.71795 63.2899 9.36468 63.144 10.0021C62.7505 12.159 62.3689 14.3158 61.9516 16.4494C61.7608 17.3005 61.5104 18.1166 61.2361 18.9793C61.1407 19.249 60.9813 19.4927 60.7711 19.6905C60.6404 19.8393 60.4735 19.9534 60.2857 20.0223C60.0979 20.0913 59.8954 20.1128 59.6969 20.0849C59.4984 20.057 59.3102 19.9806 59.1499 19.8628C58.9896 19.7449 58.8623 19.5894 58.7798 19.4107C58.638 19.0901 58.561 18.7456 58.5532 18.3964C58.5532 16.9507 58.5532 15.4934 58.6486 14.036C58.8107 11.9562 59.1295 9.89088 59.6025 7.85692C59.6582 7.58442 59.7631 7.32383 59.9125 7.08745V7.05247Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' fill-rule='evenodd' clip-rule='evenodd' d='M6.42311 32.1488C6.28232 32.4561 6.24371 32.7987 6.31251 33.1284C6.35828 33.563 6.45881 33.9905 6.61181 34.4011C6.80283 34.9039 7.01658 35.4011 7.28014 36.0139C7.34075 36.1549 7.40409 36.3021 7.47037 36.457C7.82579 37.2872 8.27175 38.3482 8.8666 39.8837C9.03497 40.3199 9.18448 40.7597 9.33504 41.2025C9.39586 41.3814 9.4569 41.5609 9.51938 41.7408C9.74334 42.3804 10.1287 42.955 10.6395 43.4104C10.8564 43.6607 11.1441 43.8431 11.4667 43.9343C11.7956 44.0273 12.1454 44.0214 12.4708 43.9174C12.7962 43.8133 13.082 43.6159 13.2911 43.3508C13.4961 43.0909 13.618 42.7777 13.6417 42.4505C13.7747 41.8131 13.7293 41.1522 13.5101 40.5377C13.1622 39.5174 12.7659 38.4956 12.3089 37.4962L12.3068 37.4918C11.555 35.9282 10.7908 34.3754 9.99044 32.822L9.98445 32.8111C9.75015 32.4064 9.44566 32.0446 9.08466 31.742C8.8503 31.4719 8.52703 31.2897 8.17003 31.2269C7.80542 31.1628 7.42938 31.2274 7.10904 31.4093C6.806 31.5785 6.56578 31.8374 6.42311 32.1488Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' fill-rule='evenodd' clip-rule='evenodd' d='M17.9057 28.2986C16.7269 28.0001 15.4958 27.9566 14.2982 28.1712C13.3706 28.2605 12.4583 28.4697 11.8248 28.8841C11.5026 29.095 11.2421 29.3658 11.0972 29.71C10.9515 30.0561 10.9329 30.4519 11.0523 30.8929C11.2703 31.7007 11.5534 32.4861 11.8355 33.269L11.8812 33.3958L11.8823 33.3986C12.7317 35.673 13.5892 37.9397 14.4545 40.1986C14.5554 40.5546 14.6981 40.898 14.8797 41.2219L14.8831 41.2279C15.123 41.6303 15.4307 41.9902 15.7932 42.2925C15.9745 42.4587 16.1987 42.5737 16.4418 42.6251C16.6873 42.6769 16.9426 42.6619 17.1799 42.5815C17.4173 42.5012 17.6275 42.3587 17.7877 42.1695C17.9453 41.9834 18.0485 41.7592 18.0864 41.5206C18.2428 40.8724 18.1927 40.1929 17.9427 39.5733C17.8647 39.3648 17.8035 39.1517 17.739 38.9274C17.7175 38.8526 17.6957 38.7765 17.6727 38.699C19.6534 37.942 21.7609 36.9241 22.502 34.5561C22.7922 33.7378 22.8164 32.8517 22.5712 32.0193C22.3258 31.186 21.8223 30.4474 21.1301 29.9052C20.188 29.1462 19.0875 28.5978 17.9057 28.2986ZM14.6382 31.2031C14.6772 31.1921 14.7165 31.1819 14.7559 31.1724C16.0454 30.9742 17.3647 31.2383 18.4709 31.9159C18.9584 32.2474 19.1581 32.6157 19.1924 32.9701C19.2278 33.335 19.0921 33.7304 18.8195 34.1105C18.3044 34.8285 17.3644 35.4032 16.5153 35.5103C15.8963 34.1165 15.2677 32.6663 14.6382 31.2031Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M25.7646 25.7473C27.1684 25.1134 28.9073 25.0039 30.268 25.4496C30.6107 25.5472 30.908 25.7583 31.1091 26.0468C31.3089 26.3335 31.4011 26.679 31.3703 27.0244C31.3683 27.2486 31.312 27.4692 31.2061 27.6682C31.0983 27.8708 30.9422 28.045 30.751 28.1762C30.5598 28.3073 30.3391 28.3916 30.1076 28.4217C29.876 28.4519 29.6405 28.4271 29.4208 28.3494L29.4041 28.3435L29.3884 28.3354C29.276 28.2779 29.1566 28.2346 29.0331 28.2064L29.0253 28.2047C28.0681 27.9561 27.1652 28.368 26.8354 28.8741C26.6781 29.1154 26.6586 29.359 26.7896 29.5806C26.9299 29.8179 27.274 30.0842 27.9703 30.274C28.1618 30.3254 28.3581 30.375 28.5572 30.4254C29.1078 30.5648 29.68 30.7096 30.2333 30.9103L30.2354 30.9111C32.788 31.8607 33.7385 33.8274 33.4131 35.6772C33.0912 37.5065 31.5287 39.1713 29.179 39.564C28.324 39.7493 27.4342 39.7132 26.5977 39.4593C25.7591 39.2046 25.0032 38.7399 24.4051 38.1111L24.3895 38.0947C24.2007 37.8578 24.0737 37.5795 24.0174 37.2842C23.9656 37.0177 23.9929 36.7423 24.0959 36.4904C24.1983 36.24 24.3715 36.0233 24.595 35.8654C24.8311 35.6864 25.1157 35.579 25.4136 35.5566C25.7105 35.5343 26.0076 35.5974 26.2683 35.738C26.5287 35.861 26.7709 36.0179 26.9883 36.2045L26.9924 36.2079C27.377 36.5518 27.8423 36.6414 28.2885 36.5584C28.7412 36.4742 29.1669 36.2123 29.4407 35.8648C29.7127 35.5195 29.8219 35.1093 29.6923 34.7111C29.5619 34.31 29.1698 33.8606 28.3083 33.4849C28.0831 33.3914 27.8496 33.316 27.6067 33.2426C27.5412 33.2228 27.4746 33.2031 27.4072 33.1831C27.2276 33.1298 27.0428 33.0749 26.8616 33.0144C26.7368 32.9728 26.613 32.9334 26.4904 32.8943C26.1553 32.7876 25.8286 32.6836 25.5142 32.5441C24.8299 32.3163 24.2387 31.8789 23.8286 31.2966C23.4168 30.712 23.2096 30.0129 23.2378 29.3037C23.24 27.5754 24.3533 26.3847 25.7646 25.7473Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M43.5619 25.5632C43.2897 25.4332 42.9887 25.3715 42.6861 25.3836C42.3834 25.3958 42.0886 25.4814 41.8283 25.6329C41.5696 25.7833 41.353 25.9939 41.1978 26.246C41.0555 26.4583 40.957 26.6957 40.9079 26.945C40.8588 27.1941 40.86 27.4501 40.9113 27.6986C40.962 28.018 41.0182 28.3286 41.0737 28.6349C41.1656 29.1418 41.255 29.6373 41.314 30.1425L41.3162 30.1553C41.4505 30.9476 41.5208 31.7489 41.5271 32.5519L41.5277 32.5633C41.5736 33.4305 41.2714 34.2808 40.6859 34.9338L40.6766 34.9454C40.4861 35.1841 40.2314 35.3663 39.9409 35.4716C39.6505 35.5769 39.3359 35.6011 39.0322 35.5415C38.7285 35.4819 38.4478 35.3409 38.2214 35.1342C37.995 34.9275 37.8317 34.6625 37.7502 34.3704C37.5762 33.7547 37.4755 33.1214 37.4499 32.4832L37.7471 27.8569C37.7515 27.7965 37.7565 27.7345 37.7616 27.6719C37.7729 27.5314 37.7845 27.3883 37.7893 27.2548C37.7963 27.0584 37.7903 26.8564 37.7435 26.6652C37.6956 26.4698 37.6045 26.2839 37.4429 26.1256C37.2829 25.9689 37.0669 25.8533 36.7951 25.7746C36.3036 25.6355 35.888 25.6399 35.5417 25.7836C35.1952 25.9273 34.9578 26.1941 34.7898 26.5023C34.6231 26.8079 34.516 27.1697 34.435 27.5321C34.3749 27.801 34.3266 28.0833 34.2807 28.352C34.2648 28.4446 34.2493 28.5355 34.2336 28.6238L34.2332 28.6264C33.9876 30.1 33.9145 31.5962 34.0153 33.086C34.0341 33.8911 34.2058 34.6858 34.5218 35.4295C34.8783 36.3891 35.524 37.2205 36.3737 37.814C37.2252 38.4087 38.2413 38.7364 39.2875 38.7537C40.3337 38.771 41.3606 38.4771 42.2322 37.911C43.1024 37.3457 43.7768 36.5355 44.1662 35.5876C44.7109 34.3801 44.9667 33.0669 44.9139 31.7481C44.8819 30.7853 44.8283 29.8151 44.775 28.8498C44.7488 28.3763 44.7227 27.9038 44.6993 27.4342C44.6875 26.9633 44.5287 26.5072 44.2441 26.1271C44.068 25.8868 43.8336 25.693 43.5619 25.5632Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3Cpath class='ccustom' d='M53.1961 32.8173C53.1685 32.8516 53.1394 32.8871 53.109 32.924C52.8876 31.6752 52.6824 30.4268 52.4769 29.1765C52.4032 28.7279 52.3291 28.2774 52.2546 27.8282L52.2462 27.7781L52.219 27.7348C52.1677 27.6533 52.1626 27.5734 52.1626 27.403V27.3833L52.1595 27.3638C52.1039 27.0119 51.9411 26.6844 51.6924 26.4242C51.4444 26.1647 51.1223 25.9841 50.768 25.9057C50.4143 25.8204 50.0426 25.8392 49.6997 25.9598C49.3577 26.0801 49.0596 26.2963 48.8426 26.5813C48.6622 26.8 48.5143 27.0426 48.4035 27.3018C48.152 27.8602 47.8983 28.42 47.6439 28.9813L47.6395 28.991C47.0044 30.3923 46.365 31.803 45.7442 33.2248L45.7423 33.2294C45.3612 34.1513 45.0466 35.1227 44.7331 36.0911C44.6705 36.2844 44.6079 36.4776 44.5448 36.6703C44.4316 36.9759 44.3821 37.3005 44.3991 37.625C44.3785 37.9155 44.4496 38.2053 44.603 38.4552C44.7594 38.7102 44.9937 38.9108 45.2728 39.0289C45.5686 39.1557 45.8993 39.1826 46.2126 39.1054C46.5252 39.0283 46.8028 38.8519 47.0017 38.6039C47.2557 38.2984 47.4742 37.9652 47.6524 37.6122C48.1783 36.5604 48.6809 35.4958 49.1812 34.4358C49.3748 34.0258 49.5629 33.6586 49.7769 33.2587C49.7916 33.308 49.8066 33.3561 49.8221 33.4043C50.0464 34.3698 50.425 35.2946 50.9439 36.1448C51.0421 36.3249 51.1789 36.4823 51.3449 36.6062C51.5129 36.7316 51.7068 36.8196 51.9131 36.8643C52.1194 36.909 52.3332 36.9092 52.5396 36.8649C52.7457 36.8207 52.9402 36.7326 53.1083 36.6078L53.441 36.3643L56.0233 34.2376L55.8706 35.1891C55.661 36.497 55.453 37.794 55.232 39.0913C55.0874 39.6663 55.0876 40.2669 55.2326 40.8417C55.2954 41.1652 55.4554 41.463 55.6922 41.6972C55.931 41.9333 56.2368 42.0937 56.57 42.1577C56.9032 42.2216 57.2484 42.1862 57.5607 42.0559C57.8685 41.9276 58.1303 41.713 58.3133 41.4395C58.7391 40.923 59.0041 40.2977 59.0769 39.638C59.1865 38.7064 59.3103 37.7621 59.4342 36.8181C59.5769 35.73 59.7196 34.6422 59.8401 33.5753L59.8405 33.572C59.9565 32.4041 60.0126 31.2314 60.0087 30.058C60.0341 29.6872 59.9397 29.3178 59.7385 29.0021C59.5366 28.6853 59.2376 28.439 58.8842 28.2981C58.5166 28.1347 58.1051 28.091 57.7102 28.1736C57.3179 28.2556 56.9628 28.4578 56.6964 28.7507C56.2201 29.1814 55.7733 29.6423 55.3588 30.1304L55.356 30.1337C54.9035 30.685 54.4541 31.2471 54.0076 31.8056C53.7361 32.1451 53.4654 32.4838 53.1961 32.8173Z' fill='%23716996' stop-color='%23716996'%3E%3C/path%3E%3C/svg%3E",
+					"size": null
+				},
+				site_nav: {
+					"left": [{ "link": { "url": "/", "label": "Menu" } }],
+					"right": [{ "link": { "url": "/", "label": "About" } }]
+				},
+				contacts: {
+					"phone": "381-393-1203",
+					"address": "New York, New York"
+				}
 			}
 		});
 
 	component_2 = new Component$3({
 			props: {
-				logo: {
-					"alt": "Logo",
-					"src": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"url": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"size": null
-				},
 				social: [
 					{
 						"icon": "mdi:instagram",
@@ -9909,26 +9822,6 @@ function create_fragment$7(ctx) {
 						}
 					}
 				],
-				contacts: {
-					"phone": "404 391 4233",
-					"address": "1000 Cupcake st. 23322"
-				},
-				site_nav: {
-					"left": [
-						{ "link": { "url": "/", "label": "Home" } },
-						{
-							"link": { "url": "/menu", "label": "Menu" }
-						}
-					],
-					"right": [
-						{
-							"link": { "url": "/about", "label": "About" }
-						},
-						{
-							"link": { "url": "/contact", "label": "Contact" }
-						}
-					]
-				},
 				site_footer: [
 					{
 						"link": { "url": "/about", "label": "About" }
@@ -9965,12 +9858,6 @@ function create_fragment$7(ctx) {
 
 	component_3 = new Component$4({
 			props: {
-				logo: {
-					"alt": "Logo",
-					"src": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"url": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"size": null
-				},
 				social: [
 					{
 						"icon": "mdi:instagram",
@@ -9987,26 +9874,6 @@ function create_fragment$7(ctx) {
 						}
 					}
 				],
-				contacts: {
-					"phone": "404 391 4233",
-					"address": "1000 Cupcake st. 23322"
-				},
-				site_nav: {
-					"left": [
-						{ "link": { "url": "/", "label": "Home" } },
-						{
-							"link": { "url": "/menu", "label": "Menu" }
-						}
-					],
-					"right": [
-						{
-							"link": { "url": "/about", "label": "About" }
-						},
-						{
-							"link": { "url": "/contact", "label": "Contact" }
-						}
-					]
-				},
 				site_footer: [
 					{
 						"link": { "url": "/about", "label": "About" }
@@ -10072,12 +9939,6 @@ function create_fragment$7(ctx) {
 
 	component_4 = new Component$5({
 			props: {
-				logo: {
-					"alt": "Logo",
-					"src": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"url": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"size": null
-				},
 				social: [
 					{
 						"icon": "mdi:instagram",
@@ -10094,26 +9955,6 @@ function create_fragment$7(ctx) {
 						}
 					}
 				],
-				contacts: {
-					"phone": "404 391 4233",
-					"address": "1000 Cupcake st. 23322"
-				},
-				site_nav: {
-					"left": [
-						{ "link": { "url": "/", "label": "Home" } },
-						{
-							"link": { "url": "/menu", "label": "Menu" }
-						}
-					],
-					"right": [
-						{
-							"link": { "url": "/about", "label": "About" }
-						},
-						{
-							"link": { "url": "/contact", "label": "Contact" }
-						}
-					]
-				},
 				site_footer: [
 					{
 						"link": { "url": "/about", "label": "About" }
@@ -10148,48 +9989,20 @@ function create_fragment$7(ctx) {
 
 	component_5 = new Component$6({
 			props: {
-				logo: {
-					"alt": "Logo",
-					"src": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"url": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"size": null
-				},
 				social: [
 					{
-						"icon": "mdi:instagram",
-						"link": {
-							"url": "http://instagram.com",
-							"label": "Instagram"
-						}
+						"link": { "label": "Facbook", "url": "/" },
+						"icon": "mdi:facebook"
 					},
 					{
-						"icon": "mdi:facebook",
-						"link": {
-							"url": "https://facebook.com",
-							"label": "Facebook"
-						}
+						"link": { "label": "Twitter", "url": "/" },
+						"icon": "mdi:twitter"
+					},
+					{
+						"link": { "label": "Snapchat", "url": "/" },
+						"icon": "mdi:snapchat"
 					}
 				],
-				contacts: {
-					"phone": "404 391 4233",
-					"address": "1000 Cupcake st. 23322"
-				},
-				site_nav: {
-					"left": [
-						{ "link": { "url": "/", "label": "Home" } },
-						{
-							"link": { "url": "/menu", "label": "Menu" }
-						}
-					],
-					"right": [
-						{
-							"link": { "url": "/about", "label": "About" }
-						},
-						{
-							"link": { "url": "/contact", "label": "Contact" }
-						}
-					]
-				},
 				site_footer: [
 					{
 						"link": { "url": "/about", "label": "About" }
@@ -10199,18 +10012,21 @@ function create_fragment$7(ctx) {
 					}
 				],
 				title: "Contact Us",
-				description: "Contact information"
+				description: "Contact information",
+				links: [
+					{ "link": { "url": "/", "label": "Home" } },
+					{
+						"link": { "url": "/menu", "label": "Menu" }
+					},
+					{
+						"link": { "url": "/about", "label": "About" }
+					}
+				]
 			}
 		});
 
 	component_6 = new Component$7({
 			props: {
-				logo: {
-					"alt": "Logo",
-					"src": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"url": "https://jbbjtodsvhsgjappwopg.supabase.co/storage/v1/object/public/sites/theme-sprinkles/assets/new.png",
-					"size": null
-				},
 				social: [
 					{
 						"icon": "mdi:instagram",
@@ -10227,26 +10043,6 @@ function create_fragment$7(ctx) {
 						}
 					}
 				],
-				contacts: {
-					"phone": "404 391 4233",
-					"address": "1000 Cupcake st. 23322"
-				},
-				site_nav: {
-					"left": [
-						{ "link": { "url": "/", "label": "Home" } },
-						{
-							"link": { "url": "/menu", "label": "Menu" }
-						}
-					],
-					"right": [
-						{
-							"link": { "url": "/about", "label": "About" }
-						},
-						{
-							"link": { "url": "/contact", "label": "Contact" }
-						}
-					]
-				},
 				site_footer: [
 					{
 						"link": { "url": "/about", "label": "About" }
