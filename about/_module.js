@@ -4585,16 +4585,16 @@ function create_fragment$6(ctx) {
 			props: {
 				social: [
 					{
-						"link": { "label": "Facbook", "url": "/" },
-						"icon": "mdi:facebook"
+						"icon": "mdi:facebook",
+						"link": { "url": "/", "label": "Facbook" }
 					},
 					{
-						"link": { "label": "Twitter", "url": "/" },
-						"icon": "mdi:twitter"
+						"icon": "mdi:twitter",
+						"link": { "url": "/", "label": "Twitter" }
 					},
 					{
-						"link": { "label": "Snapchat", "url": "/" },
-						"icon": "mdi:snapchat"
+						"icon": "mdi:snapchat",
+						"link": { "url": "/", "label": "Snapchat" }
 					}
 				],
 				site_footer: [
