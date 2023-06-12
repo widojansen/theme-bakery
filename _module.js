@@ -3862,6 +3862,7 @@ function create_fragment$3(ctx) {
 	let t1;
 	let t2;
 	let div1;
+	let raw_value = /*subheading*/ ctx[2].html + "";
 	let t3;
 	let a;
 	let t4_value = /*link*/ ctx[3].label + "";
@@ -3982,7 +3983,7 @@ function create_fragment$3(ctx) {
 			append_hydration(h1, t1);
 			append_hydration(div2, t2);
 			append_hydration(div2, div1);
-			div1.innerHTML = /*subheading*/ ctx[2];
+			div1.innerHTML = raw_value;
 			append_hydration(div2, t3);
 			append_hydration(div2, a);
 			append_hydration(a, t4);
@@ -4000,7 +4001,7 @@ function create_fragment$3(ctx) {
 			}
 
 			if (dirty & /*headline*/ 2) set_data(t1, /*headline*/ ctx[1]);
-			if (dirty & /*subheading*/ 4) div1.innerHTML = /*subheading*/ ctx[2];			if (dirty & /*link*/ 8 && t4_value !== (t4_value = /*link*/ ctx[3].label + "")) set_data(t4, t4_value);
+			if (dirty & /*subheading*/ 4 && raw_value !== (raw_value = /*subheading*/ ctx[2].html + "")) div1.innerHTML = raw_value;			if (dirty & /*link*/ 8 && t4_value !== (t4_value = /*link*/ ctx[3].label + "")) set_data(t4, t4_value);
 		},
 		i: noop,
 		o: noop,
@@ -6038,12 +6039,13 @@ function create_fragment$9(ctx) {
 				description: "We're a bakery",
 				image: {
 					"alt": "two doughnuts",
-					"src": "https://images.unsplash.com/photo-1533137015-38dbe301e281?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
-					"url": "https://images.unsplash.com/photo-1533137015-38dbe301e281?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80",
-					"size": null
+					"url": "https://images.unsplash.com/photo-1517093157656-b9eccef91cb1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1771&q=80"
 				},
 				headline: "Yummy Crafted Desserts",
-				subheading: "<p>All the love and care baked into every last bite. We can't wait for you to try our mouthwatering masterpieces.</p>",
+				subheading: {
+					"html": "<p>All the love and care baked into every last bite. We can't wait for you to try our mouthwatering masterpieces.</p>",
+					"markdown": "All the love and care baked into every last bite. We can't wait for you to try our mouthwatering masterpieces.\n\n"
+				},
 				link: {
 					"url": "/menu",
 					"label": "See the new menu!"
