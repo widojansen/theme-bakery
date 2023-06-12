@@ -4119,7 +4119,7 @@ function create_each_block$1(ctx) {
 	let t2;
 	let t3;
 	let div1;
-	let raw_value = /*teaser*/ ctx[6].description + "";
+	let raw_value = /*teaser*/ ctx[6].description.html + "";
 	let t4;
 	let t5;
 	let if_block = /*teaser*/ ctx[6].link.label && create_if_block$2(ctx);
@@ -4227,7 +4227,7 @@ function create_each_block$1(ctx) {
 			}
 
 			if (dirty & /*teasers*/ 2 && t2_value !== (t2_value = /*teaser*/ ctx[6].title + "")) set_data(t2, t2_value);
-			if (dirty & /*teasers*/ 2 && raw_value !== (raw_value = /*teaser*/ ctx[6].description + "")) div1.innerHTML = raw_value;
+			if (dirty & /*teasers*/ 2 && raw_value !== (raw_value = /*teaser*/ ctx[6].description.html + "")) div1.innerHTML = raw_value;
 			if (/*teaser*/ ctx[6].link.label) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
@@ -4424,7 +4424,7 @@ function get_each_context$2(ctx, list, i) {
 function create_key_block(ctx) {
 	let div2;
 	let div0;
-	let raw_value = /*active_item*/ ctx[3].quote + "";
+	let raw_value = /*active_item*/ ctx[3].quote.html + "";
 	let t0;
 	let div1;
 	let span;
@@ -4475,7 +4475,7 @@ function create_key_block(ctx) {
 			append_hydration(span, t1);
 		},
 		p(ctx, dirty) {
-			if (dirty & /*active_item*/ 8 && raw_value !== (raw_value = /*active_item*/ ctx[3].quote + "")) div0.innerHTML = raw_value;			if (dirty & /*active_item*/ 8 && t1_value !== (t1_value = /*active_item*/ ctx[3].name + "")) set_data(t1, t1_value);
+			if (dirty & /*active_item*/ 8 && raw_value !== (raw_value = /*active_item*/ ctx[3].quote.html + "")) div0.innerHTML = raw_value;			if (dirty & /*active_item*/ 8 && t1_value !== (t1_value = /*active_item*/ ctx[3].name + "")) set_data(t1, t1_value);
 		},
 		i(local) {
 			if (!div2_intro) {
@@ -5079,13 +5079,14 @@ function create_key_block$1(ctx) {
 	let div3;
 	let div2;
 	let div0;
-	let raw0_value = /*active_item*/ ctx[3].title + "";
+	let t0_value = /*active_item*/ ctx[3].title + "";
 	let t0;
-	let div1;
-	let raw1_value = /*active_item*/ ctx[3].subtitle + "";
-	let div2_intro;
 	let t1;
+	let div1;
+	let raw_value = /*active_item*/ ctx[3].subtitle.html + "";
+	let div2_intro;
 	let t2;
+	let t3;
 	let img;
 	let img_src_value;
 	let img_alt_value;
@@ -5098,11 +5099,12 @@ function create_key_block$1(ctx) {
 			div3 = element("div");
 			div2 = element("div");
 			div0 = element("div");
-			t0 = space();
-			div1 = element("div");
+			t0 = text(t0_value);
 			t1 = space();
-			if (if_block) if_block.c();
+			div1 = element("div");
 			t2 = space();
+			if (if_block) if_block.c();
+			t3 = space();
 			img = element("img");
 			this.h();
 		},
@@ -5115,16 +5117,17 @@ function create_key_block$1(ctx) {
 			var div2_nodes = children(div2);
 			div0 = claim_element(div2_nodes, "DIV", { class: true });
 			var div0_nodes = children(div0);
+			t0 = claim_text(div0_nodes, t0_value);
 			div0_nodes.forEach(detach);
-			t0 = claim_space(div2_nodes);
+			t1 = claim_space(div2_nodes);
 			div1 = claim_element(div2_nodes, "DIV", { class: true });
 			var div1_nodes = children(div1);
 			div1_nodes.forEach(detach);
 			div2_nodes.forEach(detach);
-			t1 = claim_space(div3_nodes);
+			t2 = claim_space(div3_nodes);
 			if (if_block) if_block.l(div3_nodes);
 			div3_nodes.forEach(detach);
-			t2 = claim_space(div4_nodes);
+			t3 = claim_space(div4_nodes);
 			img = claim_element(div4_nodes, "IMG", { src: true, alt: true, class: true });
 			div4_nodes.forEach(detach);
 			this.h();
@@ -5144,18 +5147,19 @@ function create_key_block$1(ctx) {
 			append_hydration(div4, div3);
 			append_hydration(div3, div2);
 			append_hydration(div2, div0);
-			div0.innerHTML = raw0_value;
-			append_hydration(div2, t0);
+			append_hydration(div0, t0);
+			append_hydration(div2, t1);
 			append_hydration(div2, div1);
-			div1.innerHTML = raw1_value;
-			append_hydration(div3, t1);
+			div1.innerHTML = raw_value;
+			append_hydration(div3, t2);
 			if (if_block) if_block.m(div3, null);
-			append_hydration(div4, t2);
+			append_hydration(div4, t3);
 			append_hydration(div4, img);
 			current = true;
 		},
 		p(ctx, dirty) {
-			if ((!current || dirty & /*active_item*/ 8) && raw0_value !== (raw0_value = /*active_item*/ ctx[3].title + "")) div0.innerHTML = raw0_value;			if ((!current || dirty & /*active_item*/ 8) && raw1_value !== (raw1_value = /*active_item*/ ctx[3].subtitle + "")) div1.innerHTML = raw1_value;
+			if ((!current || dirty & /*active_item*/ 8) && t0_value !== (t0_value = /*active_item*/ ctx[3].title + "")) set_data(t0, t0_value);
+			if ((!current || dirty & /*active_item*/ 8) && raw_value !== (raw_value = /*active_item*/ ctx[3].subtitle.html + "")) div1.innerHTML = raw_value;
 			if (/*items*/ ctx[1].length > 1) {
 				if (if_block) {
 					if_block.p(ctx, dirty);
@@ -6095,7 +6099,10 @@ function create_fragment$9(ctx) {
 							"size": null
 						},
 						"title": "Strawberry Shortcake Macaroons",
-						"description": "<p>Esse consequat enim proident enim id velit consequat Lorem est ad nisi nostrud. Exercitation fugiat do commodo laborum elit ex consectetur cillum ex.</p>"
+						"description": {
+							"html": "<p>Esse consequat enim proident enim id velit consequat Lorem est ad nisi nostrud. Exercitation fugiat do commodo laborum elit ex consectetur cillum ex.</p>",
+							"markdown": "Esse consequat enim proident enim id velit consequat Lorem est ad nisi nostrud. Exercitation fugiat do commodo laborum elit ex consectetur cillum ex.\n\n"
+						}
 					},
 					{
 						"link": { "url": "", "label": "", "active": false },
@@ -6106,7 +6113,10 @@ function create_fragment$9(ctx) {
 							"size": null
 						},
 						"title": "Brownie Lava Cake",
-						"description": "<p>Deserunt ea nisi nisi anim id irure voluptate ut. Anim excepteur dolore reprehenderit cillum quis excepteur esse minim exercitation ad et.</p>"
+						"description": {
+							"html": "<p>Deserunt ea nisi nisi anim id irure voluptate ut. Anim excepteur dolore reprehenderit cillum quis excepteur esse minim exercitation ad et.</p>",
+							"markdown": "Deserunt ea nisi nisi anim id irure voluptate ut. Anim excepteur dolore reprehenderit cillum quis excepteur esse minim exercitation ad et.\n\n"
+						}
 					},
 					{
 						"link": { "url": "", "label": "", "active": false },
@@ -6117,7 +6127,10 @@ function create_fragment$9(ctx) {
 							"size": null
 						},
 						"title": "Blueberry Cheesecake",
-						"description": "<p>Aliquip esse nostrud elit cupidatat est. Velit dolore minim aliqua quis.</p>"
+						"description": {
+							"html": "<p>Aliquip esse nostrud elit cupidatat est. Velit dolore minim aliqua quis.</p>",
+							"markdown": "Aliquip esse nostrud elit cupidatat est. Velit dolore minim aliqua quis.\n\n"
+						}
 					}
 				]
 			}
@@ -6155,11 +6168,17 @@ function create_fragment$9(ctx) {
 				testimonials: [
 					{
 						"name": "Sal Jones",
-						"quote": "<p>The quality and care baked into every dessert keeps me coming back. The customer service is also first class.</p>"
+						"quote": {
+							"html": "<p>The quality and care baked into every dessert keeps me coming back. The customer service is also first class.</p>",
+							"markdown": "The quality and care baked into every dessert keeps me coming back. The customer service is also first class.\n\n"
+						}
 					},
 					{
 						"name": "Person Name",
-						"quote": "Sint amet incididunt reprehenderit ad officia et incididunt duis irure. Eiusmod nostrud qui esse ullamco cupidatat cupidatat."
+						"quote": {
+							"html": "<p>Sint amet incididunt reprehenderit ad officia et incididunt duis irure. Eiusmod nostrud qui esse ullamco cupidatat cupidatat.</p>",
+							"markdown": "Sint amet incididunt reprehenderit ad officia et incididunt duis irure. Eiusmod nostrud qui esse ullamco cupidatat cupidatat."
+						}
 					}
 				]
 			}
@@ -6203,7 +6222,10 @@ function create_fragment$9(ctx) {
 							"size": null
 						},
 						"title": "Frosted Doughnuts",
-						"subtitle": "<p>In pariatur ea dolore nulla est reprehenderit. Adipisicing esse cupidatat officia aute consequat esse consectetur veniam pariatur.</p>"
+						"subtitle": {
+							"html": "<p>In pariatur ea dolore nulla est reprehenderit. Adipisicing esse cupidatat officia aute consequat esse consectetur veniam pariatur.</p>",
+							"markdown": "In pariatur ea dolore nulla est reprehenderit. Adipisicing esse cupidatat officia aute consequat esse consectetur veniam pariatur.\n\n"
+						}
 					},
 					{
 						"image": {
@@ -6213,7 +6235,10 @@ function create_fragment$9(ctx) {
 							"size": null
 						},
 						"title": "Blueberry Layered Cake",
-						"subtitle": "<p>Cupidatat sit tempor cupidatat minim consequat cupidatat exercitation veniam aliquip amet consectetur. Veniam tempor laboris laborum officia in velit anim deserunt veniam ad ut magna sit pariatur.</p>"
+						"subtitle": {
+							"html": "<p>Cupidatat sit tempor cupidatat minim consequat cupidatat exercitation veniam aliquip amet consectetur. Veniam tempor laboris laborum officia in velit anim deserunt veniam ad ut magna sit pariatur.</p>",
+							"markdown": "Cupidatat sit tempor cupidatat minim consequat cupidatat exercitation veniam aliquip amet consectetur. Veniam tempor laboris laborum officia in velit anim deserunt veniam ad ut magna sit pariatur.\n\n"
+						}
 					},
 					{
 						"image": {
@@ -6223,7 +6248,10 @@ function create_fragment$9(ctx) {
 							"size": null
 						},
 						"title": "Gourmet Pancakes",
-						"subtitle": "<p>Ex incididunt cupidatat sit incididunt laborum incididunt. Nostrud aliquip excepteur dolore reprehenderit officia enim eiusmod mollit mollit et deserunt cillum.</p>"
+						"subtitle": {
+							"html": "<p>Ex incididunt cupidatat sit incididunt laborum incididunt. Nostrud aliquip excepteur dolore reprehenderit officia enim eiusmod mollit mollit et deserunt cillum.</p>",
+							"markdown": "Ex incididunt cupidatat sit incididunt laborum incididunt. Nostrud aliquip excepteur dolore reprehenderit officia enim eiusmod mollit mollit et deserunt cillum.\n\n"
+						}
 					}
 				]
 			}

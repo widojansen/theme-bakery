@@ -3802,7 +3802,7 @@ function create_each_block$1(ctx) {
 	let t1;
 	let t2;
 	let div1;
-	let raw_value = /*teaser*/ ctx[6].description + "";
+	let raw_value = /*teaser*/ ctx[6].description.html + "";
 	let t3;
 
 	return {
@@ -3870,7 +3870,7 @@ function create_each_block$1(ctx) {
 			}
 
 			if (dirty & /*teasers*/ 2 && t1_value !== (t1_value = /*teaser*/ ctx[6].title + "")) set_data(t1, t1_value);
-			if (dirty & /*teasers*/ 2 && raw_value !== (raw_value = /*teaser*/ ctx[6].description + "")) div1.innerHTML = raw_value;		},
+			if (dirty & /*teasers*/ 2 && raw_value !== (raw_value = /*teaser*/ ctx[6].description.html + "")) div1.innerHTML = raw_value;		},
 		d(detaching) {
 			if (detaching) detach(div3);
 		}

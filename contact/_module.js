@@ -7964,6 +7964,7 @@ function create_if_block$2(ctx) {
 	let form;
 	let t2;
 	let div0;
+	let raw_value = /*footer_text*/ ctx[2].html + "";
 	let t3;
 	let button;
 	let icon;
@@ -8072,7 +8073,7 @@ function create_if_block$2(ctx) {
 
 			append_hydration(form, t2);
 			append_hydration(form, div0);
-			div0.innerHTML = /*footer_text*/ ctx[2];
+			div0.innerHTML = raw_value;
 			append_hydration(form, t3);
 			append_hydration(form, button);
 			mount_component(icon, button, null);
@@ -8116,7 +8117,7 @@ function create_if_block$2(ctx) {
 				check_outros();
 			}
 
-			if (!current || dirty & /*footer_text*/ 4) div0.innerHTML = /*footer_text*/ ctx[2];			const icon_changes = {};
+			if ((!current || dirty & /*footer_text*/ 4) && raw_value !== (raw_value = /*footer_text*/ ctx[2].html + "")) div0.innerHTML = raw_value;			const icon_changes = {};
 			if (dirty & /*submit*/ 8) icon_changes.icon = /*submit*/ ctx[3].icon;
 			icon.$set(icon_changes);
 			if ((!current || dirty & /*submit*/ 8) && t5_value !== (t5_value = /*submit*/ ctx[3].label + "")) set_data(t5, t5_value);
@@ -8940,7 +8941,7 @@ function get_each_context$3(ctx, list, i) {
 // (91:10) {#if activeItem === i}
 function create_if_block$3(ctx) {
 	let div;
-	let raw_value = /*item*/ ctx[9].description + "";
+	let raw_value = /*item*/ ctx[9].description.html + "";
 	let div_transition;
 	let current;
 
@@ -8964,7 +8965,7 @@ function create_if_block$3(ctx) {
 			current = true;
 		},
 		p(ctx, dirty) {
-			if ((!current || dirty & /*items*/ 2) && raw_value !== (raw_value = /*item*/ ctx[9].description + "")) div.innerHTML = raw_value;		},
+			if ((!current || dirty & /*items*/ 2) && raw_value !== (raw_value = /*item*/ ctx[9].description.html + "")) div.innerHTML = raw_value;		},
 		i(local) {
 			if (current) return;
 
@@ -9924,7 +9925,7 @@ function create_fragment$7(ctx) {
 						"placeholder": ""
 					}
 				],
-				footer_text: "",
+				footer_text: { "html": "", "markdown": "" },
 				submit: {
 					"icon": "bi:send-fill",
 					"label": "Submit"
@@ -9969,19 +9970,31 @@ function create_fragment$7(ctx) {
 				items: [
 					{
 						"title": "How do I place a custom order?",
-						"description": "<p>Send us what items you'd like in the contact form above or give us a call. We'll get back to you with an email with the next steps.</p>"
+						"description": {
+							"html": "<p>Send us what items you'd like in the contact form above or give us a call. We'll get back to you with an email with the next steps.</p>",
+							"markdown": "Send us what items you'd like in the contact form above or give us a call. We'll get back to you with an email with the next steps.\n\n"
+						}
 					},
 					{
 						"title": "How much do cakes cost?",
-						"description": "<p>Nostrud sint officia tempor magna esse cupidatat. Esse proident velit cupidatat.</p>"
+						"description": {
+							"html": "<p>Nostrud sint officia tempor magna esse cupidatat. Esse proident velit cupidatat.</p>",
+							"markdown": "Nostrud sint officia tempor magna esse cupidatat. Esse proident velit cupidatat.\n\n"
+						}
 					},
 					{
 						"title": "Do you deliver?",
-						"description": "<p>Enim eu eiusmod nisi ipsum ea commodo. Ut excepteur id fugiat sit dolor pariatur voluptate do veniam ex duis tempor.</p>"
+						"description": {
+							"html": "<p>Enim eu eiusmod nisi ipsum ea commodo. Ut excepteur id fugiat sit dolor pariatur voluptate do veniam ex duis tempor.</p>",
+							"markdown": "Enim eu eiusmod nisi ipsum ea commodo. Ut excepteur id fugiat sit dolor pariatur voluptate do veniam ex duis tempor.\n\n"
+						}
 					},
 					{
 						"title": "Do I need to prepay for custom orders?",
-						"description": "<p>Labore cupidatat id nostrud laborum deserunt nostrud pariatur voluptate. Aute incididunt enim irure sint tempor aliquip reprehenderit dolor sit officia id.</p>"
+						"description": {
+							"html": "<p>Labore cupidatat id nostrud laborum deserunt nostrud pariatur voluptate. Aute incididunt enim irure sint tempor aliquip reprehenderit dolor sit officia id.</p>",
+							"markdown": "Labore cupidatat id nostrud laborum deserunt nostrud pariatur voluptate. Aute incididunt enim irure sint tempor aliquip reprehenderit dolor sit officia id.\n"
+						}
 					}
 				]
 			}
