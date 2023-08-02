@@ -3533,7 +3533,7 @@ function create_fragment$2(ctx) {
 			attr(div2, "class", "mobile-nav svelte-6hkp3j");
 			attr(header, "class", "section-container svelte-6hkp3j");
 			attr(div3, "class", "section");
-			attr(div3, "id", "section-c14ed71a");
+			attr(div3, "id", "section-b799c6e1");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div3, anchor);
@@ -3987,7 +3987,7 @@ function create_fragment$3(ctx) {
 			attr(svg1, "xmlns", "http://www.w3.org/2000/svg");
 			attr(svg1, "class", "svelte-1ef0mlv");
 			attr(div3, "class", "section");
-			attr(div3, "id", "section-0e4d6e96");
+			attr(div3, "id", "section-4afb18b6");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div3, anchor);
@@ -4148,7 +4148,7 @@ function create_fragment$4(ctx) {
 			attr(div0, "class", "section-container svelte-2borlu");
 			attr(section, "class", "svelte-2borlu");
 			attr(div1, "class", "section");
-			attr(div1, "id", "section-6f1ccbf7");
+			attr(div1, "id", "section-1331b32e");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div1, anchor);
@@ -4441,7 +4441,7 @@ function create_fragment$5(ctx) {
 			attr(div0, "class", "social-links svelte-s3xnx0");
 			attr(footer, "class", "section-container svelte-s3xnx0");
 			attr(div1, "class", "section");
-			attr(div1, "id", "section-342d1b9e");
+			attr(div1, "id", "section-6d1d6d1e");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div1, anchor);
@@ -4795,20 +4795,7 @@ function create_fragment$6(ctx) {
 
 	component_4 = new Component$5({
 			props: {
-				social: [
-					{
-						"icon": "mdi:facebook",
-						"link": { "url": "/", "label": "Facbook" }
-					},
-					{
-						"icon": "mdi:twitter",
-						"link": { "url": "/", "label": "Twitter" }
-					},
-					{
-						"icon": "mdi:snapchat",
-						"link": { "url": "/", "label": "Snapchat" }
-					}
-				],
+				social: [],
 				site_footer: [
 					{
 						"link": { "url": "/about", "label": "About" }
@@ -4819,15 +4806,7 @@ function create_fragment$6(ctx) {
 				],
 				title: "Menu",
 				description: "",
-				links: [
-					{ "link": { "url": "/", "label": "Home" } },
-					{
-						"link": { "url": "/menu", "label": "Menu" }
-					},
-					{
-						"link": { "url": "/about", "label": "About" }
-					}
-				]
+				links: []
 			}
 		});
 

@@ -3533,7 +3533,7 @@ function create_fragment$2(ctx) {
 			attr(div2, "class", "mobile-nav svelte-6hkp3j");
 			attr(header, "class", "section-container svelte-6hkp3j");
 			attr(div3, "class", "section");
-			attr(div3, "id", "section-6c780b88");
+			attr(div3, "id", "section-50a0c6e1");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div3, anchor);
@@ -3845,7 +3845,7 @@ function create_fragment$3(ctx) {
 			attr(div0, "class", "images svelte-psvz36");
 			attr(section, "class", "svelte-psvz36");
 			attr(div1, "class", "section");
-			attr(div1, "id", "section-cba43bdb");
+			attr(div1, "id", "section-4c377698");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div1, anchor);
@@ -3941,7 +3941,7 @@ function create_fragment$4(ctx) {
 			attr(div0, "class", "section-container content");
 			attr(div1, "class", "section");
 			attr(div2, "class", "section");
-			attr(div2, "id", "section-213f4037");
+			attr(div2, "id", "section-a3ce15e6");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div2, anchor);
@@ -4214,7 +4214,7 @@ function create_fragment$5(ctx) {
 			attr(div0, "class", "social-links svelte-s3xnx0");
 			attr(footer, "class", "section-container svelte-s3xnx0");
 			attr(div1, "class", "section");
-			attr(div1, "id", "section-c0857db2");
+			attr(div1, "id", "section-113dc179");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div1, anchor);
@@ -4555,20 +4555,7 @@ function create_fragment$6(ctx) {
 
 	component_4 = new Component$5({
 			props: {
-				social: [
-					{
-						"icon": "mdi:facebook",
-						"link": { "url": "/", "label": "Facbook" }
-					},
-					{
-						"icon": "mdi:twitter",
-						"link": { "url": "/", "label": "Twitter" }
-					},
-					{
-						"icon": "mdi:snapchat",
-						"link": { "url": "/", "label": "Snapchat" }
-					}
-				],
+				social: [],
 				site_footer: [
 					{
 						"link": { "url": "/about", "label": "About" }
@@ -4579,15 +4566,7 @@ function create_fragment$6(ctx) {
 				],
 				title: "About",
 				description: "About the bakery",
-				links: [
-					{ "link": { "url": "/", "label": "Home" } },
-					{
-						"link": { "url": "/menu", "label": "Menu" }
-					},
-					{
-						"link": { "url": "/about", "label": "About" }
-					}
-				]
+				links: []
 			}
 		});
 

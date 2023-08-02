@@ -3597,7 +3597,7 @@ function create_fragment$2(ctx) {
 			attr(div2, "class", "mobile-nav svelte-6hkp3j");
 			attr(header, "class", "section-container svelte-6hkp3j");
 			attr(div3, "class", "section");
-			attr(div3, "id", "section-4870ac5a");
+			attr(div3, "id", "section-fb7b4a03");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div3, anchor);
@@ -3954,7 +3954,7 @@ function create_fragment$3(ctx) {
 			attr(svg, "class", "svelte-fwfma3");
 			attr(section, "class", "svelte-fwfma3");
 			attr(div4, "class", "section");
-			attr(div4, "id", "section-b094d55f");
+			attr(div4, "id", "section-3ce189d9");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div4, anchor);
@@ -4302,7 +4302,7 @@ function create_fragment$4(ctx) {
 			attr(div2, "class", "section-container svelte-1rp3djj");
 			attr(section, "class", "svelte-1rp3djj");
 			attr(div3, "class", "section");
-			attr(div3, "id", "section-406f133c");
+			attr(div3, "id", "section-15ca2a28");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div3, anchor);
@@ -4751,7 +4751,7 @@ function create_fragment$5(ctx) {
 			attr(svg, "class", "svelte-11vdrh3");
 			attr(aside, "class", "svelte-11vdrh3");
 			attr(div3, "class", "section");
-			attr(div3, "id", "section-6dbec367");
+			attr(div3, "id", "section-820da96a");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div3, anchor);
@@ -5233,7 +5233,7 @@ function create_fragment$6(ctx) {
 			attr(header, "class", "svelte-1jqhicc");
 			attr(aside, "class", "section-container svelte-1jqhicc");
 			attr(div, "class", "section");
-			attr(div, "id", "section-7cbeb4e9");
+			attr(div, "id", "section-6380cba9");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div, anchor);
@@ -5404,7 +5404,7 @@ function create_fragment$7(ctx) {
 			attr(div0, "class", "section-container svelte-2borlu");
 			attr(section, "class", "svelte-2borlu");
 			attr(div1, "class", "section");
-			attr(div1, "id", "section-9e746999");
+			attr(div1, "id", "section-3afab6ae");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div1, anchor);
@@ -5697,7 +5697,7 @@ function create_fragment$8(ctx) {
 			attr(div0, "class", "social-links svelte-s3xnx0");
 			attr(footer, "class", "section-container svelte-s3xnx0");
 			attr(div1, "class", "section");
-			attr(div1, "id", "section-a151d34d");
+			attr(div1, "id", "section-6511d5bb");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div1, anchor);

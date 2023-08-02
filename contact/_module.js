@@ -3745,7 +3745,7 @@ function create_fragment$2(ctx) {
 			attr(div2, "class", "mobile-nav svelte-6hkp3j");
 			attr(header, "class", "section-container svelte-6hkp3j");
 			attr(div3, "class", "section");
-			attr(div3, "id", "section-cf7866b9");
+			attr(div3, "id", "section-94ba7462");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div3, anchor);
@@ -4167,7 +4167,7 @@ function create_fragment$3(ctx) {
 			attr(div1, "class", "main svelte-lgft89");
 			attr(section, "class", "section-container svelte-lgft89");
 			attr(div2, "class", "section");
-			attr(div2, "id", "section-87107316");
+			attr(div2, "id", "section-542131a8");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div2, anchor);
@@ -7950,6 +7950,7 @@ function create_if_block$2(ctx) {
 	let form;
 	let t2;
 	let div0;
+	let raw_value = /*footer_text*/ ctx[2].html + "";
 	let t3;
 	let button;
 	let icon;
@@ -8058,7 +8059,7 @@ function create_if_block$2(ctx) {
 
 			append_hydration(form, t2);
 			append_hydration(form, div0);
-			div0.innerHTML = /*footer_text*/ ctx[2];
+			div0.innerHTML = raw_value;
 			append_hydration(form, t3);
 			append_hydration(form, button);
 			mount_component(icon, button, null);
@@ -8102,7 +8103,7 @@ function create_if_block$2(ctx) {
 				check_outros();
 			}
 
-			if (!current || dirty & /*footer_text*/ 4) div0.innerHTML = /*footer_text*/ ctx[2];			const icon_changes = {};
+			if ((!current || dirty & /*footer_text*/ 4) && raw_value !== (raw_value = /*footer_text*/ ctx[2].html + "")) div0.innerHTML = raw_value;			const icon_changes = {};
 			if (dirty & /*submit*/ 8) icon_changes.icon = /*submit*/ ctx[3].icon;
 			icon.$set(icon_changes);
 			if ((!current || dirty & /*submit*/ 8) && t5_value !== (t5_value = /*submit*/ ctx[3].label + "")) set_data(t5, t5_value);
@@ -8731,7 +8732,7 @@ function create_fragment$4(ctx) {
 			attr(svg1, "class", "svelte-o7fd5j");
 			attr(section, "class", "svelte-o7fd5j");
 			attr(div, "class", "section svelte-o7fd5j");
-			attr(div, "id", "section-88e873f5");
+			attr(div, "id", "section-1b3414f7");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div, anchor);
@@ -9176,7 +9177,7 @@ function create_fragment$5(ctx) {
 			attr(div1, "class", "section-container svelte-wztysl");
 			attr(section, "class", "svelte-wztysl");
 			attr(div2, "class", "section");
-			attr(div2, "id", "section-30ec886d");
+			attr(div2, "id", "section-6489adf8");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div2, anchor);
@@ -9506,7 +9507,7 @@ function create_fragment$6(ctx) {
 			attr(div0, "class", "social-links svelte-s3xnx0");
 			attr(footer, "class", "section-container svelte-s3xnx0");
 			attr(div1, "class", "section");
-			attr(div1, "id", "section-5c4a330f");
+			attr(div1, "id", "section-5a09a096");
 		},
 		m(target, anchor) {
 			insert_hydration(target, div1, anchor);
@@ -9966,20 +9967,7 @@ function create_fragment$7(ctx) {
 
 	component_5 = new Component$6({
 			props: {
-				social: [
-					{
-						"icon": "mdi:facebook",
-						"link": { "url": "/", "label": "Facbook" }
-					},
-					{
-						"icon": "mdi:twitter",
-						"link": { "url": "/", "label": "Twitter" }
-					},
-					{
-						"icon": "mdi:snapchat",
-						"link": { "url": "/", "label": "Snapchat" }
-					}
-				],
+				social: [],
 				site_footer: [
 					{
 						"link": { "url": "/about", "label": "About" }
@@ -9990,15 +9978,7 @@ function create_fragment$7(ctx) {
 				],
 				title: "Contact Us",
 				description: "Contact information",
-				links: [
-					{ "link": { "url": "/", "label": "Home" } },
-					{
-						"link": { "url": "/menu", "label": "Menu" }
-					},
-					{
-						"link": { "url": "/about", "label": "About" }
-					}
-				]
+				links: []
 			}
 		});
 
